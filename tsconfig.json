@@ -1,0 +1,24 @@
+{
+  "include": ["type-declarations/**/*", "src/**/*"],
+  "compilerOptions": {
+    "paths": {
+      "@config/*": ["__config.debug/*"]
+    },
+    "noEmit": true,
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["dom", "es2017"],
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "allowJs": true,
+    "checkJs": false,
+    "baseUrl": ".",
+    "outDir": "./ts-build/",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true
+  }
+}
