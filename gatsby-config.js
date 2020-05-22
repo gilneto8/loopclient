@@ -1,35 +1,94 @@
+const { RUNTIME_ENVIRONMENT, allRuntimeEnvironments } = require('./bootstrap-build-environment');
+const { COMMON_CONFIG } = require(`@config/common-config`);
+const { throwIfNotFilledString } = require('./build-values-validation');
+
+const urlString = throwIfNotFilledString(COMMON_CONFIG.siteUrl);
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    siteUrl: (() => {
+      if (
+        !(
+          // ACCEPTANCE CRITERIA
+          (
+            urlString &&
+            (urlString.startsWith('https://') || urlString.startsWith('http://')) &&
+            !urlString.endsWith('/')
+          )
+        )
+      ) {
+        throw new Error();
+      } else {
+        return urlString;
+      }
+    })(),
+    title: `MMK Tax`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        includePaths: ['src/components/ui-kit/global-styles/include-path'],
+        cssLoaderOptions: {
+          localsConvention: 'asIs',
+          camelCase: false,
+        },
+      },
+    },
+    'gatsby-plugin-typescript',
+    `gatsby-plugin-sitemap`,
+    'gatsby-plugin-robots-txt',
     `gatsby-plugin-react-helmet`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+
+    /*
+      WARNING:
+      do not point a gatsby-source-filesystem instance to the root of the project,
+      as it will listen for file changes in Gatsby internal directories like .cache
+      and will start looping.
+    */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        name: `src`,
+        path: `${__dirname}/src`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-typescript`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
-    },
+    // TODO:
+    //
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: `MMK Tax`,
+    //     short_name: `MMK Tax`,
+    //     start_url: `/`,
+    //     background_color: `#663399`, // TODO: change to company brand colors
+    //     theme_color: `#663399`, // TODO: change to company brand colors
+    //     display: `minimal-ui`,
+    //     icon: `src/images/gatsby-icon.png`, // TODO: change to company logo
+    //   },
+    // },
+    //
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    ...(() => {
+      if (RUNTIME_ENVIRONMENT === allRuntimeEnvironments.RELEASE) {
+        return [
+          {
+            resolve: 'gatsby-plugin-webpack-bundle-analyzer',
+            options: {
+              analyzerMode: 'disabled',
+              generateStatsFile: true,
+              production: true,
+              statsFilename: 'webpack-bundle-analyzer-stats.json',
+            },
+          },
+        ];
+      } else {
+        return [];
+      }
+    })(),
   ],
 };

@@ -1,0 +1,17 @@
+overwrite: true
+schema: './_graphql-generated_/schema.json'
+documents:
+  - ./src/**/*.{ts,tsx}
+  - ./node_modules/gatsby-*/**/*.js
+generates:
+  _graphql-generated_/typescript/graphql.d.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+    config:
+      typesPrefix: GQL
+      noExport: true
+      skipTypename: true
+      enumsAsTypes: true
+pluckConfig:
+  globalIdentifier: 'graphql'

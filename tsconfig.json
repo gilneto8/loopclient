@@ -1,5 +1,5 @@
 {
-  "include": ["type-declarations/**/*", "src/**/*"],
+  "include": ["_graphql-generated_/typescript/**/*", "type-declarations/**/*", "src/**/*"],
   "compilerOptions": {
     "paths": {
       "@config/*": ["__config.debug/*"]
