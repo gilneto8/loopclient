@@ -4,7 +4,7 @@ import React from 'react';
 import Button from '../components/form/Button/button';
 import { SECOND_PAGE_ROUTE } from '../components/routing/second-page-routes';
 
-const LandingPage = (): JSX.Element => (
+const Index = (): JSX.Element => (
   <Page title={'Landing Page'}>
     {() => (
       <>
@@ -13,11 +13,11 @@ const LandingPage = (): JSX.Element => (
             return navigate(SECOND_PAGE_ROUTE.getHref());
           }}
         >
-          Go to Tufas
+          Go to Second Page
         </Button>
       </>
     )}
   </Page>
 );
 
-export default LandingPage;
+export default Index;

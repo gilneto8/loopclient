@@ -2,7 +2,7 @@ import { Page } from '../components/routing/page/page';
 import { navigate } from 'gatsby';
 import React from 'react';
 import Button from '../components/form/Button/button';
-import { LANDING_PAGE_ROUTE } from '../components/routing/landing-page-routes';
+import { INDEX_ROUTE } from '../components/routing/index-routes';
 
 const SecondPage = (): JSX.Element => (
   <Page title={'Second Page'}>
@@ -11,7 +11,7 @@ const SecondPage = (): JSX.Element => (
         SECOND PAGE CRL
         <Button
           onClick={() => {
-            return navigate(LANDING_PAGE_ROUTE.getHref());
+            return navigate(INDEX_ROUTE.getHref());
           }}
         >
           Go back
