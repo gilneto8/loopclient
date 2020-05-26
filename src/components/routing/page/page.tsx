@@ -5,13 +5,6 @@ type Props = {
   title: string;
 };
 
-/*
-* TODO
-*  - authentication rules here
-*  - header element here, agnostic from place on page
-*  - react-helmet to manager HEAD tags
-*
-*/
 export function Page(props: Props): JSX.Element {
   return (
     <>
