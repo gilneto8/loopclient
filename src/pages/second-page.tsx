@@ -2,22 +2,23 @@ import { Page } from '../components/routing/page/page';
 import { navigate } from 'gatsby';
 import React from 'react';
 import Button from '../components/form/Button/button';
-import { TUFAS_ROUTE } from "../components/routing/tufas-routes"
+import { LANDING_PAGE_ROUTE } from '../components/routing/landing-page-routes';
 
-const IndexTemplate = (): JSX.Element => (
-  <Page title={'Landing Page'}>
+const SecondPage = (): JSX.Element => (
+  <Page title={'Second Page'}>
     {() => (
       <>
+        SECOND PAGE CRL
         <Button
           onClick={() => {
-            return navigate(TUFAS_ROUTE.getHref());
+            return navigate(LANDING_PAGE_ROUTE.getHref());
           }}
         >
-          Go to Tufas
+          Go back
         </Button>
       </>
     )}
   </Page>
 );
 
-export default IndexTemplate;
+export default SecondPage;
