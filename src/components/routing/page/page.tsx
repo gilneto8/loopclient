@@ -5,10 +5,17 @@ type Props = {
   title: string;
 };
 
-export function Page(props: Props) {
+/*
+* TODO
+*  - authentication rules here
+*  - header element here, agnostic from place on page
+*  - react-helmet to manager HEAD tags
+*
+*/
+export function Page(props: Props): JSX.Element {
   return (
     <>
-      <main>{props.children()}</main>
+      <main title={props.title}>{props.children()}</main>
     </>
   );
 }

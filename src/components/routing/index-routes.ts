@@ -1,5 +1,5 @@
 export const INDEX_ROUTE = {
-  label: 'Landing Page',
+  label: 'Index',
   path: '/',
   getHref: () => INDEX_ROUTE.path,
 };
