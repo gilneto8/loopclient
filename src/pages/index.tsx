@@ -9,6 +9,7 @@ const Index = (): JSX.Element => (
     {() => (
       <>
         <Button
+          title={`go to ${SECOND_PAGE_ROUTE.label}`}
           onClick={() => {
             return navigate(SECOND_PAGE_ROUTE.getHref());
           }}

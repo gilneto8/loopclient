@@ -10,6 +10,7 @@ const SecondPage = (): JSX.Element => (
       <>
         SECOND PAGE CRL
         <Button
+          title={`go to ${INDEX_ROUTE.label}`}
           onClick={() => {
             return navigate(INDEX_ROUTE.getHref());
           }}

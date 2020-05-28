@@ -1,9 +1,22 @@
 import React from "react";
 
-function Button(props: any) {
+type ButtonProps = {
+  title?: string;
+  disabled?: boolean;
+  filled?: boolean;
+  fullWidth?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
+  onClick: (evt: React.FormEvent<HTMLButtonElement>) => void;
+  style?: string;
+  text?: string;
+  children?: React.ReactNode[] | string;
+}
+
+function Button(props: ButtonProps) {
 
   return (
     <button
+      title={props.title}
       disabled={props.disabled}
       className={'btn ' + (props.disabled ? ' disabled' : '')
       + (props.filled ? ' btn-secondary' : 'btn-outline-secondary')
