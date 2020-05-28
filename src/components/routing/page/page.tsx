@@ -8,9 +8,11 @@ type Props = {
 
 export function Page(props: Props): JSX.Element {
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <main title={props.title}>{props.children()}</main>
-    </>
+      <div className="flex-grow-1 container p-3">
+        <main title={props.title}>{props.children()}</main>
+      </div>
+    </div>
   );
 }
