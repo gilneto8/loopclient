@@ -4,10 +4,11 @@ import { Nav, Navbar } from 'react-bootstrap';
 import { INDEX_ROUTE } from '../../index-routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
+import './header-styles.scss';
 
 const Header: FunctionComponent<any> = (props) => (
   <>
-    <header className="sticky-top">
+    <header className="sticky-top header">
       <Navbar variant="dark">
         <div className="container">
           <Navbar.Brand>
