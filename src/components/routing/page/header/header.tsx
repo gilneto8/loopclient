@@ -11,7 +11,7 @@ const Header: FunctionComponent<any> = (props) => (
       <Navbar variant="dark">
         <div className="container">
           <Navbar.Brand>
-            <Nav.Link className="border-right border-muted-light">
+            <Nav.Link className="border-muted-light">
               <FontAwesomeIcon size={'2x'} icon={faHome} onClick={() => navigate(INDEX_ROUTE.getHref())} />
             </Nav.Link>
           </Navbar.Brand>
