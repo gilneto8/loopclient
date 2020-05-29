@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import Header from './header/header';
+import './page-styles.scss';
 
 type Props = {
   children: () => ReactNode;
@@ -8,10 +9,10 @@ type Props = {
 
 export function Page(props: Props): JSX.Element {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column vh-100 page">
       <Header />
-      <div className="flex-grow-1 container p-3">
-        <main title={props.title}>{props.children()}</main>
+      <div className="flex-grow-1 p-3">
+        {props.children()}
       </div>
     </div>
   );
