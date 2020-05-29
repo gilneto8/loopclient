@@ -8,10 +8,9 @@ import {
 import { v4 as uuidV4 } from 'uuid';
 
 export type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'> & { id: string };
-type ViewportProps = Omit<ReactMapGLViewportProps, 'width' | 'height'>;
+export type ViewportProps = Omit<ReactMapGLViewportProps, 'width' | 'height'>;
 
 export const useMapLogic = () => {
-  const token = 'pk.eyJ1IjoiZ2lsbmV0bzgiLCJhIjoiY2thczhyZjl1MHFnNTJycHJlZDExbXlscyJ9.xF668iGdzs2JB99yCW6KTg';
 
   const [viewport, setViewport] = useState<ViewportProps>({
     latitude: 38.715,
@@ -49,10 +48,8 @@ export const useMapLogic = () => {
 
   return {
     state: {
-      token,
       viewport,
       markers,
-      doubleClickZoom: true, // setting to false removes 300ms delay (caused by mjolnir.js)
       selected,
     },
     methods: {

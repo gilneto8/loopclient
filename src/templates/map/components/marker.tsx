@@ -6,6 +6,7 @@ const MarkerPoint = require('../../../images/marker.svg');
 type Props = {
   marker: MarkerProps;
   onSelect: (id: string) => void;
+  children?: React.ReactNode;
 };
 const Marker = ({ marker, onSelect }: Props) => (
   <ReactMapGLMarker {...marker} offsetTop={-25} offsetLeft={-10}>
