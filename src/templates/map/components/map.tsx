@@ -11,7 +11,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const Map = ({ viewport, mapStyle, onViewportChange, onClick, children }: Props) => (
+const Map = ({ viewport, mapStyle, onViewportChange, onClick, token, children }: Props) => (
   <ReactMapGL
     {...viewport}
     width="100%"
@@ -19,8 +19,8 @@ const Map = ({ viewport, mapStyle, onViewportChange, onClick, children }: Props)
     mapStyle={mapStyle || 'mapbox://styles/mapbox/dark-v10'}
     onViewportChange={onViewportChange}
     onClick={onClick}
-    mapboxApiAccessToken={'pk.eyJ1IjoiZ2lsbmV0bzgiLCJhIjoiY2thczhyZjl1MHFnNTJycHJlZDExbXlscyJ9.xF668iGdzs2JB99yCW6KTg'}
-    doubleClickZoom={true /*setting to false removes 300ms delay (caused by mjolnir.js)*/}
+    mapboxApiAccessToken={token || 'pk.eyJ1IjoiZ2lsbmV0bzgiLCJhIjoiY2thczhyZjl1MHFnNTJycHJlZDExbXlscyJ9.xF668iGdzs2JB99yCW6KTg'}
+    doubleClickZoom={true} /*setting to false removes 300ms delay on click (caused by mjolnir.js)*/
   >
     {children}
   </ReactMapGL>
