@@ -22,17 +22,13 @@ module.exports = {
         return urlString;
       }
     })(),
-    title: `MMK Tax`,
+    title: `Loop`,
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-sass`,
+      resolve: 'gatsby-plugin-emotion',
       options: {
-        includePaths: ['src/components/ui-kit/global-styles/include-path'],
-        cssLoaderOptions: {
-          localsConvention: 'asIs',
-          camelCase: false,
-        },
+        labelFormat: '__[filename]__[local]__',
       },
     },
     'gatsby-plugin-typescript',
@@ -55,24 +51,6 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
-    // TODO:
-    //
-    // {
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     name: `MMK Tax`,
-    //     short_name: `MMK Tax`,
-    //     start_url: `/`,
-    //     background_color: `#663399`, // TODO: change to company brand colors
-    //     theme_color: `#663399`, // TODO: change to company brand colors
-    //     display: `minimal-ui`,
-    //     icon: `src/images/gatsby-icon.png`, // TODO: change to company logo
-    //   },
-    // },
-    //
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
     ...(() => {
       if (RUNTIME_ENVIRONMENT === allRuntimeEnvironments.RELEASE) {
         return [

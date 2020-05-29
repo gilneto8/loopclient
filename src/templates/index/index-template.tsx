@@ -6,7 +6,21 @@ const Index = (): JSX.Element => (
   <Page title={'Landing Page'}>
     {() => (
       <>
-        <Alert variant={'primary'}>Nothing to see here</Alert>
+        {[
+          'primary',
+          'secondary',
+          'success',
+          'danger',
+          'warning',
+          'info',
+          'light',
+          'dark',
+        ].map((variant, idx) => (
+          /*// @ts-ignore*/
+          <Alert key={idx} variant={variant}>
+            This is a {variant} alert—check it out!
+          </Alert>
+        ))}
       </>
     )}
   </Page>
