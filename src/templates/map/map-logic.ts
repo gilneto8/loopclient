@@ -17,7 +17,7 @@ export const useMapLogic = () => {
   });
 
   const updateViewport = (vp: ViewportProps) => {
-    console.log(vp);
+    /*console.log(vp);*/
     setViewport(vp);
   }
 
