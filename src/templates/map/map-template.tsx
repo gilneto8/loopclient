@@ -1,7 +1,8 @@
 import React from 'react';
 import { Page } from '../../components/routing/page/page';
-import ReactMapGL from 'react-map-gl';
+import Map from 'react-map-gl';
 import { useMapLogic } from './map-logic';
+import Marker from './components/marker';
 
 const MapTemplate = (): JSX.Element => {
   const logic = useMapLogic();
@@ -9,14 +10,20 @@ const MapTemplate = (): JSX.Element => {
     <Page title={'Second Page'}>
       {() => (
         <>
-          <ReactMapGL
+          <Map
             {...logic.state.viewport}
             width="100%"
             height="100%"
             mapStyle={'mapbox://styles/mapbox/dark-v10'}
             onViewportChange={logic.methods.updateViewport}
+            onClick={logic.methods.addMarker}
             mapboxApiAccessToken={logic.state.token}
-          />
+            doubleClickZoom={logic.state.doubleClickZoom}
+          >
+            {logic.state.markers.map((marker, index) => (
+              <Marker key={index} marker={marker} />
+            ))}
+          </Map>
         </>
       )}
     </Page>
