@@ -5,8 +5,9 @@ import {
   PointerEvent,
   ViewportProps as ReactMapGLViewportProps,
 } from 'react-map-gl';
+import { v4 as uuidV4 } from 'uuid';
 
-type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'>;
+export type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'> & { id: string };
 type ViewportProps = Omit<ReactMapGLViewportProps, 'width' | 'height'>;
 
 export const useMapLogic = () => {
@@ -25,13 +26,25 @@ export const useMapLogic = () => {
     minPitch: 0,
   });
   const [markers, setMarkers] = useState<ReadonlyArray<MarkerProps>>([]);
+  const [selected, setSelected] = useState<MarkerProps | null>(null);
 
   const updateViewport = (vp: ViewportProps) => {
     setViewport(vp);
   };
 
   const addMarker = ({ lngLat: [longitude, latitude] }: PointerEvent) => {
-    setMarkers(_.concat(markers, { longitude, latitude }));
+    const marker: MarkerProps = { longitude, latitude, id: uuidV4() };
+    setMarkers(_.concat(markers, marker));
+  };
+
+  const selectMarker = (id: string | null = null) => {
+    if (!id) {
+      setSelected(null);
+      return;
+    }
+    const marker = _.find(markers, (m) => m.id === id);
+    if (!marker) return;
+    setSelected(marker);
   };
 
   return {
@@ -40,10 +53,12 @@ export const useMapLogic = () => {
       viewport,
       markers,
       doubleClickZoom: true, // setting to false removes 300ms delay (caused by mjolnir.js)
+      selected,
     },
     methods: {
       updateViewport,
       addMarker,
+      selectMarker,
     },
   };
 };

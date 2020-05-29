@@ -3,6 +3,7 @@ import { Page } from '../../components/routing/page/page';
 import Map from 'react-map-gl';
 import { useMapLogic } from './map-logic';
 import Marker from './components/marker';
+import Popup from "./components/popup"
 
 const MapTemplate = (): JSX.Element => {
   const logic = useMapLogic();
@@ -21,8 +22,13 @@ const MapTemplate = (): JSX.Element => {
             doubleClickZoom={logic.state.doubleClickZoom}
           >
             {logic.state.markers.map((marker, index) => (
-              <Marker key={index} marker={marker} />
+              <Marker key={index} marker={marker} onSelect={logic.methods.selectMarker} />
             ))}
+            {logic.state.selected && (
+              <Popup marker={logic.state.selected} onClose={logic.methods.selectMarker}>
+                TEST CRL
+              </Popup>
+            )}
           </Map>
         </>
       )}
