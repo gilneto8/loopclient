@@ -11,6 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "bootstrap": "^4.5.0",
     "date-fns": "^2.12.0",
+    "deck.gl": "^8.1.8",
     "gatsby": "^2.20.24",
     "gatsby-image": "^2.3.4",
     "gatsby-plugin-emotion": "^4.3.2",
@@ -36,6 +37,7 @@
     "uuid": "^7.0.3"
   },
   "devDependencies": {
+    "@danmarshall/deckgl-typings": "^4.1.8",
     "@graphql-codegen/cli": "^1.13.2",
     "@graphql-codegen/typescript": "^1.13.2",
     "@graphql-codegen/typescript-operations": "^1.13.2",

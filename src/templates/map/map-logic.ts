@@ -1,38 +1,37 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
-import {
-  MarkerProps as ReactMapGLMarkerProps,
-  PointerEvent,
-  ViewportProps as ReactMapGLViewportProps,
-} from 'react-map-gl';
 import { v4 as uuidV4 } from 'uuid';
+import { MarkerProps, ViewType } from "./map-types"
+import { PointerEvent } from 'react-map-gl'
 
-export type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'> & { id: string };
-export type ViewportProps = Omit<ReactMapGLViewportProps, 'width' | 'height'>;
+const initialViewport = {
+  latitude: 38.715,
+  longitude: -9.139,
+  zoom: 12,
+  bearing: 0,
+  pitch: 0,
+  altitude: 100,
+  maxZoom: 15,
+  minZoom: 3,
+  maxPitch: 60,
+  minPitch: 0,
+};
 
 export const useMapLogic = () => {
-
-  const [viewport, setViewport] = useState<ViewportProps>({
-    latitude: 38.715,
-    longitude: -9.139,
-    zoom: 12,
-    bearing: 0,
-    pitch: 0,
-    altitude: 100,
-    maxZoom: 15,
-    minZoom: 3,
-    maxPitch: 60,
-    minPitch: 0,
+  const [view, setView] = useState<ViewType>({
+    viewState: initialViewport,
+    interactionState: {},
+    oldViewState: null,
   });
-  const [markers, setMarkers] = useState<ReadonlyArray<MarkerProps>>([]);
+  const [markers, setMarkers] = useState<Array<MarkerProps>>([]);
   const [selected, setSelected] = useState<MarkerProps | null>(null);
 
-  const updateViewport = (vp: ViewportProps) => {
-    setViewport(vp);
+  const updateView = (vs: ViewType) => {
+    setView(vs);
   };
 
   const addMarker = ({ lngLat: [longitude, latitude] }: PointerEvent) => {
-    const marker: MarkerProps = { longitude, latitude, id: uuidV4() };
+    const marker: MarkerProps = { longitude, latitude, altitude: 0, name: '', id: uuidV4() };
     setMarkers(_.concat(markers, marker));
   };
 
@@ -48,12 +47,12 @@ export const useMapLogic = () => {
 
   return {
     state: {
-      viewport,
+      view,
       markers,
       selected,
     },
     methods: {
-      updateViewport,
+      updateView,
       addMarker,
       selectMarker,
     },

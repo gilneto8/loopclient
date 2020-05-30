@@ -12,9 +12,10 @@ const MapTemplate = (): JSX.Element => {
       {() => (
         <>
           <Map
-            viewport={logic.state.viewport}
-            onViewportChange={logic.methods.updateViewport}
+            viewState={logic.state.view}
+            onViewStateChange={logic.methods.updateView}
             onClick={logic.methods.addMarker}
+            markers={logic.state.markers}
           >
             {logic.state.markers.map((marker, index) => (
               <Marker key={index} marker={marker} onSelect={logic.methods.selectMarker} />
