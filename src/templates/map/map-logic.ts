@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { MarkerProps, ViewType } from "./map-types"
+import { MarkerProps, Viewport } from "./map-types"
 import { PointerEvent } from 'react-map-gl'
 
 const initialViewport = {
@@ -9,24 +9,18 @@ const initialViewport = {
   longitude: -9.139,
   zoom: 12,
   bearing: 0,
-  pitch: 0,
+  pitch: 35,
   altitude: 100,
   maxZoom: 15,
   minZoom: 3,
-  maxPitch: 45,
-  minPitch: 0,
 };
 
 export const useMapLogic = () => {
-  const [view, setView] = useState<ViewType>({
-    viewState: initialViewport,
-    interactionState: {},
-    oldViewState: null,
-  });
+  const [view, setView] = useState<Viewport>(initialViewport);
   const [markers, setMarkers] = useState<Array<MarkerProps>>([]);
   const [selected, setSelected] = useState<MarkerProps | null>(null);
 
-  const updateView = (vs: ViewType) => {
+  const updateView = (vs: Viewport) => {
     setView(vs);
   };
 

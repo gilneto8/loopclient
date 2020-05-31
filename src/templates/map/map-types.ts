@@ -6,7 +6,7 @@ export type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'> 
   altitude?: number;
 };
 
-export type Viewport = Omit<ReactMapGLViewportProps, 'width' | 'height'>;
+export type Viewport = Partial<ReactMapGLViewportProps>;
 export type ViewType = {
   viewState: Viewport;
   interactionState: {
