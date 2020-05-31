@@ -13,7 +13,7 @@ const initialViewport = {
   altitude: 100,
   maxZoom: 15,
   minZoom: 3,
-  maxPitch: 60,
+  maxPitch: 45,
   minPitch: 0,
 };
 
@@ -31,7 +31,7 @@ export const useMapLogic = () => {
   };
 
   const addMarker = ({ lngLat: [longitude, latitude] }: PointerEvent) => {
-    const marker: MarkerProps = { longitude, latitude, altitude: 0, name: '', id: uuidV4() };
+    const marker: MarkerProps = { longitude, latitude, altitude: 1, name: '', id: uuidV4() };
     setMarkers(_.concat(markers, marker));
   };
 

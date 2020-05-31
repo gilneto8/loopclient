@@ -18,23 +18,3 @@ export type ViewType = {
   };
   oldViewState: Viewport | null;
 };
-
-export type Position = {
-  start: [number, number, number];
-  end: [number, number, number];
-  name: string;
-};
-
-export type DataItem = {
-  inbound?: number;
-  outbound?: number;
-  from: {
-    name: string;
-    coordinates: [number, number, number | 0];
-  };
-  to: {
-    name: string;
-    coordinates: [number, number, number | 0];
-  };
-  onClick?: (arg?: any) => void;
-};
