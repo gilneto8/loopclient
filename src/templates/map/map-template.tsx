@@ -12,15 +12,15 @@ const MapTemplate = (): JSX.Element => {
       {() => (
         <>
           <Map
-            viewState={logic.state.view}
-            onViewStateChange={logic.methods.updateView}
+            viewport={logic.state.viewport}
+            onViewportChange={logic.methods.updateViewport}
             onClick={logic.methods.addMarker}
           >
             {logic.state.markers.map((marker, index) => (
               <Marker key={index} marker={marker} onSelect={logic.methods.selectMarker} />
             ))}
             <Popup marker={logic.state.selected} onClose={logic.methods.selectMarker}>
-              TEST CRL
+              {logic.state.selected?.name}
             </Popup>
           </Map>
         </>

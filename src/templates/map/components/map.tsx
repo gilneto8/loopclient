@@ -5,18 +5,18 @@ import { Viewport } from '../map-types';
 import { GeoJsonLayer } from 'deck.gl';
 
 type Props = {
-  viewState: Viewport;
-  onViewStateChange: (vp: Viewport) => void;
+  viewport: Viewport;
+  onViewportChange: (vp: Viewport) => void;
   onClick: (e: PointerEvent) => void;
   mapStyle?: string;
   token?: string;
   children?: React.ReactNode;
 };
 
-const Map = ({ viewState, mapStyle, onViewStateChange, onClick, token, children }: Props) => {
+const Map = ({ viewport, mapStyle, onViewportChange, token }: Props) => {
   return (
     <MapGL
-      {...viewState}
+      {...viewport}
       width="100%"
       height="100%"
       mapStyle={mapStyle || 'mapbox://styles/mapbox/dark-v9'}
@@ -27,8 +27,8 @@ const Map = ({ viewState, mapStyle, onViewStateChange, onClick, token, children 
       /*doubleClickZoom={true}*/
     >
       <DeckGL
-        viewState={viewState}
-        onViewStateChange={({ viewState }) => onViewStateChange(viewState)}
+        viewState={viewport}
+        onViewStateChange={({ viewState }) => onViewportChange(viewState)}
         controller={true}
         pickingRadius={5}
         effects={[]}

@@ -16,12 +16,12 @@ const initialViewport = {
 };
 
 export const useMapLogic = () => {
-  const [view, setView] = useState<Viewport>(initialViewport);
+  const [viewport, setViewport] = useState<Viewport>(initialViewport);
   const [markers, setMarkers] = useState<Array<MarkerProps>>([]);
   const [selected, setSelected] = useState<MarkerProps | null>(null);
 
-  const updateView = (vs: Viewport) => {
-    setView(vs);
+  const updateViewport = (vs: Viewport) => {
+    setViewport(vs);
   };
 
   const addMarker = ({ lngLat: [longitude, latitude] }: PointerEvent) => {
@@ -41,12 +41,12 @@ export const useMapLogic = () => {
 
   return {
     state: {
-      view,
+      viewport,
       markers,
       selected,
     },
     methods: {
-      updateView,
+      updateViewport,
       addMarker,
       selectMarker,
     },
