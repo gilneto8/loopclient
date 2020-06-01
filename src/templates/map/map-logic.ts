@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { MarkerProps, OnClickEventArg, Viewport } from "./map-types"
+import { MarkerProps, OnClickEventArg, Viewport } from './map-types';
 
 const initialViewport = {
   latitude: 38.715,
@@ -14,9 +14,12 @@ const initialViewport = {
 };
 
 export const useMapLogic = () => {
+  const [editMode, setEditMode] = useState<boolean>(true);
   const [viewport, setViewport] = useState<Viewport>(initialViewport);
   const [markers, setMarkers] = useState<Array<MarkerProps>>([]);
   const [selected, setSelected] = useState<MarkerProps | null>(null);
+
+  const switchMode = () => setEditMode(!editMode);
 
   const updateViewport = (vs: Viewport) => {
     setViewport(vs);
@@ -28,14 +31,15 @@ export const useMapLogic = () => {
     setMarkers(_.concat(markers, marker));
   };
 
-  const selectMarker = (id: string | null = null) => {
-    if (!id) {
-      setSelected(null);
-      return;
-    }
+  const selectMarker = (id: string) => {
     const marker = _.find(markers, (m) => m.id === id);
     if (!marker) return;
     setSelected(marker);
+  };
+
+  const closePopup = () => {
+    setSelected(null);
+    return;
   };
 
   return {
@@ -43,11 +47,14 @@ export const useMapLogic = () => {
       viewport,
       markers,
       selected,
+      editMode,
     },
     methods: {
       updateViewport,
       addMarker,
       selectMarker,
+      closePopup,
+      switchMode
     },
   };
 };
