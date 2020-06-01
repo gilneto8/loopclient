@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { MarkerProps, Viewport } from "./map-types"
-import { PointerEvent } from 'react-map-gl'
+import { MarkerProps, PickInfo, Viewport } from "./map-types"
 
 const initialViewport = {
   latitude: 38.715,
@@ -24,7 +23,8 @@ export const useMapLogic = () => {
     setViewport(vs);
   };
 
-  const addMarker = ({ lngLat: [longitude, latitude] }: PointerEvent) => {
+  const addMarker = (p: PickInfo, e: MouseEvent) => {
+    const [longitude, latitude] = p.coordinate;
     const marker: MarkerProps = { longitude, latitude, altitude: 1, name: '', id: uuidV4() };
     setMarkers(_.concat(markers, marker));
   };

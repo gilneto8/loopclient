@@ -1,89 +1,70 @@
-import React from 'react';
-import MapGL, { PointerEvent } from 'react-map-gl';
+import React, { useEffect } from 'react';
+import * as _ from 'lodash';
+import MapGL from 'react-map-gl';
 import DeckGL from '@deck.gl/react';
-import { Viewport } from '../map-types';
-import { GeoJsonLayer } from 'deck.gl';
+import { MarkerProps, PickInfo, Viewport } from '../map-types';
+import { LineLayer } from 'deck.gl';
 
 type Props = {
   viewport: Viewport;
   onViewportChange: (vp: Viewport) => void;
-  onClick: (e: PointerEvent) => void;
+  onClick: (p: PickInfo<any>, e: MouseEvent) => void;
   mapStyle?: string;
   token?: string;
+  markers: Array<MarkerProps>;
   children?: React.ReactNode;
 };
 
-const Map = ({ viewport, mapStyle, onViewportChange, token }: Props) => {
+const Map = ({ viewport, mapStyle, onViewportChange, onClick, token, markers, children }: Props) => {
+
+  useEffect(() => {
+    document.getElementById('map-wrapper')?.addEventListener('contextmenu', (e) => e.preventDefault());
+  }, []);
+
   return (
-    <MapGL
-      {...viewport}
-      width="100%"
-      height="100%"
-      mapStyle={mapStyle || 'mapbox://styles/mapbox/dark-v9'}
-      /*onClick={onClick}*/
-      mapboxApiAccessToken={
-        token || 'pk.eyJ1IjoiZ2lsbmV0bzgiLCJhIjoiY2thczhyZjl1MHFnNTJycHJlZDExbXlscyJ9.xF668iGdzs2JB99yCW6KTg'
-      } /*setting to false removes 300ms delay on click (caused by mjolnir.js)*/
-      /*doubleClickZoom={true}*/
-    >
+    <div id={'map-wrapper'}>
       <DeckGL
         viewState={viewport}
         onViewStateChange={({ viewState }) => onViewportChange(viewState)}
+        onClick={(p, e) => {
+          const coordinates = p.coordinate as Array<number>;
+          onClick(_.set(p, 'coordinate', [coordinates[0], coordinates[1]]) as PickInfo, e);
+        }}
         controller={true}
         pickingRadius={5}
         effects={[]}
         height="100%"
         width="100%"
         layers={[
-          new GeoJsonLayer({
-            id: 'geojson-layer',
-            data: {
-              type: 'Feature',
-              geometry: {
-                type: 'Polygon',
-                coordinates: [
-                  [
-                    [-67.13734351262877, 45.137451890638886],
-                    [-66.96466, 44.8097],
-                    [-68.03252, 44.3252],
-                    [-69.06, 43.98],
-                    [-70.11617, 43.68405],
-                    [-70.64573401557249, 43.090083319667144],
-                    [-70.75102474636725, 43.08003225358635],
-                    [-70.79761105007827, 43.21973948828747],
-                    [-70.98176001655037, 43.36789581966826],
-                    [-70.94416541205806, 43.46633942318431],
-                    [-71.08482, 45.3052400000002],
-                    [-70.6600225491012, 45.46022288673396],
-                    [-70.30495378282376, 45.914794623389355],
-                    [-70.00014034695016, 46.69317088478567],
-                    [-69.23708614772835, 47.44777598732787],
-                    [-68.90478084987546, 47.184794623394396],
-                    [-68.23430497910454, 47.35462921812177],
-                    [-67.79035274928509, 47.066248887716995],
-                    [-67.79141211614706, 45.702585354182816],
-                    [-67.13734351262877, 45.137451890638886],
-                  ],
-                ],
-              },
-            },
-            lineWidthScale: 4,
-            opacity: 0.4,
-            filled: true,
-            stroked: true,
-            lineWidth: 2,
-            lineColor: [255, 0, 0],
-            lineWidthMinPixels: 2,
-            wireframe: true,
-            getLineColor: (f) => [255, 0, 0],
-            getFillColor: (f) => [255, 0, 0, 0],
+          new LineLayer({
+            id: 'line-layer',
+            data: [
+              { sourcePosition: [-9.1704, 38.7698, 1], targetPosition: [-9.1353, 38.8312, 1], name: '1' },
+              { sourcePosition: [-9.1353, 38.8312, 1], targetPosition: [-9.1943, 38.4302, 1], name: '1' },
+              { sourcePosition: [-9.1943, 38.4302, 1], targetPosition: [-9.2309, 38.4923, 1], name: '1' },
+            ],
+            opacity: 0.8,
             pickable: true,
-            onHover: (info) => console.log('Hovered:', info),
-            onClick: (info) => console.log('Clicked:', info),
+            getColor: [255, 0, 0, 1],
+            getWidth: 8,
           }),
         ]}
-      />
-    </MapGL>
+      >
+        <MapGL
+          {...viewport}
+          width="100%"
+          height="100%"
+          mapStyle={mapStyle || 'mapbox://styles/mapbox/dark-v9'}
+          /*onClick={onClick}*/
+          mapboxApiAccessToken={
+            token || 'pk.eyJ1IjoiZ2lsbmV0bzgiLCJhIjoiY2thczhyZjl1MHFnNTJycHJlZDExbXlscyJ9.xF668iGdzs2JB99yCW6KTg'
+          } /*setting to false removes 300ms delay on click (caused by mjolnir.js)*/
+          /*doubleClickZoom={true}*/
+        >
+          {children}
+        </MapGL>
+      </DeckGL>
+    </div>
   );
 };
 

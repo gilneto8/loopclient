@@ -1,4 +1,5 @@
 import { MarkerProps as ReactMapGLMarkerProps, ViewportProps as ReactMapGLViewportProps } from 'react-map-gl';
+import { PickInfo as DeckGLPickInfo } from '@deck.gl/core/lib/deck';
 
 export type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'> & {
   id: string;
@@ -20,4 +21,8 @@ export type ViewType = {
     isZooming?: boolean | undefined;
   };
   oldViewState: Viewport | null;
+};
+
+export type PickInfo<T = void> = Omit<DeckGLPickInfo<any>, 'coordinate'> & {
+  coordinate: [number, number] | [number, number, number];
 };
