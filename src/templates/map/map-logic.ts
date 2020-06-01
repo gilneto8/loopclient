@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { MarkerProps, PickInfo, Viewport } from "./map-types"
+import { MarkerProps, OnClickEventArg, Viewport } from "./map-types"
 
 const initialViewport = {
   latitude: 38.715,
@@ -9,7 +9,6 @@ const initialViewport = {
   zoom: 12,
   bearing: 0,
   pitch: 35,
-  altitude: 100,
   maxZoom: 15,
   minZoom: 3,
 };
@@ -23,8 +22,8 @@ export const useMapLogic = () => {
     setViewport(vs);
   };
 
-  const addMarker = (p: PickInfo, e: MouseEvent) => {
-    const [longitude, latitude] = p.coordinate;
+  const addMarker = (p: OnClickEventArg) => {
+    const [longitude, latitude] = p.lngLat;
     const marker: MarkerProps = { longitude, latitude, altitude: 1, name: '', id: uuidV4() };
     setMarkers(_.concat(markers, marker));
   };
