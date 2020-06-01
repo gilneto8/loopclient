@@ -1,8 +1,9 @@
 import React from 'react';
 import MapGL from 'react-map-gl';
 import DeckGL, { LineLayer } from 'deck.gl';
-import { MarkerProps, OnClickEventArg, Viewport } from '../map-types';
-import { Position3D } from "@deck.gl/core/utils/positions"
+import { v4 as uuidV4 } from 'uuid';
+import { LineProps, MarkerProps, OnClickEventArg, Viewport } from '../map-types';
+import { applyNext } from '../../../utils/functions/reduceNext';
 
 type Props = {
   viewport: Viewport;
@@ -15,6 +16,15 @@ type Props = {
 };
 
 const Map = ({ viewport, mapStyle, onViewportChange, onClick, token, markers, children }: Props) => {
+  const getLines = (): Array<LineProps> => {
+    return applyNext(markers, (c, n) => ({
+      id: uuidV4(),
+      name: c.name,
+      start: [c.longitude, c.latitude, c.altitude],
+      end: [n.longitude, n.latitude, n.altitude],
+    }));
+  };
+
   return (
     <MapGL
       {...viewport}
@@ -38,15 +48,11 @@ const Map = ({ viewport, mapStyle, onViewportChange, onClick, token, markers, ch
         layers={[
           new LineLayer({
             id: 'line-layer',
-            data: [
-              { start: [-9.1704, 38.7698, 1], end: [-9.1353, 38.8312, 1], name: '1' },
-              { start: [-9.1353, 38.8312, 1], end: [-9.1943, 38.4302, 1], name: '2' },
-              { start: [-9.1943, 38.4302, 1], end: [-9.2309, 38.4923, 1], name: '3' },
-            ],
+            data: getLines(),
             opacity: 0.8,
             pickable: true,
-            getSourcePosition: (d) => d.start as Position3D,
-            getTargetPosition: (d) => d.end as Position3D,
+            getSourcePosition: (d) => d.start,
+            getTargetPosition: (d) => d.end,
             getColor: [255, 0, 0],
             getWidth: 3,
           }),
