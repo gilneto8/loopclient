@@ -12,7 +12,7 @@ export type Viewport = Omit<ReactMapGLViewportProps, 'altitude' | 'height' | 'wi
 
 export type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'> & {
   id: string;
-  name?: string;
+  name: string;
   altitude: number;
 };
 

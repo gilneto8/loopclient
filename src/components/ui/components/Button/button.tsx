@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react"
 
 type ButtonProps = {
   title?: string;
@@ -7,7 +7,7 @@ type ButtonProps = {
   fullWidth?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
   onClick: (evt: React.FormEvent<HTMLButtonElement>) => void;
-  style?: string;
+  style?: CSSProperties;
   text?: string;
   children?: React.ReactNode[] | string;
 }
@@ -21,8 +21,8 @@ function Button(props: ButtonProps) {
       className={'btn ' + (props.disabled ? ' disabled' : '')
       + (props.filled ? ' btn-secondary' : 'btn-outline-secondary')
       + (props.fullWidth ? ' _full-width' : '')
-      + (props.style ? ' _' + props.style : '')
       }
+      style={props.style}
       type={props.type}
       onClick={props.onClick}
     >
