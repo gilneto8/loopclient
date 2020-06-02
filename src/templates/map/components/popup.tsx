@@ -1,7 +1,9 @@
 import React from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
 import { ItemProps, LineProps, MarkerProps } from '../map-types';
-import { lineMidpoint } from '../../../utils/functions/lineMidpoint';
+import { lineMidpoint } from '../../../utils/functions/line-midpoint';
+import LineForm from '../forms/line-form';
+import MarkerForm from '../forms/marker-form';
 
 type Props = {
   item: ItemProps;
@@ -24,8 +26,13 @@ const Popup = ({ item, onClose }: Props) => {
         anchor="bottom"
         offsetTop={-25}
         onClose={onClose}
+        closeOnClick={false}
+        captureClick
+        captureDoubleClick
       >
-        <div style={{ width: 100, height: 100, backgroundColor: 'white' }}>{marker.name || 'Untitled'}</div>
+        <div style={{ width: 250, height: 100, backgroundColor: 'white' }}>
+          <MarkerForm marker={marker} />
+        </div>
       </ReactMapGLPopup>
     );
   }
@@ -39,8 +46,13 @@ const Popup = ({ item, onClose }: Props) => {
       anchor="bottom"
       offsetTop={-5}
       onClose={onClose}
+      closeOnClick={false}
+      captureClick
+      captureDoubleClick
     >
-      <div style={{ width: 100, height: 100, backgroundColor: 'white' }}>{line.name || 'Untitled'}</div>
+      <div style={{ width: 250, height: 100, backgroundColor: 'white' }}>
+        <LineForm line={line} />
+      </div>
     </ReactMapGLPopup>
   );
 };

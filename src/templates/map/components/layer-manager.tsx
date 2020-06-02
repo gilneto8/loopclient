@@ -1,6 +1,6 @@
 import React from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
-import { LineProps, LineTypes, ViewportProps } from '../map-types';
+import { LineProps, ViewportProps } from '../map-types';
 
 type Props = {
   viewport: ViewportProps;
@@ -30,16 +30,7 @@ const LayerManager = ({ viewMode, viewport, onViewportChange, onSelect, lines, c
           onClick: ({ object }) => onSelect(object),
           getSourcePosition: (d) => d.geometry.start.geometry.position,
           getTargetPosition: (d) => d.geometry.end.geometry.position,
-          getColor: (d) => {
-            switch (d.type) {
-              case LineTypes.PEDESTRIAN:
-                return [233, 0, 0];
-              case LineTypes.PLANE:
-                return [0, 200, 200];
-              default:
-                return [213, 0, 123];
-            }
-          },
+          getColor: [233, 0, 0],
           getWidth: 2,
         }),
       ]}

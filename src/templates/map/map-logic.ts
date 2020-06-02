@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { ItemProps, LineProps, LineTypes, MarkerProps, MarkerTypes, OnClickEventArg, ViewportProps } from './map-types';
+import { ItemProps, LineProps, MarkerProps, OnClickEventArg, ViewportProps } from './map-types';
 
 const initialViewport = {
   latitude: 38.715,
@@ -30,8 +30,6 @@ export const useMapLogic = () => {
     const [longitude, latitude] = p.lngLat;
     const marker: MarkerProps = {
       geometry: { position: [longitude, latitude, 1] },
-      name: 'marker',
-      type: MarkerTypes.POI,
       id: uuidV4(),
     };
     const updatedMarkers = _.concat(markers, marker);
@@ -41,8 +39,6 @@ export const useMapLogic = () => {
         ? []
         : _.concat(lines, {
             id: uuidV4(),
-            name: 'line',
-            type: Math.random() > 0.5 ? LineTypes.PEDESTRIAN : LineTypes.PLANE,
             geometry: {
               start: lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end,
               end: marker,

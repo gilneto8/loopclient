@@ -19,25 +19,33 @@ export enum LineTypes {
   PEDESTRIAN = 'pedestrian',
 }
 
-export type MarkerProps = {
-  id: string;
+export type MarkerForm = {
   name: string;
   type: MarkerTypes;
+  description?: string;
+}
+
+export type MarkerProps = {
+  id: string;
   geometry: {
     position: [number, number, number];
   };
-  data?: {};
+  data?: MarkerForm;
+};
+
+export type LineForm = {
+  name: string;
+  type: LineTypes;
+  description?: string;
 };
 
 export type LineProps = {
   id: string;
-  name: string;
-  type: LineTypes;
   geometry: {
     start: MarkerProps;
     end: MarkerProps;
   };
-  data?: {};
+  data?: LineForm;
 };
 
 export type ItemProps = MarkerProps | LineProps | null;
