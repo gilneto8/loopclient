@@ -8,7 +8,7 @@ type Props = {
   onClose: () => void;
 };
 const Popup = ({ item, onClose }: Props) => {
-  const isItemMarker = (i: ItemProps): boolean => !!i && !!(i as MarkerProps).longitude;
+  const isItemMarker = (i: ItemProps): boolean => !!i && !!(i as MarkerProps).geometry.position;
 
   if (!item) return <></>;
   if (isItemMarker(item)) {
@@ -16,8 +16,8 @@ const Popup = ({ item, onClose }: Props) => {
     return (
       <ReactMapGLPopup
         tipSize={5}
-        longitude={marker.longitude}
-        latitude={marker.latitude}
+        longitude={marker.geometry.position[0]}
+        latitude={marker.geometry.position[1]}
         anchor="bottom"
         offsetTop={-25}
         onClose={onClose}

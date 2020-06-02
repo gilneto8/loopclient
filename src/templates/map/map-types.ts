@@ -1,26 +1,30 @@
 import {
-  MarkerProps as ReactMapGLMarkerProps,
   ViewportProps as ReactMapGLViewportProps,
   PointerEvent,
 } from 'react-map-gl';
-import { Position3D } from '@deck.gl/core/utils/positions';
 
 export type ViewportProps = Omit<ReactMapGLViewportProps, 'altitude' | 'height' | 'width' | 'maxPitch' | 'minPitch'> & {
   maxPitch?: number;
   minPitch?: number;
 };
 
-export type MarkerProps = Pick<ReactMapGLMarkerProps, 'latitude' | 'longitude'> & {
+export type MarkerProps = {
   id: string;
   name: string;
-  altitude: number;
+  geometry: {
+    position: [number, number, number];
+  };
+  data?: {}
 };
 
 export type LineProps = {
   id: string;
-  name?: string;
-  start: Position3D;
-  end: Position3D;
+  name: string;
+  geometry: {
+    start: MarkerProps;
+    end: MarkerProps;
+  };
+  data?: {}
 };
 
 export type ItemProps = MarkerProps | LineProps | null;

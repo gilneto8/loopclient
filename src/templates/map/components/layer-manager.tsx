@@ -17,7 +17,7 @@ const LayerManager = ({ viewMode, viewport, onViewportChange, onSelect, lines, c
       viewState={viewport}
       onViewStateChange={({ viewState }) => onViewportChange(viewState)}
       controller={true}
-      pickingRadius={10}
+      pickingRadius={5}
       effects={[]}
       height="100%"
       width="100%"
@@ -28,10 +28,10 @@ const LayerManager = ({ viewMode, viewport, onViewportChange, onSelect, lines, c
           opacity: 0.8,
           pickable: viewMode,
           onClick: ({ object }) => onSelect(object),
-          getSourcePosition: (d) => d.start,
-          getTargetPosition: (d) => d.end,
+          getSourcePosition: (d) => d.geometry.start.geometry.position,
+          getTargetPosition: (d) => d.geometry.end.geometry.position,
           getColor: [255, 0, 0],
-          getWidth: 3,
+          getWidth: 2,
         }),
       ]}
     >

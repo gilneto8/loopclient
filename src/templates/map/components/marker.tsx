@@ -9,7 +9,12 @@ type Props = {
   children?: React.ReactNode;
 };
 const Marker = ({ marker, onSelect }: Props) => (
-  <ReactMapGLMarker {...marker} offsetTop={-25} offsetLeft={-10}>
+  <ReactMapGLMarker
+    latitude={marker.geometry.position[1]}
+    longitude={marker.geometry.position[0]}
+    offsetTop={-25}
+    offsetLeft={-10}
+  >
     <div onClick={() => onSelect(marker.id)}>
       <img style={{ width: 20, height: 20 }} src={MarkerPoint} alt={'Marker Point'} />
     </div>
