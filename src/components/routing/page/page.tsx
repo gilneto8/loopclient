@@ -16,7 +16,7 @@ export function Page(props: Props): JSX.Element {
     <>
       <div css={staticStyle} className="d-flex flex-column vh-100">
         <Header />
-        <div className="flex-grow-1 p-3">{props.children()}</div>
+        <div className="flex-grow-1">{props.children()}</div>
       </div>
     </>
   );
