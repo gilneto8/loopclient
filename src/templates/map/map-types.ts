@@ -5,7 +5,7 @@ import {
 } from 'react-map-gl';
 import { Position3D } from '@deck.gl/core/utils/positions';
 
-export type Viewport = Omit<ReactMapGLViewportProps, 'altitude' | 'height' | 'width' | 'maxPitch' | 'minPitch'> & {
+export type ViewportProps = Omit<ReactMapGLViewportProps, 'altitude' | 'height' | 'width' | 'maxPitch' | 'minPitch'> & {
   maxPitch?: number;
   minPitch?: number;
 };

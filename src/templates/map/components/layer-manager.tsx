@@ -1,12 +1,12 @@
 import React from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
-import { LineProps, Viewport } from '../map-types';
+import { LineProps, ViewportProps } from '../map-types';
 
 type Props = {
-  viewport: Viewport;
+  viewport: ViewportProps;
   viewMode?: boolean;
   children?: React.ReactNode;
-  onViewportChange: (vp: Viewport) => void;
+  onViewportChange: (vp: ViewportProps) => void;
   onSelect: (obj: LineProps) => void;
   lines: Array<LineProps>;
 };

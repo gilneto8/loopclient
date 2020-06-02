@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { ItemProps, LineProps, MarkerProps, OnClickEventArg, Viewport } from "./map-types"
+import { ItemProps, LineProps, MarkerProps, OnClickEventArg, ViewportProps } from "./map-types"
 import { applyNext } from '../../utils/functions/reduceNext';
 
 const initialViewport = {
@@ -16,15 +16,15 @@ const initialViewport = {
 
 export const useMapLogic = () => {
   const [editMode, setEditMode] = useState<boolean>(true);
-  const [viewport, setViewport] = useState<Viewport>(initialViewport);
+  const [viewport, setViewport] = useState<ViewportProps>(initialViewport);
   const [markers, setMarkers] = useState<Array<MarkerProps>>([]);
   const [lines, setLines] = useState<Array<LineProps>>([]);
   const [selected, setSelected] = useState<ItemProps>(null);
 
   const switchMode = () => setEditMode(!editMode);
 
-  const updateViewport = (vs: Viewport) => {
-    setViewport(vs);
+  const updateViewport = (vp: ViewportProps) => {
+    setViewport(vp);
   };
 
   const addMarker = (p: OnClickEventArg) => {

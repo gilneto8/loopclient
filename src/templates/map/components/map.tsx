@@ -1,9 +1,9 @@
 import React from 'react';
 import MapGL from 'react-map-gl';
-import { OnClickEventArg, Viewport } from '../map-types';
+import { OnClickEventArg, ViewportProps } from '../map-types';
 
 type Props = {
-  viewport: Viewport;
+  viewport: ViewportProps;
   mapStyle?: string;
   token?: string;
   editMode?: boolean;
