@@ -7,17 +7,17 @@ type Props = {
   viewMode?: boolean;
   children?: React.ReactNode;
   onViewportChange: (vp: Viewport) => void;
+  onSelect: (obj: LineProps) => void;
   lines: Array<LineProps>;
 };
 
-const LayerManager = ({ viewMode, viewport, onViewportChange, lines, children }: Props) => {
-
+const LayerManager = ({ viewMode, viewport, onViewportChange, onSelect, lines, children }: Props) => {
   return (
     <DeckGL
       viewState={viewport}
       onViewStateChange={({ viewState }) => onViewportChange(viewState)}
       controller={true}
-      pickingRadius={5}
+      pickingRadius={10}
       effects={[]}
       height="100%"
       width="100%"
@@ -27,7 +27,7 @@ const LayerManager = ({ viewMode, viewport, onViewportChange, lines, children }:
           data: lines,
           opacity: 0.8,
           pickable: viewMode,
-          onClick: (e) => console.log(e),
+          onClick: ({ object }) => onSelect(object),
           getSourcePosition: (d) => d.start,
           getTargetPosition: (d) => d.end,
           getColor: [255, 0, 0],

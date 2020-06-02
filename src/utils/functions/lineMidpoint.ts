@@ -1,0 +1,12 @@
+import { LineProps } from '../../templates/map/map-types';
+
+export function lineMidpoint(line: LineProps): [number, number] {
+  const lng_a = line.start[0];
+  const lng_b = line.end[0];
+  const lat_a = line.start[1];
+  const lat_b = line.end[1];
+
+  const lng = (lng_a + lng_b) / 2;
+  const lat = (lat_a + lat_b) / 2;
+  return [lng, lat];
+}

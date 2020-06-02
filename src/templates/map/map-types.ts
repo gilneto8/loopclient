@@ -23,4 +23,6 @@ export type LineProps = {
   end: Position3D;
 };
 
+export type ItemProps = MarkerProps | LineProps | null;
+
 export type OnClickEventArg = PointerEvent;

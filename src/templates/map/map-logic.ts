@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { LineProps, MarkerProps, OnClickEventArg, Viewport } from './map-types';
+import { ItemProps, LineProps, MarkerProps, OnClickEventArg, Viewport } from "./map-types"
 import { applyNext } from '../../utils/functions/reduceNext';
 
 const initialViewport = {
@@ -19,7 +19,7 @@ export const useMapLogic = () => {
   const [viewport, setViewport] = useState<Viewport>(initialViewport);
   const [markers, setMarkers] = useState<Array<MarkerProps>>([]);
   const [lines, setLines] = useState<Array<LineProps>>([]);
-  const [selected, setSelected] = useState<MarkerProps | null>(null);
+  const [selected, setSelected] = useState<ItemProps>(null);
 
   const switchMode = () => setEditMode(!editMode);
 
@@ -34,7 +34,7 @@ export const useMapLogic = () => {
     setMarkers(updatedMarkers);
     const updatedLines = applyNext<MarkerProps, LineProps>(updatedMarkers, (c, n) => ({
       id: uuidV4(),
-      name: c.name || 'line',
+      name: 'line',
       start: [c.longitude, c.latitude, c.altitude],
       end: [n.longitude, n.latitude, n.altitude],
     }));
@@ -45,6 +45,10 @@ export const useMapLogic = () => {
     const marker = _.find(markers, (m) => m.id === id);
     if (!marker) return;
     setSelected(marker);
+  };
+
+  const selectLine = (obj: LineProps) => {
+    setSelected(obj);
   };
 
   const closePopup = () => {
@@ -64,6 +68,7 @@ export const useMapLogic = () => {
       updateViewport,
       addMarker,
       selectMarker,
+      selectLine,
       closePopup,
       switchMode,
     },

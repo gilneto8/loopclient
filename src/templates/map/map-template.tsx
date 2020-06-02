@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react"
+import React, { CSSProperties } from 'react';
 import { Page } from '../../components/routing/page/page';
 import { useMapLogic } from './map-logic';
 import Popup from './components/popup';
@@ -13,8 +13,8 @@ const style: CSSProperties = {
   color: 'white',
   top: 70,
   left: 15,
-  zIndex: 1030
-}
+  zIndex: 1030,
+};
 
 const MapTemplate = (): JSX.Element => {
   const { state, methods } = useMapLogic();
@@ -22,16 +22,19 @@ const MapTemplate = (): JSX.Element => {
     <Page title={'Map'}>
       {() => (
         <>
-          <Button style={style} onClick={methods.switchMode}>{'Editing - ' + state.editMode}</Button>
+          <Button style={style} onClick={methods.switchMode}>
+            {'Editing - ' + state.editMode}
+          </Button>
           <Map editMode={state.editMode} viewport={state.viewport} onClick={methods.addMarker}>
             <LayerManager
               viewMode={!state.editMode}
               viewport={state.viewport}
               onViewportChange={methods.updateViewport}
+              onSelect={methods.selectLine}
               lines={state.lines}
             >
               <MarkerList viewMode={!state.editMode} markers={state.markers} onSelect={methods.selectMarker} />
-              <Popup marker={state.selected} onClose={methods.closePopup} />
+              <Popup item={state.selected} onClose={methods.closePopup} />
             </LayerManager>
           </Map>
         </>
