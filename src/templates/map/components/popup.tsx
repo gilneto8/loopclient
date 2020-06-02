@@ -1,17 +1,20 @@
 import React from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
-import { ItemProps, LineProps, MarkerProps } from "../map-types"
+import { ItemProps, LineProps, MarkerProps } from '../map-types';
 import { lineMidpoint } from '../../../utils/functions/lineMidpoint';
 
 type Props = {
   item: ItemProps;
   onClose: () => void;
 };
-const Popup = ({ item, onClose }: Props) => {
-  const isItemMarker = (i: ItemProps): boolean => !!i && !!(i as MarkerProps).geometry.position;
 
+function isMarker(i: ItemProps): boolean {
+  return !!i && !!(i as MarkerProps).geometry.position;
+}
+
+const Popup = ({ item, onClose }: Props) => {
   if (!item) return <></>;
-  if (isItemMarker(item)) {
+  if (isMarker(item)) {
     const marker = item as MarkerProps;
     return (
       <ReactMapGLPopup
