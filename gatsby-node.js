@@ -34,8 +34,8 @@ exports.onCreateWebpackConfig = async ({ actions, stage, getConfig, store }) => 
         '@config': path.resolve(__dirname, `__config.${RUNTIME_ENVIRONMENT}`),
         ...(RUNTIME_ENVIRONMENT === allRuntimeEnvironments.DEBUG
           ? {
-            'react-dom': '@hot-loader/react-dom',
-          }
+              'react-dom': '@hot-loader/react-dom',
+            }
           : {}),
       },
     },

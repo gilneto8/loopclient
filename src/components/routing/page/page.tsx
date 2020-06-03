@@ -13,8 +13,8 @@ const staticStyle = css({
     flex: 1,
     flexGrow: 1,
     flexFlow: 'column',
-    height: '100vh !important'
-  }
+    height: '100vh !important',
+  },
 });
 
 export function Page(props: Props): JSX.Element {
@@ -23,7 +23,7 @@ export function Page(props: Props): JSX.Element {
       <div css={staticStyle}>
         <SideNav />
         {/*onClick={close sidenav}*/}
-        <main >{props.children()}</main>
+        <main>{props.children()}</main>
       </div>
     </>
   );

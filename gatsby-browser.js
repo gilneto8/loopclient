@@ -13,11 +13,11 @@ const RootWrapper = (props) => {
 
   useEffect(() => {
     module.hot &&
-    module.hot.accept(['./src/components/root-frame/root-frame'], function () {
-      replaceState({
-        RootFrame: require('./src/components/root-frame/root-frame').RootFrame,
+      module.hot.accept(['./src/components/root-frame/root-frame'], function () {
+        replaceState({
+          RootFrame: require('./src/components/root-frame/root-frame').RootFrame,
+        });
       });
-    });
   }, []);
 
   const RootFrame = state.RootFrame;

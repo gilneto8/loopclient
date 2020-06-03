@@ -1,12 +1,12 @@
 import { PointerEvent } from 'react-map-gl';
 
 export type ViewportProps = {
-  latitude: number,
-  longitude: number,
-  zoom: number,
-  minZoom?: number,
-  maxZoom?: number,
-  pitch: number,
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  minZoom?: number;
+  maxZoom?: number;
+  pitch: number;
   maxPitch?: number;
   minPitch?: number;
 };
@@ -29,7 +29,7 @@ export type MarkerForm = {
   name: string;
   type: MarkerTypes;
   description?: string;
-}
+};
 
 export type MarkerProps = {
   id: string;

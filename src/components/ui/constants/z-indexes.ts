@@ -2,7 +2,7 @@ export default {
   MAP: {
     general: {
       v: 1000,
-    }
+    },
   },
   SIDENAV: {
     general: {
