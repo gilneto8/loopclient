@@ -34,7 +34,6 @@ module.exports = {
     'gatsby-plugin-typescript',
     `gatsby-plugin-sitemap`,
     'gatsby-plugin-robots-txt',
-    `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
 
