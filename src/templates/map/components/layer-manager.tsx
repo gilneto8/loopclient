@@ -7,11 +7,12 @@ type Props = {
   viewMode?: boolean;
   children?: React.ReactNode;
   onViewportChange: (vp: ViewportProps) => void;
+  onHover: (obj: LineProps) => void;
   onSelect: (obj: LineProps) => void;
   lines: Array<LineProps>;
 };
 
-const LayerManager = ({ viewMode, viewport, onViewportChange, onSelect, lines, children }: Props) => {
+const LayerManager = ({ viewMode, viewport, onViewportChange, onHover, onSelect, lines, children }: Props) => {
   return (
     <DeckGL
       viewState={viewport}
@@ -27,6 +28,7 @@ const LayerManager = ({ viewMode, viewport, onViewportChange, onSelect, lines, c
           data: lines,
           opacity: 0.8,
           pickable: viewMode,
+          onHover: ({ object }) => onHover(object),
           onClick: ({ object }) => onSelect(object),
           getSourcePosition: (d) => d.geometry.start.geometry.position,
           getTargetPosition: (d) => d.geometry.end.geometry.position,

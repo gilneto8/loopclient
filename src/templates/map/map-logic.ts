@@ -3,13 +3,11 @@ import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
 import { ItemProps, LineProps, MarkerProps, OnClickEventArg, ViewportProps } from './map-types';
 
-const initialViewport = {
+const initialViewport: ViewportProps = {
   latitude: 38.715,
   longitude: -9.139,
   zoom: 12,
-  bearing: 0,
   pitch: 35,
-  maxZoom: 15,
   minZoom: 3,
 };
 
@@ -19,6 +17,7 @@ export const useMapLogic = () => {
   const [markers, setMarkers] = useState<Array<MarkerProps>>([]);
   const [lines, setLines] = useState<Array<LineProps>>([]);
   const [selected, setSelected] = useState<ItemProps>(null);
+  const [hovered, setHovered] = useState<ItemProps>(null);
 
   const switchMode = () => setEditMode(!editMode);
 
@@ -57,6 +56,19 @@ export const useMapLogic = () => {
     setSelected(obj);
   };
 
+  const hoverOnMarker = (id: string | null) => {
+    if (!id) setHovered(null);
+    else {
+      const marker = _.find(markers, (m) => m.id === id);
+      if (!marker) return;
+      setHovered(marker);
+    }
+  };
+
+  const hoverOnLine = (obj: LineProps) => {
+    setHovered(obj);
+  };
+
   const closePopup = () => {
     setSelected(null);
     return;
@@ -67,6 +79,7 @@ export const useMapLogic = () => {
       viewport,
       markers,
       selected,
+      hovered,
       editMode,
       lines,
     },
@@ -74,7 +87,9 @@ export const useMapLogic = () => {
       updateViewport,
       addMarker,
       selectMarker,
+      hoverOnMarker,
       selectLine,
+      hoverOnLine,
       closePopup,
       switchMode,
     },

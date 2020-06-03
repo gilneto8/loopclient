@@ -31,10 +31,16 @@ const MapTemplate = (): JSX.Element => {
               viewport={state.viewport}
               onViewportChange={methods.updateViewport}
               onSelect={methods.selectLine}
+              onHover={methods.hoverOnLine}
               lines={state.lines}
             >
-              <MarkerList viewMode={!state.editMode} markers={state.markers} onSelect={methods.selectMarker} />
-              <Popup item={state.selected} onClose={methods.closePopup} />
+              <MarkerList
+                viewMode={!state.editMode}
+                markers={state.markers}
+                onHover={methods.hoverOnMarker}
+                onSelect={methods.selectMarker}
+              />
+              <Popup item={state.selected || state.hovered} onClose={methods.closePopup} />
             </LayerManager>
           </Map>
         </>

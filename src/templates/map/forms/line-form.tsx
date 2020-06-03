@@ -8,7 +8,7 @@ type Props = {
 
 const LineForm = (props: Props) => {
   const { register, handleSubmit, errors } = useForm<LineFormType>();
-  const onSubmit = (data: LineFormType) => console.log(data);
+  const onSubmit = (data: LineFormType) => {};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

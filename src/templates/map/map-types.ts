@@ -1,6 +1,12 @@
-import { ViewportProps as ReactMapGLViewportProps, PointerEvent } from 'react-map-gl';
+import { PointerEvent } from 'react-map-gl';
 
-export type ViewportProps = Omit<ReactMapGLViewportProps, 'altitude' | 'height' | 'width' | 'maxPitch' | 'minPitch'> & {
+export type ViewportProps = {
+  latitude: number,
+  longitude: number,
+  zoom: number,
+  minZoom?: number,
+  maxZoom?: number,
+  pitch: number,
   maxPitch?: number;
   minPitch?: number;
 };

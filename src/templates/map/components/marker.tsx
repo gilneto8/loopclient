@@ -5,17 +5,18 @@ const MarkerPoint = require('../../../images/marker.svg');
 
 type Props = {
   marker: MarkerProps;
+  onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
   children?: React.ReactNode;
 };
-const Marker = ({ marker, onSelect }: Props) => (
+const Marker = ({ marker, onHover, onSelect }: Props) => (
   <ReactMapGLMarker
     latitude={marker.geometry.position[1]}
     longitude={marker.geometry.position[0]}
     offsetTop={-25}
     offsetLeft={-10}
   >
-    <div onClick={() => onSelect(marker.id)}>
+    <div onMouseLeave={() => onHover(null)} onMouseEnter={() => onHover(marker.id)} onClick={() => onSelect(marker.id)}>
       <img style={{ width: 20, height: 20 }} src={MarkerPoint} alt={'Marker Point'} />
     </div>
   </ReactMapGLMarker>
