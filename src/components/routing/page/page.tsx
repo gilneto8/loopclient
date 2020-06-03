@@ -9,6 +9,12 @@ type Props = {
 
 const staticStyle = css({
   backgroundColor: '#1a2d3b',
+  '& > main': {
+    flex: 1,
+    flexGrow: 1,
+    flexFlow: 'column',
+    height: '100vh !important'
+  }
 });
 
 export function Page(props: Props): JSX.Element {
@@ -16,7 +22,8 @@ export function Page(props: Props): JSX.Element {
     <>
       <div css={staticStyle}>
         <SideNav />
-        <main className="d-flex flex-column vh-100 flex-grow-1">{props.children()}</main>
+        {/*onClick={close sidenav}*/}
+        <main >{props.children()}</main>
       </div>
     </>
   );

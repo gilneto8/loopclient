@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 // TODO
 /*import '../ui-kit/global-styles/index.scss';*/
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../globals/overrides.css';
 
 /*
   TODO:

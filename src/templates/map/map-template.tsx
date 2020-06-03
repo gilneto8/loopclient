@@ -6,6 +6,7 @@ import Map from './components/map';
 import LayerManager from './components/layer-manager';
 import MarkerList from './components/marker-list';
 import Button from '../../components/ui/components/Button/button';
+import z from '../../components/ui/constants/z-indexes';
 
 const style: CSSProperties = {
   position: 'absolute',
@@ -13,7 +14,7 @@ const style: CSSProperties = {
   color: 'white',
   top: 85,
   right: 15,
-  zIndex: 1030,
+  zIndex: z.MAP.general.v,
 };
 
 const MapTemplate = (): JSX.Element => {
