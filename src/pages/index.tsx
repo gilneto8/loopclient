@@ -1,3 +1,3 @@
-import IndexTemplate from '../templates/index/index-template';
+import MapTemplate from '../templates/map/map-template';
 
-export default IndexTemplate;
+export default MapTemplate;

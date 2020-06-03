@@ -1,5 +1,5 @@
 export const MAP_ROUTES = {
   label: 'Map',
-  path: '/map',
+  path: '/',
   getHref: () => MAP_ROUTES.path,
 };

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import Header from './header/header';
 import { css } from '@emotion/core';
+import SideNav from './sidenav/sidenav';
 
 type Props = {
   children: () => ReactNode;
@@ -14,9 +14,9 @@ const staticStyle = css({
 export function Page(props: Props): JSX.Element {
   return (
     <>
-      <div css={staticStyle} className="d-flex flex-column vh-100">
-        <Header />
-        <div className="flex-grow-1">{props.children()}</div>
+      <div css={staticStyle}>
+        <SideNav />
+        <main className="d-flex flex-column vh-100 flex-grow-1">{props.children()}</main>
       </div>
     </>
   );

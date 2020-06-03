@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { navigate } from 'gatsby';
 import { Nav, Navbar } from 'react-bootstrap';
-import { INDEX_ROUTE } from '../../../../templates/index/index-routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faMap } from '@fortawesome/free-solid-svg-icons';
+import { faMap } from '@fortawesome/free-solid-svg-icons';
 import { MAP_ROUTES } from '../../../../templates/map/map-routes';
 import { css } from '@emotion/core';
 
@@ -11,15 +10,12 @@ const staticStyle = css({
   backgroundColor: '#142430'
 });
 
-const Header: FunctionComponent<any> = (props) => (
+const Header: FunctionComponent<any> = () => (
   <div css={staticStyle}>
     <header className="sticky-top header">
       <Navbar variant="dark">
-        <div className="container d-print-inline-flex">
-          <Nav.Link className="">
-            <FontAwesomeIcon color={'white'} size={'2x'} icon={faHome} onClick={() => navigate(INDEX_ROUTE.getHref())} />
-          </Nav.Link>
-          <Nav.Link className="">
+        <div className="container d-print-inline-flex justify-content-center">
+          <Nav.Link>
             <FontAwesomeIcon color={'white'} size={'2x'} icon={faMap} onClick={() => navigate(MAP_ROUTES.getHref())} />
           </Nav.Link>
         </div>

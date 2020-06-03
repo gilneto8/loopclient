@@ -11,8 +11,8 @@ const style: CSSProperties = {
   position: 'absolute',
   backgroundColor: 'black',
   color: 'white',
-  top: 70,
-  left: 15,
+  top: 85,
+  right: 15,
   zIndex: 1030,
 };
 
