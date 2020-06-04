@@ -1,7 +1,15 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { ItemProps, LineProps, MarkerProps, OnClickEventArg, ViewportProps } from '../../logic/shared/map/map-types';
+import {
+  ItemProps,
+  LineProps,
+  LineTypes,
+  MarkerProps,
+  MarkerTypes,
+  OnClickEventArg,
+  ViewportProps,
+} from '../../logic/shared/map/map-types';
 import { useStoreSelector } from '../../logic/store/use-store-selector';
 import { loadSidenav } from '../../logic/shared/global/sidenav/sidenav-thunks';
 
@@ -41,17 +49,26 @@ export const useMapLogic = () => {
     const marker: MarkerProps = {
       geometry: { position: [longitude, latitude, 1] },
       id: uuidV4(),
+      data: {
+        type: MarkerTypes.POI,
+        name: `New marker (${longitude},${latitude})`,
+      },
     };
     const updatedMarkers = _.concat(markers, marker);
     setMarkers(updatedMarkers);
+    const startMarker = lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end;
     const updatedLines =
       updatedMarkers.length === 1
         ? []
         : _.concat(lines, {
             id: uuidV4(),
             geometry: {
-              start: lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end,
+              start: startMarker,
               end: marker,
+            },
+            data: {
+              name: `New line (${startMarker.data.name}, ${marker.data.name})`,
+              type: LineTypes.PEDESTRIAN,
             },
           });
     setLines(updatedLines);

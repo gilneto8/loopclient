@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import * as _ from 'lodash';
 
 type Props = {
-  children?: string;
+  children?: any;
   color?: string;
   borders?: [number] | [number, number] | [number, number, number, number];
   paddings?: [number] | [number, number] | [number, number, number, number];

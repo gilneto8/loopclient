@@ -36,7 +36,7 @@ export type MarkerProps = {
   geometry: {
     position: [number, number, number];
   };
-  data?: MarkerForm;
+  data: MarkerForm;
 };
 
 export type LineForm = {
@@ -51,7 +51,7 @@ export type LineProps = {
     start: MarkerProps;
     end: MarkerProps;
   };
-  data?: LineForm;
+  data: LineForm;
 };
 
 export type ItemProps = MarkerProps | LineProps | null;

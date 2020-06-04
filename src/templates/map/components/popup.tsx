@@ -4,15 +4,12 @@ import { ItemProps, LineProps, MarkerProps } from '../../../logic/shared/map/map
 import { lineMidpoint } from '../../../utils/functions/line-midpoint';
 import LineForm from '../forms/line-form';
 import MarkerForm from '../forms/marker-form';
+import { isMarker } from "../../../utils/functions/is-marker"
 
 type Props = {
   item: ItemProps;
   onClose: () => void;
 };
-
-function isMarker(i: ItemProps): boolean {
-  return !!i && !!(i as MarkerProps).geometry.position;
-}
 
 const Popup = React.memo<Props>(({ item, onClose }: Props) => {
   if (!item) return <></>;
