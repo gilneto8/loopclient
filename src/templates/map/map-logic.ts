@@ -52,6 +52,7 @@ export const useMapLogic = () => {
       data: {
         type: MarkerTypes.POI,
         name: `New marker (${longitude},${latitude})`,
+        description: 'Placeholder...',
       },
     };
     const updatedMarkers = _.concat(markers, marker);
@@ -69,6 +70,7 @@ export const useMapLogic = () => {
             data: {
               name: `New line (${startMarker.data.name}, ${marker.data.name})`,
               type: LineTypes.PEDESTRIAN,
+              description: 'Placeholder...',
             },
           });
     setLines(updatedLines);
