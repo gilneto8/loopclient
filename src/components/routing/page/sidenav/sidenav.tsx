@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import z from '../../../ui/constants/z-indexes';
 
 type Props = {
-  withOverlay?: boolean;
+  blocking?: boolean;
   children?: ReactNode;
 };
 
@@ -38,13 +38,13 @@ function getStyle(isOpen: boolean): SerializedStyles {
   });
 }
 
-const SideNav = ({ children, withOverlay }: Props) => {
+const SideNav = ({ children, blocking }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <>
       <div css={getStyle(isOpen || false)}>
-        {withOverlay && <div id={'overlay'} onClick={() => setIsOpen(false)} />}
+        {blocking && <div id={'overlay'} onClick={() => setIsOpen(false)} />}
         <FontAwesomeIcon
           color={'white'}
           size={'lg'}

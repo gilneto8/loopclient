@@ -22,7 +22,7 @@ export function Page(props: Props): JSX.Element {
   return (
     <>
       <div css={staticStyle}>
-        <SideNav />
+        <SideNav blocking />
         <main>{props.children()}</main>
       </div>
     </>
