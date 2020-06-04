@@ -25,18 +25,18 @@ function getStyle(isOpen: boolean): SerializedStyles {
       zIndex: z.SIDENAV.entry.v,
     },
     '& > svg': {
-      transition: 'left .3s',
+      transition: 'all .3s',
       position: 'absolute',
       top: 15,
-      left: isOpen ? 265 : 315,
+      left: isOpen ? 270 : 315,
       zIndex: z.SIDENAV.icon.v,
       cursor: 'pointer',
     },
     '& > #overlay': {
-      transition: 'background-color .5s',
+      transition: 'background-color 1s',
       position: 'absolute',
       backgroundColor: isOpen ? 'black' : 'transparent',
-      opacity: 0.2,
+      opacity: 0.3,
       zIndex: z.PAGE.overlay.v,
       width: isOpen ? '100vw' : 0,
       height: isOpen ? '100vh' : 0,
@@ -52,7 +52,7 @@ const SideNav = ({ children, blocking }: Props) => {
       {blocking && <div id={'overlay'} onClick={() => setIsOpen(false)} />}
       <FontAwesomeIcon
         color={'white'}
-        size={'lg'}
+        size={'sm'}
         rotation={isOpen ? undefined : 180}
         icon={isOpen ? faAngleDoubleLeft : faBars}
         onClick={() => setIsOpen(!isOpen)}
