@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 // TODO
 /*import '../ui-kit/global-styles/index.scss';*/
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../globals/overrides.css';
+import { createStoreManager } from '../../logic/store/creates-store-manager';
+import { Provider } from 'react-redux';
 
 /*
   TODO:
@@ -14,5 +16,12 @@ const ContextualizedRootFrame: FunctionComponent = (props) => {
 };
 
 export const RootFrame: FunctionComponent = ({ children }) => {
-  return <ContextualizedRootFrame>{children}</ContextualizedRootFrame>;
+  const [storeManager] = useState(() => createStoreManager());
+  const store = storeManager.store;
+
+  return (
+    <Provider store={store}>
+      <ContextualizedRootFrame>{children}</ContextualizedRootFrame>
+    </Provider>
+  );
 };

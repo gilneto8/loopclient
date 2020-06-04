@@ -1,8 +1,10 @@
 import { AnyAction, Store as StoreBase } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { SidenavReducer } from '../shared/global/sidenav/sidenav-reducer';
 
-export type StoreReducersMap = {}
-
+export type StoreReducersMap = {
+  sidenav?: SidenavReducer;
+};
 
 export type StoreState = {
   [K in keyof StoreReducersMap]: ReturnType<NonNullable<StoreReducersMap[K]>> | undefined;
@@ -25,19 +27,19 @@ export type StoreThunkDispatchBase<Action extends AnyAction> = ThunkDispatch<
   StoreState,
   StoreThunkExtraArgument,
   Action
-  >;
+>;
 
 export type StoreThunkActionBase<Action extends AnyAction, R = void> = ThunkAction<
   R,
   StoreState,
   StoreThunkExtraArgument,
   Action
-  >;
+>;
 
 export type ThunkGroup<
   T extends {
     [key: string]: (...args: any[]) => ThunkAction<any, StoreState, StoreThunkExtraArgument, AnyAction>;
   }
-  > = {
+> = {
   [K in keyof T]: (...args: Parameters<T[K]>) => ReturnType<T[K]>;
 };

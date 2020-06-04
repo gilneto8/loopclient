@@ -5,14 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import z from '../../../ui/constants/z-indexes';
 
 type Props = {
+  withOverlay?: boolean;
   children?: ReactNode;
 };
 
-function getStyle({ visible }: any): SerializedStyles {
+function getStyle(isOpen: boolean): SerializedStyles {
   return css({
     transition: 'all .3s',
     backgroundColor: '#142430',
-    width: visible ? 300 : 0,
+    width: isOpen ? 300 : 0,
     height: '100%',
     position: 'absolute',
     left: 0,
@@ -21,24 +22,35 @@ function getStyle({ visible }: any): SerializedStyles {
       transition: 'all .3s',
       position: 'relative',
       top: 15,
-      left: visible ? 265 : 15,
+      left: isOpen ? 265 : 15,
       zIndex: z.SIDENAV.icon.v,
       cursor: 'pointer',
+    },
+    '& > #overlay': {
+      transition: 'background-color .3s',
+      position: 'absolute',
+      backgroundColor: isOpen ? 'black' : 'transparent',
+      opacity: 0.3,
+      zIndex: z.PAGE.overlay.v,
+      width: isOpen ? '100vw' : 0,
+      height: isOpen ? '100vh' : 0,
     },
   });
 }
 
-const SideNav = ({ children }: Props) => {
-  const [visible, setVisible] = useState<boolean>(false);
+const SideNav = ({ children, withOverlay }: Props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <>
-      <div css={getStyle({ visible })}>
+      <div css={getStyle(isOpen || false)}>
+        {withOverlay && <div id={'overlay'} onClick={() => setIsOpen(false)} />}
         <FontAwesomeIcon
           color={'white'}
           size={'lg'}
-          rotation={visible ? undefined : 180}
-          icon={visible ? faAngleDoubleLeft : faBars}
-          onClick={() => setVisible(!visible)}
+          rotation={isOpen ? undefined : 180}
+          icon={isOpen ? faAngleDoubleLeft : faBars}
+          onClick={() => setIsOpen(!isOpen)}
         />
         {children}
       </div>

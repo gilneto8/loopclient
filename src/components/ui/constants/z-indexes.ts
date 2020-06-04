@@ -1,4 +1,9 @@
 export default {
+  PAGE: {
+    overlay: {
+      v: 1050,
+    }
+  },
   MAP: {
     general: {
       v: 1000,
@@ -6,13 +11,13 @@ export default {
   },
   SIDENAV: {
     general: {
-      v: 1040,
+      v: 1100,
     },
     entry: {
-      v: 1045,
+      v: 1125,
     },
     icon: {
-      v: 1050,
+      v: 1150,
     },
   },
 };
