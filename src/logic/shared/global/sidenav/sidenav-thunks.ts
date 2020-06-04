@@ -1,12 +1,13 @@
 import { StoreThunkActionBase } from '../../../store/store-types';
 import { SIDENAV_CLOSE, SIDENAV_OPEN, SidenavAction } from './sidenav-actions';
 import { sidenavReducer } from "./sidenav-reducer"
+import { ItemProps } from "../../map/map-types"
 
 type SidenavThunkAction<R = void> = StoreThunkActionBase<SidenavAction, R>;
 
 class SidenavThunks {
   // TODO
-  open(data?: any): SidenavThunkAction {
+  open(data?: ItemProps): SidenavThunkAction {
     return async (dispatch) => {
       dispatch({
         type: SIDENAV_OPEN,

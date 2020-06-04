@@ -12,34 +12,36 @@ type Props = {
   lines: Array<LineProps>;
 };
 
-const LayerManager = ({ viewMode, viewport, onViewportChange, onHover, onSelect, lines, children }: Props) => {
-  return (
-    <DeckGL
-      viewState={viewport}
-      onViewStateChange={({ viewState }) => onViewportChange(viewState)}
-      controller={true}
-      pickingRadius={5}
-      effects={[]}
-      height="100%"
-      width="100%"
-      layers={[
-        new LineLayer({
-          id: 'line-layer',
-          data: lines,
-          opacity: 0.8,
-          pickable: viewMode,
-          onHover: ({ object }) => onHover(object),
-          onClick: ({ object }) => onSelect(object),
-          getSourcePosition: (d) => d.geometry.start.geometry.position,
-          getTargetPosition: (d) => d.geometry.end.geometry.position,
-          getColor: [233, 0, 0],
-          getWidth: 2,
-        }),
-      ]}
-    >
-      {children}
-    </DeckGL>
-  );
-};
+const LayerManager = React.memo<Props>(
+  ({ viewMode, viewport, onViewportChange, onHover, onSelect, lines, children }: Props) => {
+    return (
+      <DeckGL
+        viewState={viewport}
+        onViewStateChange={({ viewState }) => onViewportChange(viewState)}
+        controller={true}
+        pickingRadius={5}
+        effects={[]}
+        height="100%"
+        width="100%"
+        layers={[
+          new LineLayer({
+            id: 'line-layer',
+            data: lines,
+            opacity: 0.8,
+            pickable: viewMode,
+            onHover: ({ object }) => onHover(object),
+            onClick: ({ object }) => onSelect(object),
+            getSourcePosition: (d) => d.geometry.start.geometry.position,
+            getTargetPosition: (d) => d.geometry.end.geometry.position,
+            getColor: [233, 0, 0],
+            getWidth: 2,
+          }),
+        ]}
+      >
+        {children}
+      </DeckGL>
+    );
+  }
+);
 
 export default LayerManager;

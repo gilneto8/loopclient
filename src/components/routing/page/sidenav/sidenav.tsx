@@ -1,9 +1,12 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 import { faAngleDoubleLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import z from '../../../ui/constants/z-indexes';
-import Header from './components/header/header';
+import SidenavHeader from './components/sidenav-header/sidenav-header';
+import { useStoreSelector } from '../../../../logic/store/use-store-selector';
+import { loadSidenav } from '../../../../logic/shared/global/sidenav/sidenav-thunks';
+import SidenavBody from './components/sidenav-body/sidenav-body';
 
 type Props = {
   blocking?: boolean;
@@ -44,23 +47,30 @@ function getStyle(isOpen: boolean): SerializedStyles {
   });
 }
 
-const SideNav = ({ children, blocking }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const SideNav = React.memo<Props>(({ children, blocking }: Props) => {
+  const {
+    selected,
+    storeDispatch,
+    thunkResult: { sidenavThunks },
+  } = useStoreSelector(loadSidenav(), (storeState) => storeState.sidenav);
+
+  const memoizedStyle = useMemo(() => getStyle(selected?.open || false), [selected]);
 
   return (
-    <div css={getStyle(isOpen || false)}>
-      {blocking && <div id={'overlay'} onClick={() => setIsOpen(false)} />}
+    <div css={memoizedStyle}>
+      {blocking && <div id={'overlay'} onClick={async () => await storeDispatch(sidenavThunks.close())} />}
       <FontAwesomeIcon
         color={'white'}
         size={'sm'}
-        rotation={isOpen ? undefined : 180}
-        icon={isOpen ? faAngleDoubleLeft : faBars}
-        onClick={() => setIsOpen(!isOpen)}
+        rotation={selected?.open ? undefined : 180}
+        icon={selected?.open ? faAngleDoubleLeft : faBars}
+        onClick={async () => await storeDispatch(selected?.open ? sidenavThunks.close() : sidenavThunks.open())}
       />
-      <Header />
+      <SidenavHeader />
+      <SidenavBody data={selected?.data} />
       {children}
     </div>
   );
-};
+});
 
 export default SideNav;

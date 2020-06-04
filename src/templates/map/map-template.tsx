@@ -12,12 +12,14 @@ const style: CSSProperties = {
   position: 'absolute',
   backgroundColor: 'black',
   color: 'white',
-  top: 85,
+  top: 15,
   right: 15,
   zIndex: z.MAP.general.v,
 };
 
-const MapTemplate = (): JSX.Element => {
+type Props = {};
+
+const MapTemplate = React.memo<Props>(() => {
   const { state, methods } = useMapLogic();
   return (
     <Page title={'Map'}>
@@ -41,13 +43,13 @@ const MapTemplate = (): JSX.Element => {
                 onHover={methods.hoverOnMarker}
                 onSelect={methods.selectMarker}
               />
-              <Popup item={state.selected || state.hovered} onClose={methods.closePopup} />
+              <Popup item={state.hovered} onClose={methods.closePopup} />
             </LayerManager>
           </Map>
         </>
       )}
     </Page>
   );
-};
+});
 
 export default MapTemplate;

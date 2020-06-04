@@ -14,7 +14,7 @@ function isMarker(i: ItemProps): boolean {
   return !!i && !!(i as MarkerProps).geometry.position;
 }
 
-const Popup = ({ item, onClose }: Props) => {
+const Popup = React.memo<Props>(({ item, onClose }: Props) => {
   if (!item) return <></>;
   if (isMarker(item)) {
     const marker = item as MarkerProps;
@@ -55,6 +55,6 @@ const Popup = ({ item, onClose }: Props) => {
       </div>
     </ReactMapGLPopup>
   );
-};
+});
 
 export default Popup;

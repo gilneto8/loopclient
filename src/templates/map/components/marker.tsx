@@ -9,7 +9,7 @@ type Props = {
   onSelect: (id: string) => void;
   children?: React.ReactNode;
 };
-const Marker = ({ marker, onHover, onSelect }: Props) => (
+const Marker = React.memo<Props>(({ marker, onHover, onSelect }: Props) => (
   <ReactMapGLMarker
     latitude={marker.geometry.position[1]}
     longitude={marker.geometry.position[0]}
@@ -20,6 +20,6 @@ const Marker = ({ marker, onHover, onSelect }: Props) => (
       <img style={{ width: 20, height: 20 }} src={MarkerPoint} alt={'Marker Point'} />
     </div>
   </ReactMapGLMarker>
-);
+));
 
 export default Marker;

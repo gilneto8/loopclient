@@ -2,6 +2,8 @@ import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
 import { ItemProps, LineProps, MarkerProps, OnClickEventArg, ViewportProps } from '../../logic/shared/map/map-types';
+import { useStoreSelector } from '../../logic/store/use-store-selector';
+import { loadSidenav } from '../../logic/shared/global/sidenav/sidenav-thunks';
 
 const initialViewport: ViewportProps = {
   latitude: 38.715,
@@ -18,6 +20,15 @@ export const useMapLogic = () => {
   const [lines, setLines] = useState<Array<LineProps>>([]);
   const [selected, setSelected] = useState<ItemProps>(null);
   const [hovered, setHovered] = useState<ItemProps>(null);
+
+  const {
+    storeDispatch,
+    thunkResult: { sidenavThunks },
+  } = useStoreSelector(loadSidenav(), (storeState) => storeState.sidenav);
+
+  const __updateSidenavData = async (item: ItemProps) => {
+    storeDispatch(sidenavThunks.open(item));
+  };
 
   const switchMode = () => setEditMode(!editMode);
 
@@ -46,14 +57,16 @@ export const useMapLogic = () => {
     setLines(updatedLines);
   };
 
-  const selectMarker = (id: string) => {
+  const selectMarker = async (id: string) => {
     const marker = _.find(markers, (m) => m.id === id);
     if (!marker) return;
     setSelected(marker);
+    await __updateSidenavData(marker);
   };
 
-  const selectLine = (obj: LineProps) => {
+  const selectLine = async (obj: LineProps) => {
     setSelected(obj);
+    await __updateSidenavData(obj);
   };
 
   const hoverOnMarker = (id: string | null) => {

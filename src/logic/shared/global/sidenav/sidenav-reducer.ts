@@ -1,10 +1,11 @@
 import { Reducer } from 'react';
 import { SIDENAV_CLOSE, SIDENAV_OPEN, SidenavAction } from './sidenav-actions';
+import { ItemProps } from '../../map/map-types';
 
 // TODO
 export type SidenavStoreState = {
   open: boolean;
-  data?: any;
+  data?: ItemProps;
 };
 
 export type SidenavReducer = Reducer<SidenavStoreState, SidenavAction>;
@@ -19,7 +20,7 @@ export const sidenavReducer: SidenavReducer = (state = initialState, action) => 
       return {
         ...state,
         open: true,
-        data: action.payload,
+        data: action.payload || state.data,
       };
     case SIDENAV_CLOSE:
       return {
