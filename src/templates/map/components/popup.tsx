@@ -1,6 +1,6 @@
 import React from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
-import { ItemProps, LineProps, MarkerProps } from '../map-types';
+import { ItemProps, LineProps, MarkerProps } from '../../../logic/shared/map/map-types';
 import { lineMidpoint } from '../../../utils/functions/line-midpoint';
 import LineForm from '../forms/line-form';
 import MarkerForm from '../forms/marker-form';

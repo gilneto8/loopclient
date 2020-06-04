@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { ItemProps, LineProps, MarkerProps, OnClickEventArg, ViewportProps } from './map-types';
+import { ItemProps, LineProps, MarkerProps, OnClickEventArg, ViewportProps } from '../../logic/shared/map/map-types';
 
 const initialViewport: ViewportProps = {
   latitude: 38.715,

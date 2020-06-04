@@ -1,6 +1,6 @@
 import React from 'react';
 import MapGL from 'react-map-gl';
-import { OnClickEventArg, ViewportProps } from '../map-types';
+import { OnClickEventArg, ViewportProps } from '../../../logic/shared/map/map-types';
 
 type Props = {
   viewport: ViewportProps;

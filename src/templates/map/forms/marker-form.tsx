@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { MarkerForm as MarkerFormType, MarkerProps, MarkerTypes } from '../map-types';
+import { MarkerForm as MarkerFormType, MarkerProps, MarkerTypes } from '../../../logic/shared/map/map-types';
 
 type Props = {
   marker: MarkerProps;

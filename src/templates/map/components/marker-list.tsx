@@ -1,6 +1,6 @@
 import React from 'react';
 import Marker from './marker';
-import { MarkerProps } from '../map-types';
+import { MarkerProps } from '../../../logic/shared/map/map-types';
 
 type Props = {
   markers: Array<MarkerProps>;

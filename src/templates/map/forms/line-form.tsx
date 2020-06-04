@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { LineForm as LineFormType, LineProps, LineTypes } from '../map-types';
+import { LineForm as LineFormType, LineProps, LineTypes } from '../../../logic/shared/map/map-types';
 
 type Props = {
   line: LineProps;

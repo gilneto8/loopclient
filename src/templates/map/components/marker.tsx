@@ -1,6 +1,6 @@
 import React from 'react';
 import { Marker as ReactMapGLMarker } from 'react-map-gl';
-import { MarkerProps } from '../map-types';
+import { MarkerProps } from '../../../logic/shared/map/map-types';
 const MarkerPoint = require('../../../images/marker.svg');
 
 type Props = {
