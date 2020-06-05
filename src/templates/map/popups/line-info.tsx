@@ -1,6 +1,6 @@
 import React from 'react';
-import { LineProps } from '../../../logic/shared/map/map-types';
-import Label from '../../../components/ui/components/Label/label';
+import { LineProps } from '../../../logic/shared/map/line-types';
+import Label from '../../../components/ui/components/simple/Label/label';
 import * as _ from 'lodash';
 import { css } from '@emotion/core';
 

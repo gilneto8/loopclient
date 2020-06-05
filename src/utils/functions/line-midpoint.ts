@@ -1,4 +1,4 @@
-import { LineProps } from '../../logic/shared/map/map-types';
+import { LineProps } from "../../logic/shared/map/line-types"
 
 export function lineMidpoint(line: LineProps): [number, number] {
   const lng_a = line.geometry.start.geometry.position[0];

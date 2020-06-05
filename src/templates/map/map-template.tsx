@@ -5,7 +5,7 @@ import Popup from './components/popup';
 import Map from './components/map';
 import LayerManager from './components/layer-manager';
 import MarkerList from './components/marker-list';
-import Button from '../../components/ui/components/Button/button';
+import Button from '../../components/ui/components/simple/Button/button';
 import z from '../../components/ui/constants/z-indexes';
 
 const style: CSSProperties = {
