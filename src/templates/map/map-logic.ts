@@ -1,17 +1,11 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import {
-  ItemProps,
-  LineProps,
-  LineTypes,
-  MarkerProps,
-  MarkerTypes,
-  OnClickEventArg,
-  ViewportProps,
-} from '../../logic/shared/map/map-types';
+import { ItemProps, OnClickEventArg, ViewportProps } from '../../logic/shared/map/map-types';
 import { useStoreSelector } from '../../logic/store/use-store-selector';
 import { loadSidenav } from '../../logic/shared/global/sidenav/sidenav-thunks';
+import { MarkerProps, MarkerTypes } from '../../logic/shared/map/marker-types';
+import { LineProps, LineTypes } from '../../logic/shared/map/line-types';
 
 const initialViewport: ViewportProps = {
   latitude: 38.715,
@@ -34,7 +28,7 @@ export const useMapLogic = () => {
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), (storeState) => storeState.sidenav);
 
-  const __updateSidenavData = async (item: ItemProps) => {
+  const __updateSidenavData = async (item: MarkerProps | LineProps) => {
     storeDispatch(sidenavThunks.open(item));
   };
 
@@ -87,7 +81,7 @@ export const useMapLogic = () => {
 
   const selectLine = async (obj: LineProps) => {
     setSelected(obj);
-    await __updateSidenavData(obj);
+    if (obj) await __updateSidenavData(obj);
   };
 
   const hoverOnMarker = (id: string | null) => {

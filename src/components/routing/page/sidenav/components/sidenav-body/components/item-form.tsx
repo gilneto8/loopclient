@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react';
-import {
-  LineProps,
-  LineTypes,
-  MarkerProps,
-  MarkerTypes,
-  ItemForm as ItemFormType,
-} from '../../../../../../../logic/shared/map/map-types';
+import { ItemForm as ItemFormType } from '../../../../../../../logic/shared/map/map-types';
 import Label from '../../../../../../ui/components/Label/label';
-import * as _ from 'lodash';
 import { css } from '@emotion/core';
 import { useForm } from 'react-hook-form';
 import { enumToArray } from '../../../../../../../utils/enums/enum-to-array';
 import { isMarker } from '../../../../../../../utils/functions/is-marker';
+import { MarkerProps, MarkerTypes } from '../../../../../../../logic/shared/map/marker-types';
+import { LineProps, LineTypes } from '../../../../../../../logic/shared/map/line-types';
 
 type Props = {
   item: LineProps | MarkerProps;

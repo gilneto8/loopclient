@@ -1,4 +1,4 @@
-import { Reducer } from 'react';
+import { Reducer } from 'redux';
 import { SIDENAV_CLOSE, SIDENAV_OPEN, SidenavAction } from './sidenav-actions';
 import { ItemProps } from '../../map/map-types';
 
