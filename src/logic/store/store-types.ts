@@ -1,6 +1,6 @@
 import { AnyAction, Store as StoreBase } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { SidenavReducer } from '../shared/global/sidenav/sidenav-reducer';
+import { SidenavReducer } from '../shared/sidenav/sidenav-reducer';
 import { MapReducer } from '../shared/map/map-reducer';
 
 export type StoreReducersMap = {

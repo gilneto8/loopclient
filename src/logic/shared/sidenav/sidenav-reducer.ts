@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_UPDATE, SidenavAction } from './sidenav-actions';
-import { ItemProps } from '../../map/map-types';
+import { ItemProps } from '../map/map-types';
 
 export type SidenavStoreState = {
   open: boolean;

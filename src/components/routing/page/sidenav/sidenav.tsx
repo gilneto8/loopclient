@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import z from '../../../ui/constants/z-indexes';
 import SidenavHeader from './components/sidenav-header/sidenav-header';
 import { useStoreSelector } from '../../../../logic/store/use-store-selector';
-import { loadSidenav } from '../../../../logic/shared/global/sidenav/sidenav-thunks';
+import { loadSidenav } from '../../../../logic/shared/sidenav/sidenav-thunks';
 import SidenavBody from './components/sidenav-body/sidenav-body';
 
 type Props = {

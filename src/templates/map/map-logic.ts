@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
 import { ItemProps, OnClickEventArg, ViewportProps } from '../../logic/shared/map/map-types';
 import { useStoreSelector } from '../../logic/store/use-store-selector';
-import { loadSidenav } from '../../logic/shared/global/sidenav/sidenav-thunks';
+import { loadSidenav } from '../../logic/shared/sidenav/sidenav-thunks';
 import { MarkerProps, MarkerTypes } from '../../logic/shared/map/marker-types';
 import { LineProps, LineTypes } from '../../logic/shared/map/line-types';
 import { loadMap } from '../../logic/shared/map/map-thunks';
