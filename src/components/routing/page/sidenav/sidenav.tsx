@@ -65,7 +65,7 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
         icon={selected?.open ? faAngleDoubleLeft : faBars}
         onClick={async () => await storeDispatch(selected?.open ? sidenavThunks.close() : sidenavThunks.open())}
       />
-      <SidenavHeader title={selected?.data?.data.name} />
+      <SidenavHeader />
       <SidenavBody item={selected?.data} />
       {children}
     </div>

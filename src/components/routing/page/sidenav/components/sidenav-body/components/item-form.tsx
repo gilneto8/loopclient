@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ItemForm as ItemFormType } from '../../../../../../../logic/shared/map/map-types';
 import Label from '../../../../../../ui/components/Label/label';
 import { css } from '@emotion/core';
+import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
 import { enumToArray } from '../../../../../../../utils/enums/enum-to-array';
 import { isMarker } from '../../../../../../../utils/functions/is-marker';
 import { MarkerProps, MarkerTypes } from '../../../../../../../logic/shared/map/marker-types';
 import { LineProps, LineTypes } from '../../../../../../../logic/shared/map/line-types';
+import { useStoreSelector } from '../../../../../../../logic/store/use-store-selector';
+import { loadMap } from '../../../../../../../logic/shared/map/map-thunks';
 
 type Props = {
   item: LineProps | MarkerProps;
@@ -14,22 +17,36 @@ type Props = {
 
 const style = css({
   paddingLeft: 15,
-  '& > span': {
-    color: 'lightgrey',
+  '& > form > input': {
+    marginTop: 20,
   },
 });
 
 const ItemForm = (props: Props) => {
+  const [_isMarker, _setIsMarker] = useState<boolean>(false);
+  const {
+    storeDispatch,
+    thunkResult: { mapThunks },
+  } = useStoreSelector(loadMap(), () => {});
   const { reset, register, handleSubmit } = useForm<ItemFormType<MarkerTypes | LineTypes>>({
     defaultValues: props.item.data,
   });
+
+  useEffect(() => {
+    _setIsMarker(isMarker(props.item));
+  }, []);
 
   useEffect(() => {
     reset(props.item.data);
   }, [props.item]);
 
   const onSubmit = (data: ItemFormType<MarkerTypes | LineTypes>) => {
-    console.log(data);
+    const updatedItem = _.set(props.item, 'data', data);
+    storeDispatch(
+      _isMarker
+        ? mapThunks.updateMarker(updatedItem.id, updatedItem as MarkerProps)
+        : mapThunks.updateLine(updatedItem.id, updatedItem as LineProps)
+    );
   };
 
   return (
@@ -46,7 +63,7 @@ const ItemForm = (props: Props) => {
         <div css={style} key={'type'}>
           <Label paddings={[20, 0, 0, 0]}>{'Type'}</Label>
           <select name={'type'} ref={register}>
-            {enumToArray(isMarker(props.item) ? MarkerTypes : LineTypes).map((val) => (
+            {enumToArray(_isMarker ? MarkerTypes : LineTypes).map((val) => (
               <option key={val} value={val}>
                 {val}
               </option>
@@ -60,24 +77,3 @@ const ItemForm = (props: Props) => {
 };
 
 export default ItemForm;
-
-/*
-  const { register, handleSubmit, errors } = useForm<LineForm | MarkerForm>({
-    defaultValues: props.item?.data || undefined,
-  });
-  const onSubmit = (data: LineForm | MarkerForm) => {
-    console.log(data);
-  };
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input name={'name'} ref={register({ required: true })}>
-            {errors.name && <span>{'Please specify a name.'}</span>}
-          </input>
-          <select name={'type'} ref={register({ required: true })}>
-            <option value={LineTypes.PLANE}>{'By plane'}</option>
-            <option value={LineTypes.PEDESTRIAN}>{'By foot'}</option>
-            <option value={LineTypes.BOAT}>{'By boat'}</option>
-            <option value={LineTypes.TRAIN}>{'By train'}</option>
-          </select>
-          <input name={'description'} ref={register} />
-          <input type={'submit'} />
-        </form>*/

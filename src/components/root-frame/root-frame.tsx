@@ -1,6 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
 import { createStoreManager } from '../../logic/store/creates-store-manager';
 import { Provider } from 'react-redux';
+import { useStoreDispatch } from '../../logic/store/use-store-dispatch';
+import { loadSidenav } from '../../logic/shared/global/sidenav/sidenav-thunks';
+import { loadMap } from '../../logic/shared/map/map-thunks';
 
 /*
   TODO:
@@ -8,6 +11,9 @@ import { Provider } from 'react-redux';
 */
 
 const ContextualizedRootFrame: FunctionComponent = (props) => {
+  const { storeDispatch } = useStoreDispatch();
+  storeDispatch(loadSidenav());
+  storeDispatch(loadMap());
   return <>{props.children}</>;
 };
 

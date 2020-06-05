@@ -1,8 +1,7 @@
 import { Reducer } from 'redux';
-import { SIDENAV_CLOSE, SIDENAV_OPEN, SidenavAction } from './sidenav-actions';
+import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_UPDATE, SidenavAction } from './sidenav-actions';
 import { ItemProps } from '../../map/map-types';
 
-// TODO
 export type SidenavStoreState = {
   open: boolean;
   data?: ItemProps;
@@ -25,6 +24,11 @@ export const sidenavReducer: SidenavReducer = (state = initialState, action) => 
     case SIDENAV_CLOSE:
       return {
         open: false,
+      };
+    case SIDENAV_UPDATE:
+      return {
+        ...state,
+        data: action.payload,
       };
     default:
       return state;

@@ -7,10 +7,11 @@ import {
   ADD_MARKER,
   MapAction,
   REMOVE_LINE,
-  REMOVE_MARKER, UPDATE_LINE,
+  REMOVE_MARKER,
+  UPDATE_LINE,
   UPDATE_MARKER,
-  UPDATE_VIEWPORT
-} from "./map-actions"
+  UPDATE_VIEWPORT,
+} from './map-actions';
 import * as _ from 'lodash';
 
 export type MapStoreState = {
@@ -49,5 +50,7 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
       return { ...state, lines: _.map(state.lines, (m) => (m.id === action.payload.id ? action.payload.data : m)) };
     case REMOVE_LINE:
       return { ...state, lines: _.filter(state.lines, (m) => m.id === action.payload) };
+    default:
+      return state;
   }
 };
