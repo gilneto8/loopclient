@@ -5,6 +5,9 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './src/globals/overrides.css';
 
 const RootWrapper = (props) => {
   const [state, replaceState] = useState({

@@ -1,6 +1,5 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import * as _ from 'lodash';
 
 type Props = {
   children?: any;

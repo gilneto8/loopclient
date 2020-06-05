@@ -8,7 +8,7 @@ type Props = {
 
 const MarkerForm = (props: Props) => {
   const { register, handleSubmit, errors } = useForm<MarkerFormType>();
-  const onSubmit = (data: MarkerFormType) => console.log(data);
+  const onSubmit = (data: MarkerFormType) => {};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
