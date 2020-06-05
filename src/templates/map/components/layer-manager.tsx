@@ -4,7 +4,7 @@ import { ViewportProps } from '../../../logic/shared/map/map-types';
 import { LineProps } from "../../../logic/shared/map/line-types"
 
 type Props = {
-  viewport: ViewportProps;
+  viewport: ViewportProps | undefined;
   viewMode?: boolean;
   children?: React.ReactNode;
   onViewportChange: (vp: ViewportProps) => void;

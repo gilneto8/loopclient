@@ -3,7 +3,7 @@ import MapGL from 'react-map-gl';
 import { OnClickEventArg, ViewportProps } from '../../../logic/shared/map/map-types';
 
 type Props = {
-  viewport: ViewportProps;
+  viewport: ViewportProps | undefined;
   mapStyle?: string;
   token?: string;
   editMode?: boolean;
