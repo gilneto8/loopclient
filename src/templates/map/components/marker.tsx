@@ -1,6 +1,7 @@
 import React from 'react';
 import { Marker as ReactMapGLMarker } from 'react-map-gl';
 import { MarkerProps } from '../../../logic/shared/map/map-types';
+import { css } from '@emotion/core';
 const MarkerPoint = require('../../../images/marker.svg');
 
 type Props = {
@@ -9,6 +10,15 @@ type Props = {
   onSelect: (id: string) => void;
   children?: React.ReactNode;
 };
+
+const style = css({
+  cursor: 'pointer',
+  '& > img': {
+    width: 20,
+    height: 20,
+  },
+});
+
 const Marker = React.memo<Props>(({ marker, onHover, onSelect }: Props) => (
   <ReactMapGLMarker
     latitude={marker.geometry.position[1]}
@@ -16,8 +26,13 @@ const Marker = React.memo<Props>(({ marker, onHover, onSelect }: Props) => (
     offsetTop={-25}
     offsetLeft={-10}
   >
-    <div onMouseLeave={() => onHover(null)} onMouseEnter={() => onHover(marker.id)} onClick={() => onSelect(marker.id)}>
-      <img style={{ width: 20, height: 20 }} src={MarkerPoint} alt={'Marker Point'} />
+    <div
+      css={style}
+      onMouseLeave={() => onHover(null)}
+      onMouseEnter={() => onHover(marker.id)}
+      onClick={() => onSelect(marker.id)}
+    >
+      <img src={MarkerPoint} alt={'Marker Point'} />
     </div>
   </ReactMapGLMarker>
 ));

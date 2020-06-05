@@ -46,12 +46,14 @@ export const useMapLogic = () => {
 
   const addMarker = (p: OnClickEventArg) => {
     const [longitude, latitude] = p.lngLat;
+    const lng = +longitude.toFixed(3),
+      lat = +latitude.toFixed(3);
     const marker: MarkerProps = {
-      geometry: { position: [longitude, latitude, 1] },
+      geometry: { position: [lng, lat, 1] },
       id: uuidV4(),
       data: {
+        name: `New marker (${lng},${lat})`,
         type: MarkerTypes.POI,
-        name: `New marker (${longitude},${latitude})`,
         description: 'Placeholder...',
       },
     };
@@ -101,11 +103,6 @@ export const useMapLogic = () => {
     setHovered(obj);
   };
 
-  const closePopup = () => {
-    setSelected(null);
-    return;
-  };
-
   return {
     state: {
       viewport,
@@ -122,7 +119,6 @@ export const useMapLogic = () => {
       hoverOnMarker,
       selectLine,
       hoverOnLine,
-      closePopup,
       switchMode,
     },
   };

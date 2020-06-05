@@ -14,6 +14,7 @@ const convert = (array: Array<number> | undefined) =>
 
 const style = (props: Props) =>
   css({
+    width: '100%',
     color: props.color || 'white',
     padding: convert(props.paddings),
     margin: convert(props.margins),

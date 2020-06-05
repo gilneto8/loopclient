@@ -12,17 +12,17 @@ export type ViewportProps = {
 };
 
 export enum MarkerTypes {
-  HOTEL = 'hotel',
-  SIGHTSEEING = 'sightseeing',
-  POI = 'poi',
-  TRANSPORT = 'transport',
+  HOTEL = 'Hotel',
+  SIGHTSEEING = 'Sightseeing',
+  POI = 'Point of Interest',
+  TRANSPORT = 'Transportation',
 }
 
 export enum LineTypes {
-  TRAIN = 'train',
-  BOAT = 'boat',
-  PLANE = 'plane',
-  PEDESTRIAN = 'pedestrian',
+  TRAIN = 'Train',
+  BOAT = 'Boat',
+  PLANE = 'Plane',
+  PEDESTRIAN = 'Pedestrian',
 }
 
 export type MarkerForm = {

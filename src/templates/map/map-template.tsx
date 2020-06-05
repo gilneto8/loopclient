@@ -43,7 +43,7 @@ const MapTemplate = React.memo<Props>(() => {
                 onHover={methods.hoverOnMarker}
                 onSelect={methods.selectMarker}
               />
-              <Popup item={state.hovered} onClose={methods.closePopup} />
+              <Popup item={state.hovered} />
             </LayerManager>
           </Map>
         </>

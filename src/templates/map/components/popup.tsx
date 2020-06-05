@@ -2,16 +2,22 @@ import React from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
 import { ItemProps, LineProps, MarkerProps } from '../../../logic/shared/map/map-types';
 import { lineMidpoint } from '../../../utils/functions/line-midpoint';
-import LineForm from '../forms/line-form';
-import MarkerForm from '../forms/marker-form';
-import { isMarker } from "../../../utils/functions/is-marker"
+import LineInfo from '../popups/line-info';
+import MarkerInfo from '../popups/marker-info';
+import { isMarker } from '../../../utils/functions/is-marker';
+import { css } from '@emotion/core';
 
 type Props = {
   item: ItemProps;
-  onClose: () => void;
 };
 
-const Popup = React.memo<Props>(({ item, onClose }: Props) => {
+const style = css({
+  width: 250,
+  backgroundColor: 'white',
+  overflowWrap: 'anywhere',
+});
+
+const Popup = React.memo<Props>(({ item }: Props) => {
   if (!item) return <></>;
   if (isMarker(item)) {
     const marker = item as MarkerProps;
@@ -22,13 +28,10 @@ const Popup = React.memo<Props>(({ item, onClose }: Props) => {
         latitude={marker.geometry.position[1]}
         anchor="bottom"
         offsetTop={-25}
-        onClose={onClose}
-        closeOnClick={false}
-        captureClick
-        captureDoubleClick
+        closeButton={false}
       >
-        <div style={{ width: 250, height: 100, backgroundColor: 'white' }}>
-          <MarkerForm marker={marker} />
+        <div css={style}>
+          <MarkerInfo marker={marker} />
         </div>
       </ReactMapGLPopup>
     );
@@ -42,13 +45,10 @@ const Popup = React.memo<Props>(({ item, onClose }: Props) => {
       latitude={midpoint[1]}
       anchor="bottom"
       offsetTop={-5}
-      onClose={onClose}
-      closeOnClick={false}
-      captureClick
-      captureDoubleClick
+      closeButton={false}
     >
-      <div style={{ width: 250, height: 100, backgroundColor: 'white' }}>
-        <LineForm line={line} />
+      <div css={style}>
+        <LineInfo line={line} />
       </div>
     </ReactMapGLPopup>
   );
