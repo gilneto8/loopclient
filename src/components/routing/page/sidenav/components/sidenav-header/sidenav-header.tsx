@@ -13,7 +13,7 @@ const SidenavHeader = React.memo<Props>((props) => {
         borders={{ thickness: [0, 0, 1, 0], color: 'white', type: 'solid' }}
         margins={[0, 0, 30, 0]}
       >
-        {props.title || 'Placeholder Header'}
+        {props.title || 'Sidenav'}
       </Label>
     </div>
   );

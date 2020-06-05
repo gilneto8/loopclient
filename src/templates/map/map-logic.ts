@@ -53,8 +53,8 @@ export const useMapLogic = () => {
       id: uuidV4(),
       data: {
         name: `New marker (${lng},${lat})`,
-        type: MarkerTypes.POI,
         description: 'Placeholder...',
+        type: MarkerTypes.POI,
       },
     };
     const updatedMarkers = _.concat(markers, marker);

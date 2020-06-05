@@ -1,8 +1,17 @@
-import React from 'react';
-import { LineProps, MarkerProps } from '../../../../../../../logic/shared/map/map-types';
+import React, { useEffect } from 'react';
+import {
+  LineProps,
+  LineTypes,
+  MarkerProps,
+  MarkerTypes,
+  ItemForm as ItemFormType,
+} from '../../../../../../../logic/shared/map/map-types';
 import Label from '../../../../../../ui/components/Label/label';
 import * as _ from 'lodash';
 import { css } from '@emotion/core';
+import { useForm } from 'react-hook-form';
+import { enumToArray } from '../../../../../../../utils/enums/enum-to-array';
+import { isMarker } from '../../../../../../../utils/functions/is-marker';
 
 type Props = {
   item: LineProps | MarkerProps;
@@ -16,15 +25,41 @@ const style = css({
 });
 
 const ItemForm = (props: Props) => {
+  const { reset, register, handleSubmit } = useForm<ItemFormType<MarkerTypes | LineTypes>>({
+    defaultValues: props.item.data,
+  });
+
+  useEffect(() => {
+    reset(props.item.data);
+  }, [props.item]);
+
+  const onSubmit = (data: ItemFormType<MarkerTypes | LineTypes>) => {
+    console.log(data);
+  };
+
   return (
     <div css={style}>
-      {props.item &&
-        Object.keys(props.item.data).map((key, index) => (
-          <div css={style} key={index}>
-            <Label paddings={[20, 0, 0, 0]}>{_.startCase(_.toLower(key))}</Label>
-            <span>{_.get(props.item.data, key)}</span>
-          </div>
-        ))}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div css={style} key={'name'}>
+          <Label paddings={[20, 0, 0, 0]}>{'Name'}</Label>
+          <input name={'name'} ref={register} />
+        </div>
+        <div css={style} key={'description'}>
+          <Label paddings={[20, 0, 0, 0]}>{'Description'}</Label>
+          <input name={'description'} ref={register} />
+        </div>
+        <div css={style} key={'type'}>
+          <Label paddings={[20, 0, 0, 0]}>{'Type'}</Label>
+          <select name={'type'} ref={register}>
+            {enumToArray(isMarker(props.item) ? MarkerTypes : LineTypes).map((val) => (
+              <option key={val} value={val}>
+                {val}
+              </option>
+            ))}
+          </select>
+        </div>
+        <input type={'submit'} />
+      </form>
     </div>
   );
 };

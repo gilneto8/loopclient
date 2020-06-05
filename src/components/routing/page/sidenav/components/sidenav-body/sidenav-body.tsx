@@ -6,12 +6,12 @@ type Props = {
   item: ItemProps | undefined;
 };
 
-const SidenavBody = React.memo<Props>((props) => {
+const SidenavBody = (props: Props) => {
   return (
     <div>
       {!!props.item && <ItemForm item={props.item} />}
     </div>
   );
-});
+};
 
 export default SidenavBody;
