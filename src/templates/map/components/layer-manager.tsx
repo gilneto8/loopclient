@@ -13,7 +13,7 @@ type Props = {
 };
 
 const LayerManager = React.memo<Props>(
-  ({ viewMode, viewport, onViewportChange, onHover, onSelect, lines, children }: Props) => {
+  ({ viewMode, viewport, onViewportChange, onHover, onSelect, lines, children }) => {
     return (
       <DeckGL
         viewState={viewport}

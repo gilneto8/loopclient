@@ -8,7 +8,7 @@ type Props = {
   onSelect: (id: string) => void;
   viewMode?: boolean;
 };
-const MarkerList = React.memo<Props>(({ markers, onHover, onSelect, viewMode }: Props) => {
+const MarkerList = React.memo<Props>(({ markers, onHover, onSelect, viewMode }) => {
   return (
     <div>
       {markers.map((marker) => (

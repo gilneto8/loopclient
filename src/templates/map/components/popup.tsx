@@ -17,7 +17,7 @@ const style = css({
   overflowWrap: 'anywhere',
 });
 
-const Popup = React.memo<Props>(({ item }: Props) => {
+const Popup = React.memo<Props>(({ item }) => {
   if (!item) return <></>;
   if (isMarker(item)) {
     const marker = item as MarkerProps;

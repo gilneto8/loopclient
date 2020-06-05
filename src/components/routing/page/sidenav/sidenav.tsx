@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 import { faAngleDoubleLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,6 @@ import SidenavBody from './components/sidenav-body/sidenav-body';
 
 type Props = {
   blocking?: boolean;
-  children?: ReactNode;
 };
 
 function getStyle(isOpen: boolean): SerializedStyles {
@@ -47,7 +46,7 @@ function getStyle(isOpen: boolean): SerializedStyles {
   });
 }
 
-const SideNav = React.memo<Props>(({ children, blocking }: Props) => {
+const SideNav = React.memo<Props>(({ children, blocking }) => {
   const {
     selected,
     storeDispatch,
@@ -66,7 +65,7 @@ const SideNav = React.memo<Props>(({ children, blocking }: Props) => {
         icon={selected?.open ? faAngleDoubleLeft : faBars}
         onClick={async () => await storeDispatch(selected?.open ? sidenavThunks.close() : sidenavThunks.open())}
       />
-      <SidenavHeader />
+      <SidenavHeader title={selected?.data?.data.name} />
       <SidenavBody item={selected?.data} />
       {children}
     </div>

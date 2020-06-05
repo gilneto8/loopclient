@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import React  from 'react';
 import { css } from '@emotion/core';
 import SideNav from './sidenav/sidenav';
 
 type Props = {
-  children: () => ReactNode;
   title: string;
+  children?: React.ReactNode;
   focusOnClick?: boolean;
 };
 
@@ -18,12 +18,12 @@ const staticStyle = css({
   },
 });
 
-export const Page = React.memo<Props>((props: Props) => {
+export const Page = React.memo<Props>((props) => {
   return (
     <>
       <div css={staticStyle}>
         <SideNav />
-        <main>{props.children()}</main>
+        <main>{props.children}</main>
       </div>
     </>
   );

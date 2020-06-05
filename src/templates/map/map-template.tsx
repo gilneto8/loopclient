@@ -23,31 +23,29 @@ const MapTemplate = React.memo<Props>(() => {
   const { state, methods } = useMapLogic();
   return (
     <Page title={'Map'}>
-      {() => (
-        <>
-          <Button style={style} onClick={methods.switchMode}>
-            {'Editing - ' + state.editMode}
-          </Button>
-          <Map editMode={state.editMode} viewport={state.viewport} onClick={methods.addMarker}>
-            <LayerManager
+      <>
+        <Button style={style} onClick={methods.switchMode}>
+          {'Editing - ' + state.editMode}
+        </Button>
+        <Map editMode={state.editMode} viewport={state.viewport} onClick={methods.addMarker}>
+          <LayerManager
+            viewMode={!state.editMode}
+            viewport={state.viewport}
+            onViewportChange={methods.updateViewport}
+            onSelect={methods.selectLine}
+            onHover={methods.hoverOnLine}
+            lines={state.lines}
+          >
+            <MarkerList
               viewMode={!state.editMode}
-              viewport={state.viewport}
-              onViewportChange={methods.updateViewport}
-              onSelect={methods.selectLine}
-              onHover={methods.hoverOnLine}
-              lines={state.lines}
-            >
-              <MarkerList
-                viewMode={!state.editMode}
-                markers={state.markers}
-                onHover={methods.hoverOnMarker}
-                onSelect={methods.selectMarker}
-              />
-              <Popup item={state.hovered} />
-            </LayerManager>
-          </Map>
-        </>
-      )}
+              markers={state.markers}
+              onHover={methods.hoverOnMarker}
+              onSelect={methods.selectMarker}
+            />
+            <Popup item={state.hovered} />
+          </LayerManager>
+        </Map>
+      </>
     </Page>
   );
 });

@@ -11,7 +11,7 @@ type Props = {
   onClick: (p: OnClickEventArg) => void;
 };
 
-const Map = React.memo<Props>(({ viewport, mapStyle, editMode, onClick, token, children }: Props) => {
+const Map = React.memo<Props>(({ viewport, mapStyle, editMode, onClick, token, children }) => {
   return (
     <MapGL
       {...viewport}

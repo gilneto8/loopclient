@@ -19,7 +19,7 @@ const style = css({
   },
 });
 
-const Marker = React.memo<Props>(({ marker, onHover, onSelect }: Props) => (
+const Marker = React.memo<Props>(({ marker, onHover, onSelect }) => (
   <ReactMapGLMarker
     latitude={marker.geometry.position[1]}
     longitude={marker.geometry.position[0]}
