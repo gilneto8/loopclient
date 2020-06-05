@@ -8,6 +8,25 @@ import { MarkerProps, MarkerTypes } from '../../logic/shared/map/marker-types';
 import { LineProps, LineTypes } from '../../logic/shared/map/line-types';
 import { loadMap } from '../../logic/shared/map/map-thunks';
 
+const createMarkerObj = (lng: number, lat: number): MarkerProps => ({
+  geometry: { position: [lng, lat, 1] },
+  id: uuidV4(),
+  data: {
+    name: 'New marker',
+    description: '',
+    type: MarkerTypes.POI,
+  },
+});
+const createLineObj = (start: MarkerProps, end: MarkerProps): LineProps => ({
+  id: uuidV4(),
+  geometry: { start, end },
+  data: {
+    name: 'New line',
+    type: LineTypes.PEDESTRIAN,
+    description: '',
+  },
+});
+
 export const useMapLogic = () => {
   const {
     storeDispatch,
@@ -19,7 +38,6 @@ export const useMapLogic = () => {
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
   const [editMode, setEditMode] = useState<boolean>(true);
-  const [lines, setLines] = useState<Array<LineProps>>(map?.lines || []);
   const [hovered, setHovered] = useState<ItemProps>(null);
 
   const switchMode = () => setEditMode(!editMode);
@@ -32,41 +50,15 @@ export const useMapLogic = () => {
     if (!map) throw new Error('No access to state management system.');
 
     const { markers, lines } = map;
-    const [longitude, latitude] = p.lngLat;
-    const lng = +longitude.toFixed(3),
-      lat = +latitude.toFixed(3);
-    const marker: MarkerProps = {
-      geometry: { position: [lng, lat, 1] },
-      id: uuidV4(),
-      data: {
-        name: `New marker (${lng},${lat})`,
-        description: 'Placeholder...',
-        type: MarkerTypes.POI,
-      },
-    };
+    const marker = createMarkerObj(+p.lngLat[0].toFixed(3), +p.lngLat[1].toFixed(3));
     storeDispatch(mapThunks.addMarker(marker));
     const startMarker = lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end;
-    if (markers.length >= 1)
-      storeDispatch(
-        mapThunks.addLine({
-          id: uuidV4(),
-          geometry: {
-            start: startMarker,
-            end: marker,
-          },
-          data: {
-            name: `New line (${startMarker?.data.name}, ${marker.data.name})`,
-            type: LineTypes.PEDESTRIAN,
-            description: 'Placeholder...',
-          },
-        })
-      );
+    if (markers.length >= 1) storeDispatch(mapThunks.addLine(createLineObj(startMarker, marker)));
   };
 
   const selectMarker = async (id: string) => {
     const marker = _.find(map?.markers || [], (m) => m.id === id);
-    if (!marker) return;
-    storeDispatch(sidenavThunks.open(marker));
+    if (marker) storeDispatch(sidenavThunks.open(marker));
   };
 
   const selectLine = async (obj: LineProps) => {
@@ -77,8 +69,7 @@ export const useMapLogic = () => {
     if (!id) setHovered(null);
     else {
       const marker = _.find(map?.markers || [], (m) => m.id === id);
-      if (!marker) return;
-      setHovered(marker);
+      if (marker) setHovered(marker);
     }
   };
 
@@ -90,9 +81,9 @@ export const useMapLogic = () => {
     state: {
       viewport: map?.viewport,
       markers: map?.markers || [],
+      lines: map?.lines || [],
       hovered,
       editMode,
-      lines: map?.lines || [],
     },
     methods: {
       updateViewport,
