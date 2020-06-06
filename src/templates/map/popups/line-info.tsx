@@ -1,11 +1,11 @@
 import React from 'react';
-import { LineProps } from '../../../logic/shared/map/line-types';
+import { LineObj } from '../../../logic/shared/map/line-types';
 import Label from '../../../components/ui/components/simple/Label/label';
 import * as _ from 'lodash';
 import { css } from '@emotion/core';
 
 type Props = {
-  line: LineProps;
+  line: LineObj;
 };
 
 const style = css({});

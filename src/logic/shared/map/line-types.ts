@@ -1,4 +1,4 @@
-import { MarkerProps } from './marker-types';
+import { MarkerObj } from './marker-types';
 import { ItemForm } from './map-types';
 
 export enum LineTypes {
@@ -8,11 +8,11 @@ export enum LineTypes {
   PEDESTRIAN = 'Pedestrian',
 }
 
-export type LineProps = {
+export type LineObj = {
   id: string;
   geometry: {
-    start: MarkerProps;
-    end: MarkerProps;
+    start: MarkerObj;
+    end: MarkerObj;
   };
   data: ItemForm<LineTypes>;
 };

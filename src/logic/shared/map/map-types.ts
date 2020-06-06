@@ -1,8 +1,8 @@
 import { PointerEvent } from 'react-map-gl';
-import { MarkerProps } from './marker-types';
-import { LineProps } from './line-types';
+import { MarkerObj } from './marker-types';
+import { LineObj } from './line-types';
 
-export type ViewportProps = {
+export type Viewport = {
   latitude: number;
   longitude: number;
   zoom: number;
@@ -19,6 +19,8 @@ export type ItemForm<T> = {
   type: T;
 };
 
-export type ItemProps = MarkerProps | LineProps | null;
+export type CoordsObj = [number, number, number];
 
-export type OnClickEventArg = PointerEvent;
+export type MapItemObj = MarkerObj | LineObj;
+
+export type OnClickEvent = PointerEvent;

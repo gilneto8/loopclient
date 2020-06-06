@@ -5,12 +5,12 @@ import { css } from '@emotion/core';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
 import { enumToArray } from '../../../../../../../utils/enums/enum-to-array';
-import { LineProps, LineTypes } from '../../../../../../../logic/shared/map/line-types';
+import { LineObj, LineTypes } from '../../../../../../../logic/shared/map/line-types';
 import { useStoreSelector } from '../../../../../../../logic/store/use-store-selector';
 import { loadMap } from '../../../../../../../logic/shared/map/map-thunks';
 
 type Props = {
-  item: LineProps;
+  item: LineObj;
 };
 
 const style = css({

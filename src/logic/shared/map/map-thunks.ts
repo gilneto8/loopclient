@@ -12,15 +12,15 @@ import {
   UPDATE_MARKER,
   UPDATE_VIEWPORT,
 } from './map-actions';
-import { ViewportProps } from './map-types';
-import { MarkerProps } from './marker-types';
-import { LineProps } from './line-types';
+import { Viewport } from './map-types';
+import { MarkerObj } from './marker-types';
+import { LineObj } from './line-types';
 import { mapReducer } from './map-reducer';
 
 type MapThunkAction<R = void> = StoreThunkActionBase<MapAction, R>;
 
 class MapThunks {
-  updateViewport(data: ViewportProps): MapThunkAction {
+  updateViewport(data: Viewport): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: UPDATE_VIEWPORT,
@@ -29,7 +29,7 @@ class MapThunks {
     };
   }
 
-  addMarker(data: MarkerProps): MapThunkAction {
+  addMarker(data: MarkerObj): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: ADD_MARKER,
@@ -38,7 +38,7 @@ class MapThunks {
     };
   }
 
-  updateMarker(id: string, data: MarkerProps): MapThunkAction {
+  updateMarker(id: string, data: MarkerObj): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: UPDATE_MARKER,
@@ -65,7 +65,7 @@ class MapThunks {
     };
   }
 
-  addLine(data: LineProps): MapThunkAction {
+  addLine(data: LineObj): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: ADD_LINE,
@@ -74,7 +74,7 @@ class MapThunks {
     };
   }
 
-  updateLine(id: string, data: LineProps): MapThunkAction {
+  updateLine(id: string, data: LineObj): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: UPDATE_LINE,

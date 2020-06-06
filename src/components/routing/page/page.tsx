@@ -6,7 +6,6 @@ import { Helmet } from 'react-helmet';
 type Props = {
   title: string;
   children?: React.ReactNode;
-  focusOnClick?: boolean;
 };
 
 const staticStyle = css({

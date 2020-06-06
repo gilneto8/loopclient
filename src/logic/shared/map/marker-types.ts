@@ -1,4 +1,4 @@
-import { ItemForm } from './map-types';
+import { CoordsObj, ItemForm } from "./map-types"
 
 export enum MarkerTypes {
   HOTEL = 'Hotel',
@@ -7,10 +7,10 @@ export enum MarkerTypes {
   TRANSPORT = 'Transportation',
 }
 
-export type MarkerProps = {
+export type MarkerObj = {
   id: string;
   geometry: {
-    position: [number, number, number];
+    position: CoordsObj;
   };
   data: ItemForm<MarkerTypes>;
 };

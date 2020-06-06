@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { ItemProps, OnClickEventArg, ViewportProps } from '../../logic/shared/map/map-types';
+import { MapItemObj, OnClickEvent, Viewport } from '../../logic/shared/map/map-types';
 import { useStoreSelector } from '../../logic/store/use-store-selector';
 import { loadSidenav } from '../../logic/shared/sidenav/sidenav-thunks';
-import { MarkerProps, MarkerTypes } from '../../logic/shared/map/marker-types';
-import { LineProps, LineTypes } from '../../logic/shared/map/line-types';
+import { MarkerObj, MarkerTypes } from '../../logic/shared/map/marker-types';
+import { LineObj, LineTypes } from '../../logic/shared/map/line-types';
 import { loadMap } from '../../logic/shared/map/map-thunks';
 
-const createMarkerObj = (lng: number, lat: number): MarkerProps => ({
+const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },
   id: uuidV4(),
   data: {
@@ -17,13 +17,13 @@ const createMarkerObj = (lng: number, lat: number): MarkerProps => ({
     type: MarkerTypes.POI,
   },
 });
-const createLineObj = (start: MarkerProps, end: MarkerProps): LineProps => ({
+const createLineObj = (start: MarkerObj, end: MarkerObj): LineObj => ({
   id: uuidV4(),
   geometry: { start, end },
   data: {
     name: 'New line',
-    type: LineTypes.PEDESTRIAN,
     description: '',
+    type: LineTypes.PEDESTRIAN,
   },
 });
 
@@ -38,18 +38,18 @@ export const useMapLogic = () => {
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
   const [editMode, setEditMode] = useState<boolean>(true);
-  const [hovered, setHovered] = useState<ItemProps>(null);
+  const [hovered, setHovered] = useState<MapItemObj | undefined>(undefined);
 
   const switchMode = () => {
     setEditMode(!editMode);
     storeDispatch(mapThunks.unselect());
   };
 
-  const updateViewport = async (vp: ViewportProps) => {
+  const updateViewport = async (vp: Viewport) => {
     storeDispatch(mapThunks.updateViewport(vp));
   };
 
-  const addMarker = (p: OnClickEventArg) => {
+  const addMarker = (p: OnClickEvent) => {
     if (!map) throw new Error('No access to state management system.');
 
     const { markers, lines } = map;
@@ -67,22 +67,22 @@ export const useMapLogic = () => {
     }
   };
 
-  const selectLine = async (obj: LineProps) => {
+  const selectLine = async (obj: LineObj) => {
     if (obj) {
       storeDispatch(sidenavThunks.open(obj));
       storeDispatch(mapThunks.selectLine(obj.id));
     }
   };
 
-  const hoverOnMarker = (id: string | null) => {
-    if (!id) setHovered(null);
+  const hoverOnMarker = (id?: string) => {
+    if (!id) setHovered(undefined);
     else {
       const marker = _.find(map?.markers || [], (m) => m.id === id);
       if (marker) setHovered(marker);
     }
   };
 
-  const hoverOnLine = (obj: LineProps) => {
+  const hoverOnLine = (obj: LineObj) => {
     setHovered(obj);
   };
 

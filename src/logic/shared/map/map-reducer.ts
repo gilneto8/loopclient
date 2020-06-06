@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
-import { ViewportProps } from './map-types';
-import { MarkerProps } from './marker-types';
-import { LineProps } from './line-types';
+import { Viewport } from './map-types';
+import { MarkerObj } from './marker-types';
+import { LineObj } from './line-types';
 import {
   ADD_LINE,
   ADD_MARKER,
@@ -18,10 +18,10 @@ import {
 import * as _ from 'lodash';
 
 export type MapStoreState = {
-  viewport: ViewportProps;
-  markers: Array<MarkerProps>;
-  lines: Array<LineProps>;
-  selected?: MarkerProps | LineProps;
+  viewport: Viewport;
+  markers: Array<MarkerObj>;
+  lines: Array<LineObj>;
+  selected?: MarkerObj | LineObj;
 };
 
 export type MapReducer = Reducer<MapStoreState, MapAction>;

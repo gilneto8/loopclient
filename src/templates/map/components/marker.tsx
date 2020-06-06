@@ -1,19 +1,19 @@
 import React from 'react';
 import { Marker as ReactMapGLMarker } from 'react-map-gl';
 import { css } from '@emotion/core';
-import { MarkerProps } from '../../../logic/shared/map/marker-types';
+import { MarkerObj } from '../../../logic/shared/map/marker-types';
 import MarkerPoint from '../../../assets/images/marker';
 
 type Props = {
-  marker: MarkerProps;
-  onHover: (id: string | null) => void;
+  marker: MarkerObj;
+  onHover: (id?: string) => void;
   onSelect: (id: string) => void;
   children?: React.ReactNode;
   selected?: boolean;
   hovered?: boolean;
 };
 
-const style = (h: boolean | undefined, s: boolean | undefined) =>
+const style = (h?: boolean, s?: boolean) =>
   css({
     cursor: 'pointer',
     '& > svg': {
@@ -35,7 +35,7 @@ const Marker = React.memo<Props>(({ marker, onHover, onSelect, hovered, selected
     >
       <div
         css={style(hovered, selected)}
-        onMouseLeave={() => onHover(null)}
+        onMouseLeave={() => onHover()}
         onMouseEnter={() => onHover(marker.id)}
         onClick={() => onSelect(marker.id)}
       >

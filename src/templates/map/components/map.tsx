@@ -1,14 +1,14 @@
 import React from 'react';
 import MapGL from 'react-map-gl';
-import { OnClickEventArg, ViewportProps } from '../../../logic/shared/map/map-types';
+import { OnClickEvent, Viewport } from '../../../logic/shared/map/map-types';
 
 type Props = {
-  viewport: ViewportProps | undefined;
+  viewport: Viewport | undefined;
   mapStyle?: string;
   token?: string;
   editMode?: boolean;
   children?: React.ReactNode;
-  onClick: (p: OnClickEventArg) => void;
+  onClick: (p: OnClickEvent) => void;
 };
 
 const Map = React.memo<Props>(({ viewport, mapStyle, editMode, onClick, token, children }) => {

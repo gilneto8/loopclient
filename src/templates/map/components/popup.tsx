@@ -1,16 +1,16 @@
 import React from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
-import { ItemProps } from '../../../logic/shared/map/map-types';
+import { MapItemObj } from '../../../logic/shared/map/map-types';
 import { lineMidpoint } from '../../../utils/functions/line-midpoint';
 import LineInfo from '../popups/line-info';
 import MarkerInfo from '../popups/marker-info';
 import { isMarker } from '../../../utils/functions/is-marker';
 import { css } from '@emotion/core';
-import { LineProps } from '../../../logic/shared/map/line-types';
-import { MarkerProps } from '../../../logic/shared/map/marker-types';
+import { LineObj } from '../../../logic/shared/map/line-types';
+import { MarkerObj } from '../../../logic/shared/map/marker-types';
 
 type Props = {
-  item: ItemProps;
+  item?: MapItemObj;
 };
 
 const style = css({
@@ -22,7 +22,7 @@ const style = css({
 const Popup = React.memo<Props>(({ item }) => {
   if (!item) return <></>;
   if (isMarker(item)) {
-    const marker = item as MarkerProps;
+    const marker = item as MarkerObj;
     return (
       <ReactMapGLPopup
         tipSize={5}
@@ -38,7 +38,7 @@ const Popup = React.memo<Props>(({ item }) => {
       </ReactMapGLPopup>
     );
   }
-  const line = item as LineProps;
+  const line = item as LineObj;
   const midpoint = lineMidpoint(line);
   return (
     <ReactMapGLPopup

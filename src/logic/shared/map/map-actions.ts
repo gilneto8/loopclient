@@ -1,6 +1,6 @@
-import { ViewportProps } from './map-types';
-import { MarkerProps } from './marker-types';
-import { LineProps } from './line-types';
+import { Viewport } from './map-types';
+import { MarkerObj } from './marker-types';
+import { LineObj } from './line-types';
 
 export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT';
 export const ADD_MARKER = 'ADD_MARKER';
@@ -16,14 +16,14 @@ export const UNSELECT = 'UNSELECT';
 export type MapAction =
   | {
       type: typeof UPDATE_VIEWPORT;
-      payload: ViewportProps;
+      payload: Viewport;
     }
-  | { type: typeof ADD_MARKER; payload: MarkerProps }
+  | { type: typeof ADD_MARKER; payload: MarkerObj }
   | { type: typeof REMOVE_MARKER; payload: string }
-  | { type: typeof UPDATE_MARKER; payload: { id: string; data: MarkerProps } }
+  | { type: typeof UPDATE_MARKER; payload: { id: string; data: MarkerObj } }
   | { type: typeof SELECT_MARKER; payload: string }
-  | { type: typeof ADD_LINE; payload: LineProps }
+  | { type: typeof ADD_LINE; payload: LineObj }
   | { type: typeof REMOVE_LINE; payload: string }
-  | { type: typeof UPDATE_LINE; payload: { id: string; data: LineProps } }
+  | { type: typeof UPDATE_LINE; payload: { id: string; data: LineObj } }
   | { type: typeof SELECT_LINE; payload: string }
   | { type: typeof UNSELECT };

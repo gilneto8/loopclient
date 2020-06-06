@@ -1,27 +1,27 @@
 import React from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
-import { ItemProps, ViewportProps } from '../../../logic/shared/map/map-types';
-import { LineProps } from '../../../logic/shared/map/line-types';
+import { MapItemObj, Viewport } from '../../../logic/shared/map/map-types';
+import { LineObj } from '../../../logic/shared/map/line-types';
 
 type Props = {
-  viewport: ViewportProps | undefined;
+  viewport?: Viewport;
   viewMode?: boolean;
   children?: React.ReactNode;
-  onViewportChange: (vp: ViewportProps) => void;
-  onHover: (obj: LineProps) => void;
-  onSelect: (obj: LineProps) => void;
-  lines: Array<LineProps>;
-  selected?: ItemProps;
-  hovered?: ItemProps;
+  onViewportChange: (vp: Viewport) => void;
+  onHover: (obj: LineObj) => void;
+  onSelect: (obj: LineObj) => void;
+  lines: Array<LineObj>;
+  selected?: MapItemObj;
+  hovered?: MapItemObj;
 };
 
-function getColor(hovered: boolean | undefined, selected: boolean | undefined): [number, number, number] {
+function getColor(hovered?: boolean, selected?: boolean): [number, number, number] {
   if (selected) return [255, 73, 73];
   if (hovered) return [178, 34, 34];
   return [139, 0, 0];
 }
 
-function getWidth(hovered: boolean | undefined, selected: boolean | undefined): number {
+function getWidth(hovered?: boolean, selected?: boolean): number {
   if (selected) return 4;
   return 2;
 }

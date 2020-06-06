@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
-import { ItemProps } from '../../../../../../logic/shared/map/map-types';
+import { MapItemObj } from '../../../../../../logic/shared/map/map-types';
 import MarkerForm from './components/marker-form';
 import { isMarker } from '../../../../../../utils/functions/is-marker';
-import { MarkerProps } from '../../../../../../logic/shared/map/marker-types';
-import { LineProps } from '../../../../../../logic/shared/map/line-types';
+import { MarkerObj } from '../../../../../../logic/shared/map/marker-types';
+import { LineObj } from '../../../../../../logic/shared/map/line-types';
 import LineForm from './components/line-form';
 
 type Props = {
-  item: ItemProps | undefined;
+  item: MapItemObj | undefined;
 };
 
 enum FormTypes {
@@ -16,7 +16,7 @@ enum FormTypes {
   line,
 }
 
-function filterItem(item: ItemProps | undefined): FormTypes {
+function filterItem({ item }: Props): FormTypes {
   if (!item) return FormTypes.none;
   else {
     if (isMarker(item)) return FormTypes.marker;
@@ -25,7 +25,7 @@ function filterItem(item: ItemProps | undefined): FormTypes {
 }
 
 const SidenavBody = (props: Props) => {
-  const memoizedType = useMemo<FormTypes>(() => filterItem(props.item), [props.item]);
+  const memoizedType = useMemo<FormTypes>(() => filterItem(props), [props.item]);
   return (
     <div>
       {(() => {
@@ -33,10 +33,10 @@ const SidenavBody = (props: Props) => {
           case FormTypes.none:
             return <></>;
           case FormTypes.marker:
-            return <MarkerForm item={props.item as MarkerProps} />;
+            return <MarkerForm item={props.item as MarkerObj} />;
           case FormTypes.line:
           default:
-            return <LineForm item={props.item as LineProps} />;
+            return <LineForm item={props.item as LineObj} />;
         }
       })()}
     </div>

@@ -5,12 +5,12 @@ import { css } from '@emotion/core';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
 import { enumToArray } from '../../../../../../../utils/enums/enum-to-array';
-import { MarkerProps, MarkerTypes } from '../../../../../../../logic/shared/map/marker-types';
+import { MarkerObj, MarkerTypes } from '../../../../../../../logic/shared/map/marker-types';
 import { useStoreSelector } from '../../../../../../../logic/store/use-store-selector';
 import { loadMap } from '../../../../../../../logic/shared/map/map-thunks';
 
 type Props = {
-  item: MarkerProps;
+  item: MarkerObj;
 };
 
 const style = css({
