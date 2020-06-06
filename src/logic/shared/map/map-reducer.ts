@@ -8,6 +8,9 @@ import {
   MapAction,
   REMOVE_LINE,
   REMOVE_MARKER,
+  SELECT_LINE,
+  SELECT_MARKER,
+  UNSELECT,
   UPDATE_LINE,
   UPDATE_MARKER,
   UPDATE_VIEWPORT,
@@ -18,6 +21,7 @@ export type MapStoreState = {
   viewport: ViewportProps;
   markers: Array<MarkerProps>;
   lines: Array<LineProps>;
+  selected?: MarkerProps | LineProps;
 };
 
 export type MapReducer = Reducer<MapStoreState, MapAction>;
@@ -32,6 +36,7 @@ const initialState: MapStoreState = {
   },
   markers: [],
   lines: [],
+  selected: undefined,
 };
 
 export const mapReducer: MapReducer = (state = initialState, action) => {
@@ -42,6 +47,8 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
       return { ...state, markers: _.concat(state.markers, action.payload) };
     case UPDATE_MARKER:
       return { ...state, markers: _.map(state.markers, (m) => (m.id === action.payload.id ? action.payload.data : m)) };
+    case SELECT_MARKER:
+      return { ...state, selected: _.find(state.markers, (m) => m.id === action.payload) };
     case REMOVE_MARKER:
       return { ...state, markers: _.filter(state.markers, (m) => m.id === action.payload) };
     case ADD_LINE:
@@ -50,6 +57,10 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
       return { ...state, lines: _.map(state.lines, (m) => (m.id === action.payload.id ? action.payload.data : m)) };
     case REMOVE_LINE:
       return { ...state, lines: _.filter(state.lines, (m) => m.id === action.payload) };
+    case SELECT_LINE:
+      return { ...state, selected: _.find(state.lines, (m) => m.id === action.payload) };
+    case UNSELECT:
+      return { ...state, selected: undefined };
     default:
       return state;
   }

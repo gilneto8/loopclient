@@ -5,6 +5,9 @@ import {
   MapAction,
   REMOVE_LINE,
   REMOVE_MARKER,
+  SELECT_LINE,
+  SELECT_MARKER,
+  UNSELECT,
   UPDATE_LINE,
   UPDATE_MARKER,
   UPDATE_VIEWPORT,
@@ -12,7 +15,7 @@ import {
 import { ViewportProps } from './map-types';
 import { MarkerProps } from './marker-types';
 import { LineProps } from './line-types';
-import { mapReducer } from "./map-reducer"
+import { mapReducer } from './map-reducer';
 
 type MapThunkAction<R = void> = StoreThunkActionBase<MapAction, R>;
 
@@ -53,6 +56,15 @@ class MapThunks {
     };
   }
 
+  selectMarker(id: string): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: SELECT_MARKER,
+        payload: id,
+      });
+    };
+  }
+
   addLine(data: LineProps): MapThunkAction {
     return async (dispatch) => {
       dispatch({
@@ -76,6 +88,23 @@ class MapThunks {
       dispatch({
         type: REMOVE_LINE,
         payload: id,
+      });
+    };
+  }
+
+  selectLine(id: string): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: SELECT_LINE,
+        payload: id,
+      });
+    };
+  }
+
+  unselect(): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: UNSELECT,
       });
     };
   }

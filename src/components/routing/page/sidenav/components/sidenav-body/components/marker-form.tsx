@@ -35,7 +35,7 @@ const MarkerForm = (props: Props) => {
 
   const onSubmit = (data: ItemForm<MarkerTypes>) => {
     const updatedItem = _.set(props.item, 'data', data);
-    storeDispatch(mapThunks.updateMarker(updatedItem.id, updatedItem as MarkerProps));
+    storeDispatch(mapThunks.updateMarker(updatedItem.id, updatedItem));
   };
 
   return (

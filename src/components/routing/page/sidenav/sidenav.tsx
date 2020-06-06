@@ -7,6 +7,7 @@ import SidenavHeader from './components/sidenav-header/sidenav-header';
 import { useStoreSelector } from '../../../../logic/store/use-store-selector';
 import { loadSidenav } from '../../../../logic/shared/sidenav/sidenav-thunks';
 import SidenavBody from './components/sidenav-body/sidenav-body';
+import { loadMap } from '../../../../logic/shared/map/map-thunks';
 
 type Props = {
   blocking?: boolean;
@@ -52,18 +53,30 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
     storeDispatch,
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), (storeState) => storeState.sidenav);
+  const {
+    thunkResult: { mapThunks },
+  } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
   const memoizedStyle = useMemo(() => getStyle(selected?.open || false), [selected]);
 
+  const open = () => {
+    storeDispatch(sidenavThunks.open());
+  };
+
+  const close = () => {
+    storeDispatch(sidenavThunks.close());
+    storeDispatch(mapThunks.unselect());
+  };
+
   return (
     <div css={memoizedStyle}>
-      {blocking && <div id={'overlay'} onClick={async () => await storeDispatch(sidenavThunks.close())} />}
+      {blocking && <div id={'overlay'} onClick={close} />}
       <FontAwesomeIcon
         color={'white'}
         size={'sm'}
         rotation={selected?.open ? undefined : 180}
         icon={selected?.open ? faAngleDoubleLeft : faBars}
-        onClick={async () => await storeDispatch(selected?.open ? sidenavThunks.close() : sidenavThunks.open())}
+        onClick={() => (selected?.open ? close() : open())}
       />
       <SidenavHeader />
       <SidenavBody item={selected?.data} />

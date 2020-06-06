@@ -39,11 +39,10 @@ export const useMapLogic = () => {
 
   const [editMode, setEditMode] = useState<boolean>(true);
   const [hovered, setHovered] = useState<ItemProps>(null);
-  const [selected, setSelected] = useState<ItemProps>(null);
 
   const switchMode = () => {
     setEditMode(!editMode);
-    setSelected(null);
+    storeDispatch(mapThunks.unselect());
   };
 
   const updateViewport = async (vp: ViewportProps) => {
@@ -64,14 +63,14 @@ export const useMapLogic = () => {
     const marker = _.find(map?.markers || [], (m) => m.id === id);
     if (marker) {
       storeDispatch(sidenavThunks.open(marker));
-      setSelected(marker);
+      storeDispatch(mapThunks.selectMarker(marker.id));
     }
   };
 
   const selectLine = async (obj: LineProps) => {
     if (obj) {
       storeDispatch(sidenavThunks.open(obj));
-      setSelected(obj);
+      storeDispatch(mapThunks.selectLine(obj.id));
     }
   };
 
@@ -92,8 +91,8 @@ export const useMapLogic = () => {
       viewport: map?.viewport,
       markers: map?.markers || [],
       lines: map?.lines || [],
+      selected: map?.selected,
       hovered,
-      selected,
       editMode,
     },
     methods: {
