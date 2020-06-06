@@ -8,7 +8,9 @@ import { enumToArray } from '../../../utils/enums/enum-to-array';
 import { LineObj, LineTypes } from '../../../logic/features/map/line-types';
 import { useStoreSelector } from '../../../logic/shared/store/use-store-selector';
 import { loadMap } from '../../../logic/features/map/map-thunks';
-import Button from "../../../components/ui/components/simple/Button/button"
+import Button from '../../../components/ui/components/simple/Button/button';
+import Select from '../../../components/ui/components/simple/Select/select';
+import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
 
 type Props = {
   item: LineObj;
@@ -42,23 +44,11 @@ const LineForm = (props: Props) => {
   return (
     <div css={style}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div css={style} key={'name'}>
-          <Label paddings={[20, 0, 0, 0]}>{'Name'}</Label>
-          <input name={'name'} ref={register} />
-        </div>
-        <div css={style} key={'description'}>
-          <Label paddings={[20, 0, 0, 0]}>{'Description'}</Label>
-          <input name={'description'} ref={register} />
-        </div>
+        <LabelledInput name={'name'} first refFn={register} />
+        <LabelledInput name={'description'} refFn={register} />
         <div css={style} key={'type'}>
           <Label paddings={[20, 0, 0, 0]}>{'Type'}</Label>
-          <select name={'type'} ref={register}>
-            {enumToArray(LineTypes).map((val) => (
-              <option key={val} value={val}>
-                {val}
-              </option>
-            ))}
-          </select>
+          <Select name={'type'} refFn={register} options={enumToArray(LineTypes)} />
         </div>
         <Button type={'submit'}>Submit</Button>
       </form>

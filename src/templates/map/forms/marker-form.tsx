@@ -9,6 +9,7 @@ import { MarkerObj, MarkerTypes } from '../../../logic/features/map/marker-types
 import { useStoreSelector } from '../../../logic/shared/store/use-store-selector';
 import { loadMap } from '../../../logic/features/map/map-thunks';
 import Button from "../../../components/ui/components/simple/Button/button"
+import LabelledInput from "../../../components/ui/components/complex/LabelledInput/labelled-input"
 
 type Props = {
   item: MarkerObj;
@@ -42,14 +43,8 @@ const MarkerForm = (props: Props) => {
   return (
     <div css={style}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div css={style} key={'name'}>
-          <Label paddings={[20, 0, 0, 0]}>{'Name'}</Label>
-          <input name={'name'} ref={register} />
-        </div>
-        <div css={style} key={'description'}>
-          <Label paddings={[20, 0, 0, 0]}>{'Description'}</Label>
-          <input name={'description'} ref={register} />
-        </div>
+        <LabelledInput name={'name'} first refFn={register} />
+        <LabelledInput name={'description'} refFn={register} />
         <div css={style} key={'type'}>
           <Label paddings={[20, 0, 0, 0]}>{'Type'}</Label>
           <select name={'type'} ref={register}>

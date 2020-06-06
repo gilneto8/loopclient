@@ -1,4 +1,6 @@
 import React, { CSSProperties } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type ButtonProps = {
   title?: string;
@@ -10,21 +12,15 @@ type ButtonProps = {
   style?: CSSProperties;
   text?: string;
   children?: React.ReactNode[] | string;
+  icon?: IconProp;
 };
 
 function Button(props: ButtonProps) {
+  const { title, disabled, style, type, onClick, icon, text, children } = props;
   return (
-    <button
-      title={props.title}
-      disabled={props.disabled}
-      style={props.style}
-      type={props.type}
-      onClick={props.onClick}
-    >
-      {/*{props.icon &&
-      <FontAwesomeIcon icon={props.icon} />
-      }*/}
-      {props.text || props.children}
+    <button title={title} disabled={disabled} style={style} type={type} onClick={onClick}>
+      {icon && <FontAwesomeIcon icon={icon} />}
+      {text || children}
     </button>
   );
 }

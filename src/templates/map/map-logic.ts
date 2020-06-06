@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
-import { v4 as uuidV4 } from 'uuid';
 import { MapItemObj, OnClickEvent, Viewport } from '../../logic/features/map/map-types';
 import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
 import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
 import { MarkerObj, MarkerTypes } from '../../logic/features/map/marker-types';
 import { LineObj, LineTypes } from '../../logic/features/map/line-types';
 import { loadMap } from '../../logic/features/map/map-thunks';
+import { id } from "../../utils/functions/create-local-id"
 
 const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },
-  id: uuidV4(),
+  id: id(10),
   data: {
     name: 'New marker',
     description: '',
@@ -18,7 +18,7 @@ const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   },
 });
 const createLineObj = (start: MarkerObj, end: MarkerObj): LineObj => ({
-  id: uuidV4(),
+  id: id(10),
   geometry: { start, end },
   data: {
     name: 'New line',
