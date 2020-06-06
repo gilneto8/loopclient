@@ -10,12 +10,9 @@ import z from '../../components/ui/constants/z-indexes';
 
 const style: CSSProperties = {
   position: 'absolute',
-  backgroundColor: 'black',
-  color: 'white',
   top: 15,
   right: 15,
   zIndex: z.MAP.general.v,
-  fontWeight: "lighter"
 };
 
 type Props = {};

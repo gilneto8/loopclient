@@ -6,7 +6,7 @@ type ButtonProps = {
   filled?: boolean;
   fullWidth?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
-  onClick: (evt: React.FormEvent<HTMLButtonElement>) => void;
+  onClick?: (evt: React.FormEvent<HTMLButtonElement>) => void;
   style?: CSSProperties;
   text?: string;
   children?: React.ReactNode[] | string;

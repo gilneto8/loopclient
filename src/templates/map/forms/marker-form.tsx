@@ -8,6 +8,7 @@ import { enumToArray } from '../../../utils/enums/enum-to-array';
 import { MarkerObj, MarkerTypes } from '../../../logic/features/map/marker-types';
 import { useStoreSelector } from '../../../logic/shared/store/use-store-selector';
 import { loadMap } from '../../../logic/features/map/map-thunks';
+import Button from "../../../components/ui/components/simple/Button/button"
 
 type Props = {
   item: MarkerObj;
@@ -15,7 +16,7 @@ type Props = {
 
 const style = css({
   paddingLeft: 15,
-  '& > form > input': {
+  '& > form > button': {
     marginTop: 20,
   },
 });
@@ -59,7 +60,7 @@ const MarkerForm = (props: Props) => {
             ))}
           </select>
         </div>
-        <input type={'submit'} />
+        <Button type={'submit'}>Submit</Button>
       </form>
     </div>
   );
