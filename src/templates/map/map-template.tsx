@@ -35,12 +35,16 @@ const MapTemplate = React.memo<Props>(() => {
             onSelect={methods.selectLine}
             onHover={methods.hoverOnLine}
             lines={state.lines}
+            selected={state.selected}
+            hovered={state.hovered}
           >
             <MarkerList
               viewMode={!state.editMode}
               markers={state.markers}
               onHover={methods.hoverOnMarker}
               onSelect={methods.selectMarker}
+              selected={state.selected}
+              hovered={state.hovered}
             />
             <Popup item={state.hovered} />
           </LayerManager>
