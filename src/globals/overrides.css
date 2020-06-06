@@ -1,7 +1,7 @@
-* {
-  font-size: 14px;
-}
-
 body {
   margin: 0;
+}
+
+body, button, input, label {
+  font-family: 'Barlow', 'Helvetica', 'Arial', sans-serif;
 }

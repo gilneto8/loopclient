@@ -9,8 +9,8 @@ type Props = {
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
   viewMode?: boolean;
-  selected: ItemProps;
-  hovered: ItemProps;
+  selected?: ItemProps;
+  hovered?: ItemProps;
 };
 const MarkerList = React.memo<Props>(({ markers, onHover, onSelect, hovered, selected, viewMode }) => {
   return (

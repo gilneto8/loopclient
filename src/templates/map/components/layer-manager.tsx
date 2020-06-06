@@ -11,8 +11,8 @@ type Props = {
   onHover: (obj: LineProps) => void;
   onSelect: (obj: LineProps) => void;
   lines: Array<LineProps>;
-  selected: ItemProps;
-  hovered: ItemProps;
+  selected?: ItemProps;
+  hovered?: ItemProps;
 };
 
 function getColor(hovered: boolean | undefined, selected: boolean | undefined): [number, number, number] {

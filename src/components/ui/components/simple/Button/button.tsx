@@ -17,12 +17,6 @@ function Button(props: ButtonProps) {
     <button
       title={props.title}
       disabled={props.disabled}
-      className={
-        'btn ' +
-        (props.disabled ? ' disabled' : '') +
-        (props.filled ? ' btn-secondary' : 'btn-outline-secondary') +
-        (props.fullWidth ? ' _full-width' : '')
-      }
       style={props.style}
       type={props.type}
       onClick={props.onClick}

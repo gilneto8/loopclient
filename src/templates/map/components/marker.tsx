@@ -2,7 +2,7 @@ import React from 'react';
 import { Marker as ReactMapGLMarker } from 'react-map-gl';
 import { css } from '@emotion/core';
 import { MarkerProps } from '../../../logic/shared/map/marker-types';
-import MarkerPoint from '../../../images/marker';
+import MarkerPoint from '../../../assets/images/marker';
 
 type Props = {
   marker: MarkerProps;

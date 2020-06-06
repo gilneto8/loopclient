@@ -15,6 +15,7 @@ const style: CSSProperties = {
   top: 15,
   right: 15,
   zIndex: z.MAP.general.v,
+  fontWeight: "lighter"
 };
 
 type Props = {};
