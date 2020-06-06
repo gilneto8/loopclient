@@ -2,7 +2,7 @@ import React from 'react';
 import Marker from './marker';
 import { MarkerProps } from '../../../logic/shared/map/marker-types';
 import { ItemProps } from '../../../logic/shared/map/map-types';
-import { isMarker } from "../../../utils/functions/is-marker"
+import { isMarker } from '../../../utils/functions/is-marker';
 
 type Props = {
   markers: Array<MarkerProps>;

@@ -1,6 +1,6 @@
 import { PointerEvent } from 'react-map-gl';
-import { MarkerProps } from "./marker-types"
-import { LineProps } from "./line-types"
+import { MarkerProps } from './marker-types';
+import { LineProps } from './line-types';
 
 export type ViewportProps = {
   latitude: number;

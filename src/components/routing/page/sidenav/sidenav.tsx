@@ -16,7 +16,7 @@ type Props = {
 function getStyle(isOpen: boolean): SerializedStyles {
   return css({
     transition: 'all .3s',
-    paddingRight: 45,
+    marginRight: 45,
     backgroundColor: '#142430',
     width: 300,
     height: '100%',

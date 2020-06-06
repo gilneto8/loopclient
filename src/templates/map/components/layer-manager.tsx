@@ -51,8 +51,8 @@ const LayerManager = React.memo<Props>(
             getWidth: (obj) => getWidth(hovered?.id === obj.id, selected?.id === obj.id),
             updateTriggers: {
               getColor: [hovered, selected],
-              getWidth: [hovered, selected]
-            }
+              getWidth: [hovered, selected],
+            },
           }),
         ]}
       >

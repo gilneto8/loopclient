@@ -5,11 +5,7 @@ type Props = {
 };
 
 const SidenavHeader = React.memo<Props>((props) => {
-  return (
-    <div>
-      {/*PLACEHOLDER*/}
-    </div>
-  );
+  return <div>{/*PLACEHOLDER*/}</div>;
 });
 
 export default SidenavHeader;

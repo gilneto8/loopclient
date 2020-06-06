@@ -1,5 +1,5 @@
-import { MarkerProps } from "./marker-types"
-import { ItemForm } from "./map-types"
+import { MarkerProps } from './marker-types';
+import { ItemForm } from './map-types';
 
 export enum LineTypes {
   TRAIN = 'Train',

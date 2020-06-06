@@ -1,6 +1,4 @@
-import { ItemForm } from "./map-types"
-
-
+import { ItemForm } from './map-types';
 
 export enum MarkerTypes {
   HOTEL = 'Hotel',

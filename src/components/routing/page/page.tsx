@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { css } from '@emotion/core';
 import SideNav from './sidenav/sidenav';
 

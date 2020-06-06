@@ -2,7 +2,7 @@ export default {
   PAGE: {
     overlay: {
       v: 1050,
-    }
+    },
   },
   MAP: {
     general: {
