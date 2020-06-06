@@ -21,6 +21,11 @@ function getColor(hovered: boolean | undefined, selected: boolean | undefined): 
   return [139, 0, 0];
 }
 
+function getWidth(hovered: boolean | undefined, selected: boolean | undefined): number {
+  if (selected) return 4;
+  return 2;
+}
+
 const LayerManager = React.memo<Props>(
   ({ viewMode, viewport, onViewportChange, onHover, onSelect, hovered, selected, lines, children }) => {
     return (
@@ -43,9 +48,10 @@ const LayerManager = React.memo<Props>(
             getSourcePosition: (d) => d.geometry.start.geometry.position,
             getTargetPosition: (d) => d.geometry.end.geometry.position,
             getColor: (obj) => getColor(hovered?.id === obj.id, selected?.id === obj.id),
-            getWidth: 2,
+            getWidth: (obj) => getWidth(hovered?.id === obj.id, selected?.id === obj.id),
             updateTriggers: {
-              getColor: [hovered, selected]
+              getColor: [hovered, selected],
+              getWidth: [hovered, selected]
             }
           }),
         ]}
