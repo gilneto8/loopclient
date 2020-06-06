@@ -4,10 +4,10 @@ import { faAngleDoubleLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import z from '../../../ui/constants/z-indexes';
 import SidenavHeader from './components/sidenav-header/sidenav-header';
-import { useStoreSelector } from '../../../../logic/store/use-store-selector';
-import { loadSidenav } from '../../../../logic/shared/sidenav/sidenav-thunks';
+import { useStoreSelector } from '../../../../logic/shared/store/use-store-selector';
+import { loadSidenav } from '../../../../logic/features/sidenav/sidenav-thunks';
 import SidenavBody from './components/sidenav-body/sidenav-body';
-import { loadMap } from '../../../../logic/shared/map/map-thunks';
+import { loadMap } from '../../../../logic/features/map/map-thunks';
 import { hold } from '../../../../utils/functions/hold';
 
 type Props = {

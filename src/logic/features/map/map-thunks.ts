@@ -1,4 +1,4 @@
-import { StoreThunkActionBase } from '../../store/store-types';
+import { StoreThunkActionBase } from '../../shared/store/store-types';
 import {
   ADD_LINE,
   ADD_MARKER,

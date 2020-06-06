@@ -1,13 +1,13 @@
 import React from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
-import { MapItemObj } from '../../../logic/shared/map/map-types';
+import { MapItemObj } from '../../../logic/features/map/map-types';
 import { lineMidpoint } from '../../../utils/functions/line-midpoint';
 import LineInfo from '../popups/line-info';
 import MarkerInfo from '../popups/marker-info';
 import { isMarker } from '../../../utils/functions/is-marker';
 import { css } from '@emotion/core';
-import { LineObj } from '../../../logic/shared/map/line-types';
-import { MarkerObj } from '../../../logic/shared/map/marker-types';
+import { LineObj } from '../../../logic/features/map/line-types';
+import { MarkerObj } from '../../../logic/features/map/marker-types';
 
 type Props = {
   item?: MapItemObj;

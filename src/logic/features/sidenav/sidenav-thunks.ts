@@ -1,4 +1,4 @@
-import { StoreThunkActionBase } from '../../store/store-types';
+import { StoreThunkActionBase } from '../../shared/store/store-types';
 import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_RESET, SIDENAV_UPDATE, SidenavAction } from "./sidenav-actions"
 import { sidenavReducer } from './sidenav-reducer';
 import { MarkerObj } from '../map/marker-types';

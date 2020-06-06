@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import { MapItemObj } from '../../../../../../logic/shared/map/map-types';
-import MarkerForm from './components/marker-form';
+import { MapItemObj } from '../../../../../../logic/features/map/map-types';
+import MarkerForm from '../../../../../../templates/map/forms/marker-form';
 import { isMarker } from '../../../../../../utils/functions/is-marker';
-import { MarkerObj } from '../../../../../../logic/shared/map/marker-types';
-import { LineObj } from '../../../../../../logic/shared/map/line-types';
-import LineForm from './components/line-form';
+import { MarkerObj } from '../../../../../../logic/features/map/marker-types';
+import { LineObj } from '../../../../../../logic/features/map/line-types';
+import LineForm from '../../../../../../templates/map/forms/line-form';
 
 type Props = {
   item: MapItemObj | undefined;

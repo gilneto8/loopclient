@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
-import { MapItemObj, OnClickEvent, Viewport } from '../../logic/shared/map/map-types';
-import { useStoreSelector } from '../../logic/store/use-store-selector';
-import { loadSidenav } from '../../logic/shared/sidenav/sidenav-thunks';
-import { MarkerObj, MarkerTypes } from '../../logic/shared/map/marker-types';
-import { LineObj, LineTypes } from '../../logic/shared/map/line-types';
-import { loadMap } from '../../logic/shared/map/map-thunks';
+import { MapItemObj, OnClickEvent, Viewport } from '../../logic/features/map/map-types';
+import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
+import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
+import { MarkerObj, MarkerTypes } from '../../logic/features/map/marker-types';
+import { LineObj, LineTypes } from '../../logic/features/map/line-types';
+import { loadMap } from '../../logic/features/map/map-thunks';
 
 const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },

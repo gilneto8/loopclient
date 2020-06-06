@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarkerObj } from '../../../logic/shared/map/marker-types';
+import { MarkerObj } from '../../../logic/features/map/marker-types';
 import Label from '../../../components/ui/components/simple/Label/label';
 import * as _ from 'lodash';
 import { css } from '@emotion/core';

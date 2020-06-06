@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
-import { createStoreManager } from '../../logic/store/creates-store-manager';
+import { createStoreManager } from '../../logic/shared/store/creates-store-manager';
 import { Provider } from 'react-redux';
-import { useStoreDispatch } from '../../logic/store/use-store-dispatch';
-import { loadSidenav } from '../../logic/shared/sidenav/sidenav-thunks';
-import { loadMap } from '../../logic/shared/map/map-thunks';
+import { useStoreDispatch } from '../../logic/shared/store/use-store-dispatch';
+import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
+import { loadMap } from '../../logic/features/map/map-thunks';
 
 /*
   TODO:

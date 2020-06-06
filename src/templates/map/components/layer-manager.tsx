@@ -1,7 +1,7 @@
 import React from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
-import { MapItemObj, Viewport } from '../../../logic/shared/map/map-types';
-import { LineObj } from '../../../logic/shared/map/line-types';
+import { MapItemObj, Viewport } from '../../../logic/features/map/map-types';
+import { LineObj } from '../../../logic/features/map/line-types';
 
 type Props = {
   viewport?: Viewport;

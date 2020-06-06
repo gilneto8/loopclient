@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { ItemForm } from '../../../../../../../logic/shared/map/map-types';
-import Label from '../../../../../../ui/components/simple/Label/label';
+import { ItemForm } from '../../../logic/features/map/map-types';
+import Label from '../../../components/ui/components/simple/Label/label';
 import { css } from '@emotion/core';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
-import { enumToArray } from '../../../../../../../utils/enums/enum-to-array';
-import { MarkerObj, MarkerTypes } from '../../../../../../../logic/shared/map/marker-types';
-import { useStoreSelector } from '../../../../../../../logic/store/use-store-selector';
-import { loadMap } from '../../../../../../../logic/shared/map/map-thunks';
+import { enumToArray } from '../../../utils/enums/enum-to-array';
+import { LineObj, LineTypes } from '../../../logic/features/map/line-types';
+import { useStoreSelector } from '../../../logic/shared/store/use-store-selector';
+import { loadMap } from '../../../logic/features/map/map-thunks';
 
 type Props = {
-  item: MarkerObj;
+  item: LineObj;
 };
 
 const style = css({
@@ -20,12 +20,12 @@ const style = css({
   },
 });
 
-const MarkerForm = (props: Props) => {
+const LineForm = (props: Props) => {
   const {
     storeDispatch,
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), () => {});
-  const { reset, register, handleSubmit } = useForm<ItemForm<MarkerTypes>>({
+  const { reset, register, handleSubmit } = useForm<ItemForm<LineTypes>>({
     defaultValues: props.item.data,
   });
 
@@ -33,9 +33,9 @@ const MarkerForm = (props: Props) => {
     reset(props.item.data);
   }, [props.item]);
 
-  const onSubmit = (data: ItemForm<MarkerTypes>) => {
+  const onSubmit = (data: ItemForm<LineTypes>) => {
     const updatedItem = _.set(props.item, 'data', data);
-    storeDispatch(mapThunks.updateMarker(updatedItem.id, updatedItem));
+    storeDispatch(mapThunks.updateLine(updatedItem.id, updatedItem));
   };
 
   return (
@@ -52,7 +52,7 @@ const MarkerForm = (props: Props) => {
         <div css={style} key={'type'}>
           <Label paddings={[20, 0, 0, 0]}>{'Type'}</Label>
           <select name={'type'} ref={register}>
-            {enumToArray(MarkerTypes).map((val) => (
+            {enumToArray(LineTypes).map((val) => (
               <option key={val} value={val}>
                 {val}
               </option>
@@ -65,4 +65,4 @@ const MarkerForm = (props: Props) => {
   );
 };
 
-export default MarkerForm;
+export default LineForm;
