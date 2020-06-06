@@ -6,7 +6,7 @@ import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
 import { MarkerObj, MarkerTypes } from '../../logic/features/map/marker-types';
 import { LineObj, LineTypes } from '../../logic/features/map/line-types';
 import { loadMap } from '../../logic/features/map/map-thunks';
-import { id } from "../../utils/functions/create-local-id"
+import { id } from '../../utils/functions/create-local-id';
 
 const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },

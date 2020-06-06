@@ -8,8 +8,8 @@ import { enumToArray } from '../../../utils/enums/enum-to-array';
 import { MarkerObj, MarkerTypes } from '../../../logic/features/map/marker-types';
 import { useStoreSelector } from '../../../logic/shared/store/use-store-selector';
 import { loadMap } from '../../../logic/features/map/map-thunks';
-import Button from "../../../components/ui/components/simple/Button/button"
-import LabelledInput from "../../../components/ui/components/complex/LabelledInput/labelled-input"
+import Button from '../../../components/ui/components/simple/Button/button';
+import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
 
 type Props = {
   item: MarkerObj;
