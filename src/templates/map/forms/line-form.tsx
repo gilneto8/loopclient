@@ -8,8 +8,8 @@ import { useStoreSelector } from '../../../logic/shared/store/use-store-selector
 import { loadMap } from '../../../logic/features/map/map-thunks';
 import Button from '../../../components/ui/components/simple/Button/button';
 import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
-import LabelledSelect from "../../../components/ui/components/complex/LabelledSelect/labelled-select"
-import { loadSidenav } from "../../../logic/features/sidenav/sidenav-thunks"
+import LabelledSelect from '../../../components/ui/components/complex/LabelledSelect/labelled-select';
+import { loadSidenav } from '../../../logic/features/sidenav/sidenav-thunks';
 
 type Props = {
   item: LineObj;
@@ -34,6 +34,7 @@ const LineForm = (props: Props) => {
   const onSubmit = (data: ItemForm<LineTypes>) => {
     const updatedItem = _.set(props.item, 'data', data);
     storeDispatch(mapThunks.updateLine(updatedItem.id, updatedItem));
+    storeDispatch(sidenavThunks.update(updatedItem));
   };
 
   const remove = () => {

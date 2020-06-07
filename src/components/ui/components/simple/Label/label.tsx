@@ -43,6 +43,7 @@ const borders = (bs: BorderProps | undefined) => {
 const style = (props: Props) =>
   css({
     width: '100%',
+    display: 'inline-flex',
     color: props.color || 'white',
     padding: convert(props.paddings),
     margin: convert(props.margins),

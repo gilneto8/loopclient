@@ -29,7 +29,7 @@ const LabelledInput = (props: Props) => {
   const { key, name, refFn } = props;
   return (
     <div css={style(props)} key={`${key || id(4)}-${name}`}>
-      <Label paddings={[20, 0, 0, 0]}>{_.startCase(_.toLower(name))}</Label>
+      <Label>{_.startCase(_.toLower(name))}</Label>
       <Input name={`${name}`} refFn={refFn} />
     </div>
   );

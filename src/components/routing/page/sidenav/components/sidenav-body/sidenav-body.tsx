@@ -5,7 +5,8 @@ import { isMarker } from '../../../../../../utils/functions/is-marker';
 import { MarkerObj } from '../../../../../../logic/features/map/marker-types';
 import { LineObj } from '../../../../../../logic/features/map/line-types';
 import LineForm from '../../../../../../templates/map/forms/line-form';
-import { css } from "@emotion/core"
+import { css } from '@emotion/core';
+import MarkerList from './components/marker-list';
 
 type Props = {
   item: MapItemObj | undefined;
@@ -28,7 +29,7 @@ function filterItem({ item }: Props): FormTypes {
 const style = css({
   paddingLeft: 15,
   paddingRight: 15,
-})
+});
 
 const SidenavBody = (props: Props) => {
   const memoizedType = useMemo<FormTypes>(() => filterItem(props), [props.item]);
@@ -37,7 +38,7 @@ const SidenavBody = (props: Props) => {
       {(() => {
         switch (memoizedType) {
           case FormTypes.none:
-            return <></>;
+            return <MarkerList />;
           case FormTypes.marker:
             return <MarkerForm item={props.item as MarkerObj} />;
           case FormTypes.line:

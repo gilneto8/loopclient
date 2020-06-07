@@ -30,7 +30,7 @@ const LabelledSelect = (props: Props) => {
   const { key, name, refFn, options } = props;
   return (
     <div css={style(props)} key={`${key || id(4)}-${name}`}>
-      <Label paddings={[20, 0, 0, 0]}>{_.startCase(_.toLower(name))}</Label>
+      <Label>{_.startCase(_.toLower(name))}</Label>
       <Select name={`${name}`} refFn={refFn} options={options} />
     </div>
   );
