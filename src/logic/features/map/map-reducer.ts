@@ -16,6 +16,7 @@ import {
   UPDATE_VIEWPORT,
 } from './map-actions';
 import * as _ from 'lodash';
+import { id } from '../../../utils/functions/create-local-id';
 
 export type MapStoreState = {
   viewport: Viewport;
@@ -39,6 +40,24 @@ const initialState: MapStoreState = {
   selected: undefined,
 };
 
+/* on deleting a marker, removes connecting lines (before and after) and connects previous and next marker */
+function _removeLineByMarker(lines: Array<LineObj>, mId: string): Array<LineObj> {
+  const _lines = _.cloneDeep(lines);
+  const i_Before = _.findIndex(_lines, (l) => l.geometry.end.id === mId);
+  const i_After = _.findIndex(_lines, (l) => l.geometry.start.id === mId);
+  if (i_After >= 0 && i_Before >= 0) {
+    const newLine = {
+      id: id(),
+      geometry: { start: _lines[i_Before].geometry.start, end: _lines[i_After].geometry.end },
+      data: _lines[i_Before].data,
+    };
+    _lines.splice(i_Before, 2, newLine);
+  } else if (i_After < 0) _lines.splice(i_Before, 1);
+  else _lines.splice(0, 1);
+
+  return _lines;
+}
+
 export const mapReducer: MapReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_VIEWPORT:
@@ -50,15 +69,19 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
     case SELECT_MARKER:
       return { ...state, selected: _.find(state.markers, (m) => m.id === action.payload) };
     case REMOVE_MARKER:
-      return { ...state, markers: _.filter(state.markers, (m) => m.id === action.payload) };
+      return {
+        ...state,
+        markers: _.filter(state.markers, (m) => m.id !== action.payload),
+        lines: _removeLineByMarker(state.lines, action.payload),
+      };
     case ADD_LINE:
       return { ...state, lines: _.concat(state.lines, action.payload) };
     case UPDATE_LINE:
-      return { ...state, lines: _.map(state.lines, (m) => (m.id === action.payload.id ? action.payload.data : m)) };
+      return { ...state, lines: _.map(state.lines, (l) => (l.id === action.payload.id ? action.payload.data : l)) };
     case REMOVE_LINE:
-      return { ...state, lines: _.filter(state.lines, (m) => m.id === action.payload) };
+      return { ...state, lines: _.filter(state.lines, (l) => l.id !== action.payload) };
     case SELECT_LINE:
-      return { ...state, selected: _.find(state.lines, (m) => m.id === action.payload) };
+      return { ...state, selected: _.find(state.lines, (l) => l.id === action.payload) };
     case UNSELECT:
       return { ...state, selected: undefined };
     default:

@@ -1,5 +1,5 @@
-export function hold(f: (...args: any) => any) {
+export function hold(f: (...args: any) => any, ms: number = 300) {
   setTimeout(() => {
     f();
-  }, 300);
+  }, ms);
 }

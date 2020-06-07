@@ -8,7 +8,6 @@ import { useStoreSelector } from '../../../../logic/shared/store/use-store-selec
 import { loadSidenav } from '../../../../logic/features/sidenav/sidenav-thunks';
 import SidenavBody from './components/sidenav-body/sidenav-body';
 import { loadMap } from '../../../../logic/features/map/map-thunks';
-import { hold } from '../../../../utils/functions/hold';
 
 type Props = {
   blocking?: boolean;
@@ -67,9 +66,6 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
   const close = () => {
     storeDispatch(sidenavThunks.close());
     storeDispatch(mapThunks.unselect());
-    hold(() => {
-      storeDispatch(sidenavThunks.reset());
-    });
   };
 
   return (

@@ -3,6 +3,7 @@ import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_RESET, SIDENAV_UPDATE, SidenavActi
 import { sidenavReducer } from './sidenav-reducer';
 import { MarkerObj } from '../map/marker-types';
 import { LineObj } from '../map/line-types';
+import { hold } from '../../../utils/functions/hold';
 
 type SidenavThunkAction<R = void> = StoreThunkActionBase<SidenavAction, R>;
 
@@ -30,6 +31,11 @@ class SidenavThunks {
     return async (dispatch) => {
       dispatch({
         type: SIDENAV_CLOSE,
+      });
+      hold(() => {
+        dispatch({
+          type: SIDENAV_RESET,
+        });
       });
     };
   }

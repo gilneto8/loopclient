@@ -9,6 +9,7 @@ import { loadMap } from '../../../logic/features/map/map-thunks';
 import Button from '../../../components/ui/components/simple/Button/button';
 import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
 import LabelledSelect from "../../../components/ui/components/complex/LabelledSelect/labelled-select"
+import { loadSidenav } from "../../../logic/features/sidenav/sidenav-thunks"
 
 type Props = {
   item: LineObj;
@@ -19,6 +20,9 @@ const LineForm = (props: Props) => {
     storeDispatch,
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), () => {});
+  const {
+    thunkResult: { sidenavThunks },
+  } = useStoreSelector(loadSidenav(), () => {});
   const { reset, register, handleSubmit } = useForm<ItemForm<LineTypes>>({
     defaultValues: props.item.data,
   });
@@ -32,6 +36,12 @@ const LineForm = (props: Props) => {
     storeDispatch(mapThunks.updateLine(updatedItem.id, updatedItem));
   };
 
+  const remove = () => {
+    storeDispatch(mapThunks.removeLine(props.item.id));
+    storeDispatch(mapThunks.unselect());
+    storeDispatch(sidenavThunks.reset());
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,6 +49,7 @@ const LineForm = (props: Props) => {
         <LabelledInput name={'description'} refFn={register} />
         <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} />
         <Button type={'submit'}>{'Submit'}</Button>
+        <Button onClick={remove}>{'Remove Line'}</Button>
       </form>
     </div>
   );
