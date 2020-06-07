@@ -10,7 +10,7 @@ import { id } from '../../utils/functions/create-local-id';
 
 const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },
-  id: id(10),
+  id: id(),
   data: {
     name: 'New marker',
     description: '',
@@ -18,7 +18,7 @@ const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   },
 });
 const createLineObj = (start: MarkerObj, end: MarkerObj): LineObj => ({
-  id: id(10),
+  id: id(),
   geometry: { start, end },
   data: {
     name: 'New line',

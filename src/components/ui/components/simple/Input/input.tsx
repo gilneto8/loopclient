@@ -26,7 +26,7 @@ const border = (bs: BorderProps | undefined) => {
 
 const style = (props: Props) =>
   css({
-    width: '100%',
+    width: 'calc(100% - 8px)',
     color: props.color || 'black',
     padding: convert(props.paddings),
     margin: convert(props.margins),
