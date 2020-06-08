@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_RESET, SIDENAV_UPDATE, SidenavAction } from './sidenav-actions';
+import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_CLEAR, SIDENAV_UPDATE, SidenavAction } from './sidenav-actions';
 import { MapItemObj } from '../map/map-types';
 
 export type SidenavStoreState = {
@@ -26,7 +26,7 @@ export const sidenavReducer: SidenavReducer = (state = initialState, action) => 
         ...state,
         open: false,
       };
-    case SIDENAV_RESET:
+    case SIDENAV_CLEAR:
       return {
         ...state,
         data: null,

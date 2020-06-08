@@ -42,7 +42,7 @@ const MarkerForm = (props: Props) => {
   const remove = () => {
     storeDispatch(mapThunks.removeMarker(props.item.id));
     storeDispatch(mapThunks.unselect());
-    storeDispatch(sidenavThunks.reset());
+    storeDispatch(sidenavThunks.clear());
   };
 
   return (

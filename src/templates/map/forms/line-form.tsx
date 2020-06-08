@@ -40,7 +40,7 @@ const LineForm = (props: Props) => {
   const remove = () => {
     storeDispatch(mapThunks.removeLine(props.item.id));
     storeDispatch(mapThunks.unselect());
-    storeDispatch(sidenavThunks.reset());
+    storeDispatch(sidenavThunks.clear());
   };
 
   return (

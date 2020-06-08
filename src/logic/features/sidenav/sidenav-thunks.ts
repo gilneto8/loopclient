@@ -1,5 +1,5 @@
 import { StoreThunkActionBase } from '../../shared/store/store-types';
-import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_RESET, SIDENAV_UPDATE, SidenavAction } from './sidenav-actions';
+import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_CLEAR, SIDENAV_UPDATE, SidenavAction } from './sidenav-actions';
 import { sidenavReducer } from './sidenav-reducer';
 import { MarkerObj } from '../map/marker-types';
 import { LineObj } from '../map/line-types';
@@ -34,16 +34,16 @@ class SidenavThunks {
       });
       hold(() => {
         dispatch({
-          type: SIDENAV_RESET,
+          type: SIDENAV_CLEAR,
         });
       });
     };
   }
 
-  reset(): SidenavThunkAction {
+  clear(): SidenavThunkAction {
     return async (dispatch) => {
       dispatch({
-        type: SIDENAV_RESET,
+        type: SIDENAV_CLEAR,
       });
     };
   }
