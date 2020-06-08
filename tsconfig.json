@@ -1,6 +1,7 @@
 {
   "include": ["_graphql-generated_/typescript/**/*", "type-declarations/**/*", "src/**/*"],
   "compilerOptions": {
+    "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types", "./node_modules/@danmarshall/deckgl-typings"],
     "paths": {
       "@config/*": ["__config.debug/*"]

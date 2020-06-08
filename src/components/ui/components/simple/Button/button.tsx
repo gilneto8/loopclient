@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from "@fortawesome/fontawesome-svg-core"
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type ButtonProps = {
   title?: string;

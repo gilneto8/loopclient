@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from "@emotion/core"
+import { css } from '@emotion/core';
 
 type Props = {
   title?: string;
@@ -7,8 +7,8 @@ type Props = {
 
 const style = css({
   height: 50,
-  borderBottom: '1px solid white'
-})
+  borderBottom: '1px solid white',
+});
 
 const SidenavHeader = React.memo<Props>((props) => {
   return <div css={style}>{/*PLACEHOLDER*/}</div>;

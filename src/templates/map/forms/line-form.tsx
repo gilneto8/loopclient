@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from 'react';
 import { ItemForm } from '../../../logic/features/map/map-types';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
@@ -10,7 +10,7 @@ import Button from '../../../components/ui/components/simple/Button/button';
 import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
 import LabelledSelect from '../../../components/ui/components/complex/LabelledSelect/labelled-select';
 import { loadSidenav } from '../../../logic/features/sidenav/sidenav-thunks';
-import { StoreState } from "../../../logic/shared/store/store-types"
+import { StoreState } from '../../../logic/shared/store/store-types';
 
 type Props = {
   item: LineObj;

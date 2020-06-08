@@ -29,7 +29,7 @@ export const sidenavReducer: SidenavReducer = (state = initialState, action) => 
     case SIDENAV_CLEAR:
       return {
         ...state,
-        data: null,
+        data: undefined,
       };
     case SIDENAV_UPDATE:
       return {
