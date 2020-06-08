@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { useStoreDispatch } from '../../logic/shared/store/use-store-dispatch';
 import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
 import { loadMap } from '../../logic/features/map/map-thunks';
+import DEFAULT_THEME from '../ui/colors/default-theme';
 
 /*
   TODO:
@@ -20,6 +21,8 @@ const ContextualizedRootFrame: FunctionComponent = (props) => {
 export const RootFrame: FunctionComponent = ({ children }) => {
   const [storeManager] = useState(() => createStoreManager());
   const store = storeManager.store;
+
+  console.log(DEFAULT_THEME);
 
   return (
     <Provider store={store}>

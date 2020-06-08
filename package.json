@@ -34,6 +34,7 @@
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "tinycolor": "0.0.1",
     "yup": "^0.29.1"
   },
   "devDependencies": {
@@ -51,6 +52,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
+    "@types/tinycolor": "^1.1.27",
     "@types/yup": "^0.29.1",
     "graphql": "^14.6.0",
     "npm-check-updates": "^4.1.2",
