@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react"
 import { ItemForm } from '../../../logic/features/map/map-types';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
@@ -16,7 +16,7 @@ type Props = {
   item: LineObj;
 };
 
-const LineForm = (props: Props) => {
+const LineForm = React.memo<Props>((props) => {
   const {
     selected,
     storeDispatch,
@@ -56,6 +56,6 @@ const LineForm = (props: Props) => {
       </form>
     </div>
   );
-};
+});
 
 export default LineForm;

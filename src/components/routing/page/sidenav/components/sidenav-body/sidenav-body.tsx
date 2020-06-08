@@ -12,18 +12,10 @@ type Props = {
   item: MapItemObj | undefined;
 };
 
-enum FormTypes {
-  none,
-  marker,
-  line,
-}
-
-function filterItem({ item }: Props): FormTypes {
-  if (!item) return FormTypes.none;
-  else {
-    if (isMarker(item)) return FormTypes.marker;
-    else return FormTypes.line;
-  }
+function getForm({ item }: Props): () => JSX.Element {
+  if (!item) return () => <MarkerList />;
+  else if (isMarker(item)) return () => <MarkerForm item={item as MarkerObj} />;
+  else return () => <LineForm item={item as LineObj} />;
 }
 
 const style = css({
@@ -32,20 +24,10 @@ const style = css({
 });
 
 const SidenavBody = (props: Props) => {
-  const memoizedType = useMemo<FormTypes>(() => filterItem(props), [props.item]);
+  const MemoizedComponent = useMemo<() => JSX.Element>(() => getForm(props), [props.item]);
   return (
     <div css={style}>
-      {(() => {
-        switch (memoizedType) {
-          case FormTypes.none:
-            return <MarkerList />;
-          case FormTypes.marker:
-            return <MarkerForm item={props.item as MarkerObj} />;
-          case FormTypes.line:
-          default:
-            return <LineForm item={props.item as LineObj} />;
-        }
-      })()}
+      <MemoizedComponent />
     </div>
   );
 };

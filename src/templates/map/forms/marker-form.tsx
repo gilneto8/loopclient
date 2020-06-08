@@ -16,7 +16,7 @@ type Props = {
   item: MarkerObj;
 };
 
-const MarkerForm = (props: Props) => {
+const MarkerForm = React.memo<Props>((props) => {
   const {
     selected,
     storeDispatch,
@@ -56,6 +56,6 @@ const MarkerForm = (props: Props) => {
       </form>
     </div>
   );
-};
+});
 
 export default MarkerForm;
