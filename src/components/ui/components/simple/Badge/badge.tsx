@@ -22,6 +22,7 @@ type Props = {
 
 const style = (props: Props) =>
   css({
+    transition: 'all .3s',
     position: 'relative',
     width: `${props.width || 100}%`,
     height: '1.5rem',
