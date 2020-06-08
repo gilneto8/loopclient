@@ -10,7 +10,7 @@ import Button from '../../../components/ui/components/simple/Button/button';
 import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
 import LabelledSelect from '../../../components/ui/components/complex/LabelledSelect/labelled-select';
 import { loadSidenav } from '../../../logic/features/sidenav/sidenav-thunks';
-import { StoreState } from "../../../logic/shared/store/store-types"
+import { StoreState } from '../../../logic/shared/store/store-types';
 
 type Props = {
   item: MarkerObj;
@@ -18,20 +18,20 @@ type Props = {
 
 const MarkerForm = (props: Props) => {
   const {
+    selected,
     storeDispatch,
     thunkResult: { mapThunks },
-  } = useStoreSelector(loadMap(), () => {});
+  } = useStoreSelector(loadMap(), (state: StoreState) => state.map?.selected);
   const {
-    selected,
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), (storeState: StoreState) => storeState.sidenav?.data);
   const { reset, register, handleSubmit } = useForm<ItemForm<MarkerTypes>>({
-    defaultValues: props.item.data,
+    defaultValues: (selected as MarkerObj)?.data || props.item.data,
   });
 
   useEffect(() => {
     reset(props.item.data);
-  }, [props.item, selected]);
+  }, [props.item, selected?.data]);
 
   const onSubmit = (data: ItemForm<MarkerTypes>) => {
     const updatedItem = _.set(props.item, 'data', data);

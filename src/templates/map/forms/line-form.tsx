@@ -10,6 +10,7 @@ import Button from '../../../components/ui/components/simple/Button/button';
 import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
 import LabelledSelect from '../../../components/ui/components/complex/LabelledSelect/labelled-select';
 import { loadSidenav } from '../../../logic/features/sidenav/sidenav-thunks';
+import { StoreState } from "../../../logic/shared/store/store-types"
 
 type Props = {
   item: LineObj;
@@ -17,19 +18,20 @@ type Props = {
 
 const LineForm = (props: Props) => {
   const {
+    selected,
     storeDispatch,
     thunkResult: { mapThunks },
-  } = useStoreSelector(loadMap(), () => {});
+  } = useStoreSelector(loadMap(), (state: StoreState) => state.map?.selected);
   const {
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), () => {});
   const { reset, register, handleSubmit } = useForm<ItemForm<LineTypes>>({
-    defaultValues: props.item.data,
+    defaultValues: (selected as LineObj)?.data || props.item.data,
   });
 
   useEffect(() => {
     reset(props.item.data);
-  }, [props.item]);
+  }, [props.item, selected?.data]);
 
   const onSubmit = (data: ItemForm<LineTypes>) => {
     const updatedItem = _.set(props.item, 'data', data);
