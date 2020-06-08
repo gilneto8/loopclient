@@ -50,7 +50,7 @@ const style = (props: Props) =>
     padding: convert(props.paddings),
     margin: convert(props.margins),
     ...borders(props.borders),
-    fontSize: 12,
+    fontSize: '.75rem',
     fontWeight: 'bold',
   });
 

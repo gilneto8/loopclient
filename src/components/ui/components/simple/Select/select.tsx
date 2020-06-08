@@ -32,7 +32,7 @@ const style = (props: Props) =>
     padding: convert(props.paddings),
     margin: convert(props.margins),
     ...border(props.border),
-    fontSize: 12,
+    fontSize: '.75rem',
   });
 
 const Select = (props: Props) => {

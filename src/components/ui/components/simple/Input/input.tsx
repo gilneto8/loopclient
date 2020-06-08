@@ -26,12 +26,12 @@ const border = (bs: BorderProps | undefined) => {
 
 const style = (props: Props) =>
   css({
-    width: 'calc(100% - 8px)',
+    width: 'calc(100% - .5rem)',
     color: props.color || 'black',
     padding: convert(props.paddings),
     margin: convert(props.margins),
     ...border(props.border),
-    fontSize: 12,
+    fontSize: '.75rem',
   });
 
 const Input = (props: Props) => {
