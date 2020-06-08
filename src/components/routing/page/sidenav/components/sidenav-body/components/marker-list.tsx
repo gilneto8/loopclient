@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { css } from '@emotion/core';
+import React from 'react';
 import { useStoreSelector } from '../../../../../../../logic/shared/store/use-store-selector';
 import { loadMap } from '../../../../../../../logic/features/map/map-thunks';
 import { MarkerObj } from '../../../../../../../logic/features/map/marker-types';
@@ -9,13 +8,16 @@ type Props = {};
 
 const MarkerList = React.memo((props: Props) => {
   const {
+    storeDispatch,
     selected: markers,
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map?.markers);
   return (
     <div>
       {markers?.map((m: MarkerObj) => (
-        <Label key={m.id}>{m.data.name}</Label>
+        <Label as="span" key={m.id} onClick={() => storeDispatch(mapThunks.selectMarker(m.id))}>
+          {m.data.name}
+        </Label>
       ))}
     </div>
   );

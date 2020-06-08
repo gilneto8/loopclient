@@ -12,6 +12,8 @@ type Props = {
   borders?: BorderProps;
   paddings?: [number] | [number, number] | [number, number, number, number];
   margins?: [number] | [number, number] | [number, number, number, number];
+  as?: 'span' | 'label';
+  onClick?: (arg?: any) => void;
 };
 
 const convert = (array: Array<number> | undefined) =>
@@ -53,8 +55,18 @@ const style = (props: Props) =>
   });
 
 const Label = (props: Props) => {
-  const { children } = props;
-  return <label css={style(props)}>{children}</label>;
+  const { children, as, onClick } = props;
+  switch (as) {
+    case 'span':
+      return (
+        <span onClick={onClick} css={style(props)}>
+          {children}
+        </span>
+      );
+    case 'label':
+    default:
+      return <label css={style(props)}>{children}</label>;
+  }
 };
 
 export default Label;
