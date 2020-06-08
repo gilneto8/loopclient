@@ -12,6 +12,9 @@ export const REMOVE_LINE = 'REMOVE_LINE';
 export const SELECT_MARKER = 'SELECT_MARKER';
 export const SELECT_LINE = 'SELECT_LINE';
 export const UNSELECT = 'UNSELECT';
+export const HOVER_MARKER = 'HOVER_MARKER';
+export const HOVER_LINE = 'HOVER_LINES';
+export const UNHOVER = 'UNHOVER';
 
 export type MapAction =
   | {
@@ -26,4 +29,7 @@ export type MapAction =
   | { type: typeof REMOVE_LINE; payload: string }
   | { type: typeof SELECT_MARKER; payload: string }
   | { type: typeof SELECT_LINE; payload: string }
-  | { type: typeof UNSELECT };
+  | { type: typeof UNSELECT }
+  | { type: typeof HOVER_MARKER; payload: string }
+  | { type: typeof HOVER_LINE; payload: string }
+  | { type: typeof UNHOVER };

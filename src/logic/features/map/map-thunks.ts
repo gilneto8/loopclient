@@ -1,17 +1,17 @@
 import { StoreThunkActionBase } from '../../shared/store/store-types';
 import {
   ADD_LINE,
-  ADD_MARKER,
+  ADD_MARKER, HOVER_LINE, HOVER_MARKER,
   MapAction,
   REMOVE_LINE,
   REMOVE_MARKER,
   SELECT_LINE,
-  SELECT_MARKER,
+  SELECT_MARKER, UNHOVER,
   UNSELECT,
   UPDATE_LINE,
   UPDATE_MARKER,
-  UPDATE_VIEWPORT,
-} from './map-actions';
+  UPDATE_VIEWPORT
+} from "./map-actions"
 import { Viewport } from './map-types';
 import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
@@ -38,10 +38,28 @@ class MapThunks {
     };
   }
 
+  addLine(data: LineObj): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: ADD_LINE,
+        payload: data,
+      });
+    };
+  }
+
   updateMarker(id: string, data: MarkerObj): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: UPDATE_MARKER,
+        payload: { id, data },
+      });
+    };
+  }
+
+  updateLine(id: string, data: LineObj): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: UPDATE_LINE,
         payload: { id, data },
       });
     };
@@ -56,37 +74,19 @@ class MapThunks {
     };
   }
 
-  selectMarker(id: string): MapThunkAction {
+  removeLine(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
-        type: SELECT_MARKER,
+        type: REMOVE_LINE,
         payload: id,
       });
     };
   }
 
-  addLine(data: LineObj): MapThunkAction {
+  selectMarker(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
-        type: ADD_LINE,
-        payload: data,
-      });
-    };
-  }
-
-  updateLine(id: string, data: LineObj): MapThunkAction {
-    return async (dispatch) => {
-      dispatch({
-        type: UPDATE_LINE,
-        payload: { id, data },
-      });
-    };
-  }
-
-  removeLine(id: string): MapThunkAction {
-    return async (dispatch) => {
-      dispatch({
-        type: REMOVE_LINE,
+        type: SELECT_MARKER,
         payload: id,
       });
     };
@@ -105,6 +105,32 @@ class MapThunks {
     return async (dispatch) => {
       dispatch({
         type: UNSELECT,
+      });
+    };
+  }
+
+  hoverMarker(id: string): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: HOVER_MARKER,
+        payload: id,
+      });
+    };
+  }
+
+  hoverLine(id: string): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: HOVER_LINE,
+        payload: id,
+      });
+    };
+  }
+
+  unhover(): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: UNHOVER,
       });
     };
   }

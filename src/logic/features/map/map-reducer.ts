@@ -4,17 +4,17 @@ import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
 import {
   ADD_LINE,
-  ADD_MARKER,
+  ADD_MARKER, HOVER_LINE, HOVER_MARKER,
   MapAction,
   REMOVE_LINE,
   REMOVE_MARKER,
   SELECT_LINE,
-  SELECT_MARKER,
+  SELECT_MARKER, UNHOVER,
   UNSELECT,
   UPDATE_LINE,
   UPDATE_MARKER,
-  UPDATE_VIEWPORT,
-} from './map-actions';
+  UPDATE_VIEWPORT
+} from "./map-actions"
 import * as _ from 'lodash';
 import { id } from '../../../utils/functions/create-local-id';
 
@@ -23,6 +23,7 @@ export type MapStoreState = {
   markers: Array<MarkerObj>;
   lines: Array<LineObj>;
   selected?: MarkerObj | LineObj;
+  hovered?: MarkerObj | LineObj;
 };
 
 export type MapReducer = Reducer<MapStoreState, MapAction>;
@@ -38,6 +39,7 @@ const initialState: MapStoreState = {
   markers: [],
   lines: [],
   selected: undefined,
+  hovered: undefined,
 };
 
 /* on deleting a marker, removes connecting lines (before and after) and connects previous and next marker */
@@ -64,26 +66,32 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
       return { ...state, viewport: action.payload };
     case ADD_MARKER:
       return { ...state, markers: _.concat(state.markers, action.payload) };
+    case ADD_LINE:
+      return { ...state, lines: _.concat(state.lines, action.payload) };
     case UPDATE_MARKER:
       return { ...state, markers: _.map(state.markers, (m) => (m.id === action.payload.id ? action.payload.data : m)) };
-    case SELECT_MARKER:
-      return { ...state, selected: _.find(state.markers, (m) => m.id === action.payload) };
+    case UPDATE_LINE:
+      return { ...state, lines: _.map(state.lines, (l) => (l.id === action.payload.id ? action.payload.data : l)) };
     case REMOVE_MARKER:
       return {
         ...state,
         markers: _.filter(state.markers, (m) => m.id !== action.payload),
         lines: _removeLineByMarker(state.lines, action.payload),
       };
-    case ADD_LINE:
-      return { ...state, lines: _.concat(state.lines, action.payload) };
-    case UPDATE_LINE:
-      return { ...state, lines: _.map(state.lines, (l) => (l.id === action.payload.id ? action.payload.data : l)) };
     case REMOVE_LINE:
       return { ...state, lines: _.filter(state.lines, (l) => l.id !== action.payload) };
+    case SELECT_MARKER:
+      return { ...state, selected: _.find(state.markers, (m) => m.id === action.payload) };
     case SELECT_LINE:
       return { ...state, selected: _.find(state.lines, (l) => l.id === action.payload) };
     case UNSELECT:
       return { ...state, selected: undefined };
+    case HOVER_MARKER:
+      return { ...state, hovered: _.find(state.markers, (m) => m.id === action.payload) };
+    case HOVER_LINE:
+      return { ...state, hovered: _.find(state.lines, (l) => l.id === action.payload) };
+    case UNHOVER:
+      return { ...state, hovered: undefined };
     default:
       return state;
   }

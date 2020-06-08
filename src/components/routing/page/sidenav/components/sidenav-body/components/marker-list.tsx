@@ -18,20 +18,23 @@ const MarkerList = React.memo((props: Props) => {
     else storeDispatch(mapThunks.selectMarker(id));
   };
 
-  const removeMarker = (id: string) => {
-    storeDispatch(mapThunks.removeMarker(id));
+  const switchHover = (id: string, hovering: boolean) => {
+    if (hovering) storeDispatch(mapThunks.hoverMarker(id));
+    else storeDispatch(mapThunks.unhover());
   };
 
   return (
     <div>
       {info?.markers.map((m: MarkerObj) => (
         <Badge
-          active={info?.selected?.id === m.id}
           key={m.id}
-          onClick={() => switchSelect(m.id)}
           enableAutoMargin
           removable
-          onRemove={() => removeMarker(m.id)}
+          onRemove={() => storeDispatch(mapThunks.removeMarker(m.id))}
+          onClick={() => switchSelect(m.id)}
+          onHover={(h) => switchHover(m.id, h)}
+          hovered={info?.hovered?.id === m.id}
+          active={info?.selected?.id === m.id}
         >
           {m.data.name}
         </Badge>

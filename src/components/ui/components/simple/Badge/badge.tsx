@@ -13,11 +13,27 @@ type Props = {
   width?: number;
   fontSize?: number;
   enableAutoMargin?: boolean;
-  onClick?: (arg?: any) => void;
   children?: any;
-  active?: boolean;
   removable?: boolean;
+  active?: boolean;
+  hovered?: boolean;
+  onClick?: (arg?: any) => void;
   onRemove?: (arg?: any) => void;
+  onHover?: (arg?: any) => void;
+};
+
+const _getBackgroundColor = (props: Props) => {
+  // indirect hovering through map
+  if (props.hovered) return props.hoverBackgroundColor || 'grey';
+  if (!props.active) return props.backgroundColor || 'black';
+  else return props.activeBackgroundColor || 'white';
+};
+
+const _getColor = (props: Props) => {
+  // indirect hovering through map
+  if (props.hovered) return props.hoverColor || 'white';
+  if (!props.active) return props.color || 'white';
+  else return props.activeColor || 'black';
 };
 
 const style = (props: Props) =>
@@ -30,8 +46,8 @@ const style = (props: Props) =>
     margin: props.enableAutoMargin ? '0.625rem 0' : 0,
     borderRadius: '10px',
     display: 'inline-flex',
-    backgroundColor: !props.active ? props.backgroundColor || 'black' : props.activeBackgroundColor || 'white',
-    color: !props.active ? props.color || 'white' : props.activeColor || 'black',
+    backgroundColor: _getBackgroundColor(props),
+    color: _getColor(props),
     fontSize: props.fontSize || '1rem',
     cursor: 'pointer',
     '&:hover': {
@@ -49,9 +65,14 @@ const style = (props: Props) =>
   });
 
 const Badge = (props: Props) => {
-  const { onClick, children, removable, onRemove } = props;
+  const { onClick, children, removable, onRemove, onHover } = props;
   return (
-    <div css={style(props)} onClick={onClick}>
+    <div
+      css={style(props)}
+      onClick={onClick}
+      onMouseLeave={() => onHover && onHover(false)}
+      onMouseEnter={() => onHover && onHover(true)}
+    >
       <span>{children}</span>
       {removable && <FontAwesomeIcon icon={faTrash} size={'sm'} color={'red'} onClick={onRemove} />}
     </div>

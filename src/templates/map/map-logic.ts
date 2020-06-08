@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as _ from 'lodash';
-import { MapItemObj, OnClickEvent, Viewport } from '../../logic/features/map/map-types';
+import { OnClickEvent, Viewport } from '../../logic/features/map/map-types';
 import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
 import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
 import { MarkerObj, MarkerTypes } from '../../logic/features/map/marker-types';
@@ -38,7 +38,6 @@ export const useMapLogic = () => {
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
   const [editMode, setEditMode] = useState<boolean>(true);
-  const [hovered, setHovered] = useState<MapItemObj | undefined>(undefined);
 
   const switchMode = () => {
     setEditMode(!editMode);
@@ -75,15 +74,13 @@ export const useMapLogic = () => {
   };
 
   const hoverOnMarker = (id?: string) => {
-    if (!id) setHovered(undefined);
-    else {
-      const marker = _.find(map?.markers || [], (m) => m.id === id);
-      if (marker) setHovered(marker);
-    }
+    if (!id) storeDispatch(mapThunks.unhover());
+    else storeDispatch(mapThunks.hoverMarker(id));
   };
 
   const hoverOnLine = (obj: LineObj) => {
-    setHovered(obj);
+    if (obj === undefined) storeDispatch(mapThunks.unhover());
+    else storeDispatch(mapThunks.hoverLine(obj.id));
   };
 
   return {
@@ -92,7 +89,7 @@ export const useMapLogic = () => {
       markers: map?.markers || [],
       lines: map?.lines || [],
       selected: map?.selected,
-      hovered,
+      hovered: map?.hovered,
       editMode,
     },
     methods: {
