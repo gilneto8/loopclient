@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
-import { ThemeConsumer } from '../../../colors/theme-context';
+import { ThemeContext } from '../../../colors/theme-context';
 import { Theme } from '../../../colors/color-types';
 
 type Props = {
@@ -62,20 +62,20 @@ const style = (props: Props, theme: Theme) =>
 
 const Badge = (props: Props) => {
   const { onClick, children, removable, onRemove, onHover } = props;
-  return (
-    <ThemeConsumer>
-      {({ theme }) => (
-        <div
-          css={style(props, theme)}
-          onClick={onClick}
-          onMouseLeave={() => onHover && onHover(false)}
-          onMouseEnter={() => onHover && onHover(true)}
-        >
-          <span>{children}</span>
-          {removable && <FontAwesomeIcon icon={faTrash} size={'sm'} color={theme.defaults.danger} onClick={onRemove} />}
-        </div>
-      )}
-    </ThemeConsumer>
+  const theme = useContext(ThemeContext).theme;
+  return useMemo(
+    () => (
+      <div
+        css={style(props, theme)}
+        onClick={onClick}
+        onMouseLeave={() => onHover && onHover(false)}
+        onMouseEnter={() => onHover && onHover(true)}
+      >
+        <span>{children}</span>
+        {removable && <FontAwesomeIcon icon={faTrash} size={'sm'} color={theme.defaults.danger} onClick={onRemove} />}
+      </div>
+    ),
+    [theme, props.active, props.hovered]
   );
 };
 

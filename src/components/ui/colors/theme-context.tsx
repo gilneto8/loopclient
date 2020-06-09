@@ -1,34 +1,13 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Theme } from './color-types';
+import ThemeFactory from './theme-factory';
 
 type ThemeContextValue = {
-  theme?: Theme;
-};
-
-export const PrivateThemeContext = React.createContext<ThemeContextValue>({});
-
-export const ThemeProvider: FunctionComponent<{ theme: Theme }> = ({ theme, children }) => {
-  return <PrivateThemeContext.Provider value={{ theme }}>{children}</PrivateThemeContext.Provider>;
-};
-
-type ThemeConsumerInjectedProps = {
   theme: Theme;
 };
 
-type ThemeConsumerProps = {
-  children: (props: ThemeConsumerInjectedProps) => ReactNode;
-};
+export const ThemeContext = React.createContext<ThemeContextValue>({ theme: ThemeFactory.getTheme() });
 
-export const ThemeConsumer: FunctionComponent<ThemeConsumerProps> = ({ children }) => {
-  return (
-    <PrivateThemeContext.Consumer>
-      {({ theme }) => {
-        if (!theme)
-          throw new Error(
-            'No theme defined in React Context. Make sure a ThemeProvider is being rendered upper in the component tree.'
-          );
-        return children({ theme });
-      }}
-    </PrivateThemeContext.Consumer>
-  );
+export const ThemeProvider: FunctionComponent<{ theme: Theme }> = ({ theme, children }) => {
+  return <ThemeContext.Provider value={{ theme }}>{children}</ThemeContext.Provider>;
 };

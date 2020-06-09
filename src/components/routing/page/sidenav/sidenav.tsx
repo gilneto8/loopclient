@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 import { faAngleDoubleLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import { useStoreSelector } from '../../../../logic/shared/store/use-store-selec
 import { loadSidenav } from '../../../../logic/features/sidenav/sidenav-thunks';
 import SidenavBody from './components/sidenav-body/sidenav-body';
 import { loadMap } from '../../../../logic/features/map/map-thunks';
-import { ThemeConsumer } from '../../../ui/colors/theme-context';
+import { ThemeContext } from '../../../ui/colors/theme-context';
 import { Theme } from '../../../ui/colors/color-types';
 
 type Props = {
@@ -68,26 +68,24 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
     storeDispatch(mapThunks.unselect());
   };
 
-  return (
-    <ThemeConsumer>
-      {({ theme }) => {
-        return (
-          <div css={getStyle(selected?.open || false, theme)}>
-            {blocking && <div id={'overlay'} onClick={close} />}
-            <FontAwesomeIcon
-              color={theme.defaults.white}
-              size={'sm'}
-              rotation={selected?.open ? undefined : 180}
-              icon={selected?.open ? faAngleDoubleLeft : faBars}
-              onClick={() => (selected?.open ? close() : open())}
-            />
-            <SidenavHeader />
-            <SidenavBody item={selected?.data} />
-            {children}
-          </div>
-        );
-      }}
-    </ThemeConsumer>
+  const theme = useContext(ThemeContext).theme;
+  return useMemo(
+    () => (
+      <div css={getStyle(selected?.open || false, theme)}>
+        {blocking && <div id={'overlay'} onClick={close} />}
+        <FontAwesomeIcon
+          color={theme.defaults.white}
+          size={'sm'}
+          rotation={selected?.open ? undefined : 180}
+          icon={selected?.open ? faAngleDoubleLeft : faBars}
+          onClick={() => (selected?.open ? close() : open())}
+        />
+        <SidenavHeader />
+        <SidenavBody item={selected?.data} />
+        {children}
+      </div>
+    ),
+    [theme, selected]
   );
 });
 
