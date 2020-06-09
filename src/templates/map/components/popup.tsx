@@ -15,9 +15,9 @@ type Props = {
   item?: MapItemObj;
 };
 
-const style = css({
+const style = (theme: Theme) => css({
   width: 250,
-  backgroundColor: 'white',
+  backgroundColor: theme.defaults.white,
   overflowWrap: 'anywhere',
 });
 
@@ -36,7 +36,7 @@ const Popup: FunctionComponent<Props> = ({ item }) => {
           offsetTop={-25}
           closeButton={false}
         >
-          <div css={style}>
+          <div css={style(theme)}>
             <MarkerInfo marker={marker} />
           </div>
         </ReactMapGLPopup>
@@ -53,7 +53,7 @@ const Popup: FunctionComponent<Props> = ({ item }) => {
         offsetTop={-5}
         closeButton={false}
       >
-        <div css={style}>
+        <div css={style(theme)}>
           <LineInfo line={line} />
         </div>
       </ReactMapGLPopup>
