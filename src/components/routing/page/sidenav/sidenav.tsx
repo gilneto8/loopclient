@@ -72,7 +72,7 @@ const SideNav: FunctionComponent<Props> = ({ children, blocking }) => {
 
     return (
       <div css={getStyle(selected?.open || false, theme)}>
-        {blocking && <div id={'overlay'} onClick={close} />}
+        {blocking && <div role={'overlay'} id={'overlay'} onClick={close} />}
         <FontAwesomeIcon
           color={theme.defaults.white}
           size={'sm'}

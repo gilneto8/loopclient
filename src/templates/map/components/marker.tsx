@@ -42,6 +42,7 @@ const Marker: FunctionComponent<Props> = (props) => {
         offsetLeft={-15}
       >
         <div
+          role={'button'}
           css={style(theme, hovered, selected)}
           onMouseLeave={() => onHover()}
           onMouseEnter={() => onHover(marker.id)}

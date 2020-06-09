@@ -63,7 +63,7 @@ const Label: FunctionComponent<Props> = (props) => {
     switch (as) {
       case 'span':
         return (
-          <span onClick={onClick} css={style(props, theme)}>
+          <span role={'button'} onClick={onClick} css={style(props, theme)}>
             {children}
           </span>
         );
