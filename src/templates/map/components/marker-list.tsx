@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import Marker from './marker';
 import { MarkerObj } from '../../../logic/features/map/marker-types';
 import { MapItemObj } from '../../../logic/features/map/map-types';
@@ -12,21 +12,25 @@ type Props = {
   selected?: MapItemObj;
   hovered?: MapItemObj;
 };
-const MarkerList = React.memo<Props>(({ markers, onHover, onSelect, hovered, selected, viewMode }) => {
-  return (
-    <div>
-      {markers.map((marker) => (
-        <Marker
-          key={marker.id}
-          marker={marker}
-          onHover={(id) => viewMode && onHover(id)}
-          onSelect={(id) => viewMode && onSelect(id)}
-          selected={isMarker(selected) && (selected as MarkerObj).id === marker.id}
-          hovered={isMarker(hovered) && (hovered as MarkerObj).id === marker.id}
-        />
-      ))}
-    </div>
+const MarkerList: FunctionComponent<Props> = (props) => {
+  const { markers, onHover, onSelect, hovered, selected, viewMode } = props;
+  return useMemo(
+    () => (
+      <div>
+        {markers.map((marker) => (
+          <Marker
+            key={marker.id}
+            marker={marker}
+            onHover={(id) => viewMode && onHover(id)}
+            onSelect={(id) => viewMode && onSelect(id)}
+            selected={isMarker(selected) && (selected as MarkerObj).id === marker.id}
+            hovered={isMarker(hovered) && (hovered as MarkerObj).id === marker.id}
+          />
+        ))}
+      </div>
+    ),
+    [props]
   );
-});
+};
 
 export default MarkerList;

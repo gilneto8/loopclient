@@ -1,22 +1,8 @@
-### Ref
+# Loop
 
-- Map Lib `https://www.reddit.com/r/reactjs/comments/di9t67/i_made_an_interactive_solver_for_the_traveling/f3usd67/`
-  - `http://visgl.github.io/react-map-gl/`
-  - `https://deck.gl/#/` ?
-- Side navbar `https://stackoverflow.com/questions/39974486/accordion-sidebar-menu-using-nav-components-with-react-bootstrap`
-- Routing
-  - `https://docs.mapbox.com/api/navigation/`
-  - `https://developer.here.com/`
-  - `https://wiki.openstreetmap.org/wiki/YOURS#API_users`
-  - `https://wiki.openstreetmap.org/wiki/Routing/online_routers`
-- Forms
-  - Formik
-  - React Hook Form `https://react-hook-form.com/get-started`
-    - w/ Yup `https://codesandbox.io/s/928po918qr`
-- Gatsby Templates?
-  - `https://www.gatsbyjs.org/docs/building-with-components/#page-template-components`
-  
-### Done 
+---
+
+### Done
 
 - [x] side navigator component
 - [x] form structure could be saved on the marker/line with the yup schema, and then transformed in runtime to a form with react-hook-form
@@ -40,8 +26,9 @@
 - [x] delete markers
 - [x] create marker list on sidenav
 - [x] colors should come from a single place, and not being calculated on each component - ui
-- [x] on hover updates reducer 
-
+- [x] on hover updates reducer
+- [x] optimize color selection and logic (contexts)
+  - `https://kentcdodds.com/blog/how-to-optimize-your-context-value`
 
 ### To Do
 
@@ -59,20 +46,35 @@
 
 #### Optimization
 
-- [ ] optimize color selection and logic (contexts)
-  - `https://kentcdodds.com/blog/how-to-optimize-your-context-value`
 - [ ] separate into logic functions to unclutter component spec
+- [ ] memoize static styles so they never reload
 
 #### Other
 
 - [ ] write articles as tutorials?
+
   - must organize steps...
-  
-    
+
+---
+
 ### Misc
 
-```
-Avoid component rendering - React.memo
-Avoid re-computing internal component state - useMemo
-Avoid re-computing information derived from the redux state - createSelector from reselect
-```
+- On memoizing:
+  - [Difference between `React.memo` and `useMemo`](https://stackoverflow.com/questions/55466104/using-usememo-instead-of-react-memo-syntax-issue);
+  - [Not using `lodash` memoization](https://dev.to/nioufe/you-should-not-use-lodash-for-memoization-3441);
+  - [Using `useMemo` and `useContext` to minimize re-renders](https://github.com/facebook/react/issues/15156).
+- Map Lib `https://www.reddit.com/r/reactjs/comments/di9t67/i_made_an_interactive_solver_for_the_traveling/f3usd67/`
+  - `http://visgl.github.io/react-map-gl/`
+  - `https://deck.gl/#/` ?
+  - Side navbar `https://stackoverflow.com/questions/39974486/accordion-sidebar-menu-using-nav-components-with-react-bootstrap`
+  - Routing
+    - `https://docs.mapbox.com/api/navigation/`
+    - `https://developer.here.com/`
+    - `https://wiki.openstreetmap.org/wiki/YOURS#API_users`
+    - `https://wiki.openstreetmap.org/wiki/Routing/online_routers`
+  - Forms
+    - Formik
+    - React Hook Form `https://react-hook-form.com/get-started`
+      - w/ Yup `https://codesandbox.io/s/928po918qr`
+  - Gatsby Templates?
+    - `https://www.gatsbyjs.org/docs/building-with-components/#page-template-components`

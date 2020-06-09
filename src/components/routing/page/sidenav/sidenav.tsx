@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 import { faAngleDoubleLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -49,7 +49,7 @@ function getStyle(isOpen: boolean, theme: Theme): SerializedStyles {
   });
 }
 
-const SideNav = React.memo<Props>(({ children, blocking }) => {
+const SideNav: FunctionComponent<Props> = ({ children, blocking }) => {
   const {
     selected,
     storeDispatch,
@@ -59,18 +59,18 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
-  const open = () => {
-    storeDispatch(sidenavThunks.open());
-  };
-
-  const close = () => {
-    storeDispatch(sidenavThunks.close());
-    storeDispatch(mapThunks.unselect());
-  };
-
   const theme = useContext(ThemeContext).theme;
-  return useMemo(
-    () => (
+  return useMemo(() => {
+    const open = () => {
+      storeDispatch(sidenavThunks.open());
+    };
+
+    const close = () => {
+      storeDispatch(sidenavThunks.close());
+      storeDispatch(mapThunks.unselect());
+    };
+
+    return (
       <div css={getStyle(selected?.open || false, theme)}>
         {blocking && <div id={'overlay'} onClick={close} />}
         <FontAwesomeIcon
@@ -84,9 +84,8 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
         <SidenavBody item={selected?.data} />
         {children}
       </div>
-    ),
-    [theme, selected]
-  );
-});
+    );
+  }, [theme, selected]);
+};
 
 export default SideNav;

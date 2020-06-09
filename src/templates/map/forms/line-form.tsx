@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useMemo } from 'react';
 import { ItemForm } from '../../../logic/features/map/map-types';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
@@ -16,7 +16,7 @@ type Props = {
   item: LineObj;
 };
 
-const LineForm = React.memo<Props>((props) => {
+const LineForm: FunctionComponent<Props> = ({ item }) => {
   const {
     selected,
     storeDispatch,
@@ -26,36 +26,37 @@ const LineForm = React.memo<Props>((props) => {
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), () => {});
   const { reset, register, handleSubmit } = useForm<ItemForm<LineTypes>>({
-    defaultValues: (selected as LineObj)?.data || props.item.data,
+    defaultValues: (selected as LineObj)?.data || item.data,
   });
 
   useEffect(() => {
-    reset(props.item.data);
-  }, [props.item, selected?.data]);
+    reset(item.data);
+  }, [item, selected?.data]);
 
-  const onSubmit = (data: ItemForm<LineTypes>) => {
-    const updatedItem = _.set(props.item, 'data', data);
-    storeDispatch(mapThunks.updateLine(updatedItem.id, updatedItem));
-    storeDispatch(sidenavThunks.update(updatedItem));
-  };
+  return useMemo(() => {
+    const onSubmit = (data: ItemForm<LineTypes>) => {
+      const updatedItem = _.set(item, 'data', data);
+      storeDispatch(mapThunks.updateLine(updatedItem.id, updatedItem));
+      storeDispatch(sidenavThunks.update(updatedItem));
+    };
 
-  const remove = () => {
-    storeDispatch(mapThunks.removeLine(props.item.id));
-    storeDispatch(mapThunks.unselect());
-    storeDispatch(sidenavThunks.clear());
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <LabelledInput first name={'name'} refFn={register} />
-        <LabelledInput name={'description'} refFn={register} />
-        <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} />
-        <Button type={'submit'}>{'Submit'}</Button>
-        <Button onClick={remove}>{'Remove Line'}</Button>
-      </form>
-    </div>
-  );
-});
+    const remove = () => {
+      storeDispatch(mapThunks.removeLine(item.id));
+      storeDispatch(mapThunks.unselect());
+      storeDispatch(sidenavThunks.clear());
+    };
+    return (
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <LabelledInput first name={'name'} refFn={register} />
+          <LabelledInput name={'description'} refFn={register} />
+          <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} />
+          <Button type={'submit'}>{'Submit'}</Button>
+          <Button onClick={remove}>{'Remove Line'}</Button>
+        </form>
+      </div>
+    );
+  }, [item, selected]);
+};
 
 export default LineForm;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useMemo } from 'react';
 import { ItemForm } from '../../../logic/features/map/map-types';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
@@ -16,7 +16,7 @@ type Props = {
   item: MarkerObj;
 };
 
-const MarkerForm = React.memo<Props>((props) => {
+const MarkerForm: FunctionComponent<Props> = ({ item }) => {
   const {
     selected,
     storeDispatch,
@@ -26,36 +26,37 @@ const MarkerForm = React.memo<Props>((props) => {
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), (storeState: StoreState) => storeState.sidenav?.data);
   const { reset, register, handleSubmit } = useForm<ItemForm<MarkerTypes>>({
-    defaultValues: (selected as MarkerObj)?.data || props.item.data,
+    defaultValues: (selected as MarkerObj)?.data || item.data,
   });
 
   useEffect(() => {
-    reset(props.item.data);
-  }, [props.item, selected?.data]);
+    reset(item.data);
+  }, [item, selected?.data]);
 
-  const onSubmit = (data: ItemForm<MarkerTypes>) => {
-    const updatedItem = _.set(props.item, 'data', data);
-    storeDispatch(mapThunks.updateMarker(updatedItem.id, updatedItem));
-    storeDispatch(sidenavThunks.update(updatedItem));
-  };
+  return useMemo(() => {
+    const onSubmit = (data: ItemForm<MarkerTypes>) => {
+      const updatedItem = _.set(item, 'data', data);
+      storeDispatch(mapThunks.updateMarker(updatedItem.id, updatedItem));
+      storeDispatch(sidenavThunks.update(updatedItem));
+    };
 
-  const remove = () => {
-    storeDispatch(mapThunks.removeMarker(props.item.id));
-    storeDispatch(mapThunks.unselect());
-    storeDispatch(sidenavThunks.clear());
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <LabelledInput first name={'name'} refFn={register} />
-        <LabelledInput name={'description'} refFn={register} />
-        <LabelledSelect last name={'type'} refFn={register} options={enumToArray(MarkerTypes)} />
-        <Button type={'submit'}>{'Submit'}</Button>
-        <Button onClick={remove}>{'Remove Marker'}</Button>
-      </form>
-    </div>
-  );
-});
+    const remove = () => {
+      storeDispatch(mapThunks.removeMarker(item.id));
+      storeDispatch(mapThunks.unselect());
+      storeDispatch(sidenavThunks.clear());
+    };
+    return (
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <LabelledInput first name={'name'} refFn={register} />
+          <LabelledInput name={'description'} refFn={register} />
+          <LabelledSelect last name={'type'} refFn={register} options={enumToArray(MarkerTypes)} />
+          <Button type={'submit'}>{'Submit'}</Button>
+          <Button onClick={remove}>{'Remove Marker'}</Button>
+        </form>
+      </div>
+    );
+  }, [item, selected]);
+};
 
 export default MarkerForm;

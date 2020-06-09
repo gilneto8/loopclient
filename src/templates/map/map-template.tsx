@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, FunctionComponent } from 'react';
 import { Page } from '../../components/routing/page/page';
 import { useMapLogic } from './map-logic';
 import Popup from './components/popup';
@@ -17,7 +17,7 @@ const style: CSSProperties = {
 
 type Props = {};
 
-const MapTemplate = React.memo<Props>(() => {
+const MapTemplate: FunctionComponent<Props> = () => {
   const { state, methods } = useMapLogic();
   return (
     <Page title={'Map'}>
@@ -50,6 +50,6 @@ const MapTemplate = React.memo<Props>(() => {
       </>
     </Page>
   );
-});
+};
 
 export default MapTemplate;
