@@ -4,17 +4,20 @@ import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
 import {
   ADD_LINE,
-  ADD_MARKER, HOVER_LINE, HOVER_MARKER,
+  ADD_MARKER,
+  HOVER_LINE,
+  HOVER_MARKER,
   MapAction,
   REMOVE_LINE,
   REMOVE_MARKER,
   SELECT_LINE,
-  SELECT_MARKER, UNHOVER,
+  SELECT_MARKER,
+  UNHOVER,
   UNSELECT,
   UPDATE_LINE,
   UPDATE_MARKER,
-  UPDATE_VIEWPORT
-} from "./map-actions"
+  UPDATE_VIEWPORT,
+} from './map-actions';
 import * as _ from 'lodash';
 import { id } from '../../../utils/functions/create-local-id';
 

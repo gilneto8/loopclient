@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { ThemeConsumer } from '../../../colors/theme-context';
-import { Theme } from "../../../colors/color-types"
+import { Theme } from '../../../colors/color-types';
 
 type Props = {
   width?: number;

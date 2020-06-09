@@ -1,4 +1,4 @@
-import { BaseTheme, DefaultColors } from "./color-types"
+import { BaseTheme, DefaultColors } from './color-types';
 
 const foreground = 'rgb(0,232,125)';
 const background = 'rgb(0,30,76)';
