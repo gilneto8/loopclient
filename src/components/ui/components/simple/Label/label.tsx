@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { FunctionComponent, useContext, useMemo } from "react";
 import { css } from '@emotion/core';
+import { Theme } from '../../../colors/color-types';
+import { ThemeContext } from '../../../colors/theme-context';
 
+// TODO remove color prop
 type BorderProps = {
   thickness: [number] | [number, number] | [number, number, number, number];
   type: 'solid' | 'dashed';
   color: string;
 };
 type Props = {
-  children?: any;
   color?: string;
   borders?: BorderProps;
   paddings?: [number] | [number, number] | [number, number, number, number];
@@ -42,11 +44,11 @@ const borders = (bs: BorderProps | undefined) => {
   }
 };
 
-const style = (props: Props) =>
+const style = (props: Props, theme: Theme) =>
   css({
     width: '100%',
     display: 'inline-flex',
-    color: props.color || 'white',
+    color: props.color || theme.defaults.white,
     padding: convert(props.paddings),
     margin: convert(props.margins),
     ...borders(props.borders),
@@ -54,19 +56,22 @@ const style = (props: Props) =>
     fontWeight: 'bold',
   });
 
-const Label = (props: Props) => {
+const Label: FunctionComponent<Props> = (props) => {
   const { children, as, onClick } = props;
-  switch (as) {
-    case 'span':
-      return (
-        <span onClick={onClick} css={style(props)}>
-          {children}
-        </span>
-      );
-    case 'label':
-    default:
-      return <label css={style(props)}>{children}</label>;
-  }
+  const theme: Theme = useContext(ThemeContext).theme;
+  return useMemo(() => {
+    switch (as) {
+      case 'span':
+        return (
+          <span onClick={onClick} css={style(props, theme)}>
+            {children}
+          </span>
+        );
+      case 'label':
+      default:
+        return <label css={style(props, theme)}>{children}</label>;
+    }
+  }, [children, as, theme]);
 };
 
 export default Label;

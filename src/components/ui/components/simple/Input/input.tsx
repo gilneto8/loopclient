@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
+import { Theme } from '../../../colors/color-types';
+import { ThemeContext } from '../../../colors/theme-context';
 
+// TODO remove color prop
 type BorderProps = {
   thickness: number;
   type: 'solid' | 'dashed';
@@ -24,19 +27,20 @@ const border = (bs: BorderProps | undefined) => {
   return { border: `${bs.thickness}px ${bs.type} ${bs.color}` };
 };
 
-const style = (props: Props) =>
+const style = (props: Props, theme: Theme) =>
   css({
     width: 'calc(100% - .5rem)',
-    color: props.color || 'black',
+    color: props.color || theme.defaults.black,
     padding: convert(props.paddings),
     margin: convert(props.margins),
     ...border(props.border),
     fontSize: '.75rem',
   });
 
-const Input = (props: Props) => {
+const Input: FunctionComponent<Props> = (props) => {
   const { name, refFn, placeholder } = props;
-  return <input name={name} css={style(props)} ref={refFn} placeholder={placeholder} />;
+  const theme: Theme = useContext(ThemeContext).theme;
+  return useMemo(() => <input name={name} css={style(props, theme)} ref={refFn} placeholder={placeholder} />, [theme, props]);
 };
 
 export default Input;

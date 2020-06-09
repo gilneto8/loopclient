@@ -56,7 +56,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
         </form>
       </div>
     );
-  }, [item, selected]);
+  }, [item, selected, reset, register, handleSubmit]);
 };
 
 export default MarkerForm;

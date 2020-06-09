@@ -1,8 +1,10 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, FunctionComponent, useContext, useMemo } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Theme } from "../../../colors/color-types";
+import { ThemeContext } from "../../../colors/theme-context";
 
-type ButtonProps = {
+type Props = {
   title?: string;
   disabled?: boolean;
   filled?: boolean;
@@ -11,18 +13,18 @@ type ButtonProps = {
   onClick?: (evt: React.FormEvent<HTMLButtonElement>) => void;
   style?: CSSProperties;
   text?: string;
-  children?: React.ReactNode[] | string;
   icon?: IconProp;
 };
 
-function Button(props: ButtonProps) {
+const Button: FunctionComponent<Props> = (props) => {
   const { title, disabled, style, type, onClick, icon, text, children } = props;
-  return (
+  const theme: Theme = useContext(ThemeContext).theme;
+  return useMemo(() => (
     <button title={title} disabled={disabled} style={style} type={type} onClick={onClick}>
       {icon && <FontAwesomeIcon icon={icon} />}
       {text || children}
     </button>
-  );
+  ),[theme, props]);
 }
 
 export default Button;

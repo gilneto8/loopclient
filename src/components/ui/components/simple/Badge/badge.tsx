@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { FunctionComponent, useContext, useMemo } from "react";
 import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
@@ -9,7 +9,6 @@ type Props = {
   width?: number;
   fontSize?: number;
   enableAutoMargin?: boolean;
-  children?: any;
   removable?: boolean;
   active?: boolean;
   hovered?: boolean;
@@ -60,8 +59,8 @@ const style = (props: Props, theme: Theme) =>
     },
   });
 
-const Badge = (props: Props) => {
-  const { onClick, children, removable, onRemove, onHover } = props;
+const Badge: FunctionComponent<Props> = (props) => {
+  const { onClick, children, removable, onRemove, onHover, active, hovered } = props;
   const theme = useContext(ThemeContext).theme;
   return useMemo(
     () => (
@@ -75,7 +74,7 @@ const Badge = (props: Props) => {
         {removable && <FontAwesomeIcon icon={faTrash} size={'sm'} color={theme.defaults.danger} onClick={onRemove} />}
       </div>
     ),
-    [theme, props.active, props.hovered]
+    [theme, active, hovered]
   );
 };
 

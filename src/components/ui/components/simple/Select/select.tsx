@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { FunctionComponent, useContext, useMemo } from "react";
 import { css } from '@emotion/core';
+import { Theme } from "../../../colors/color-types";
+import { ThemeContext } from "../../../colors/theme-context";
 
+// TODO remove color prop
 type BorderProps = {
   thickness: number;
   type: 'solid' | 'dashed';
@@ -25,27 +28,28 @@ const border = (bs: BorderProps | undefined) => {
   return { border: `${bs.thickness}px ${bs.type} ${bs.color}` };
 };
 
-const style = (props: Props) =>
+const style = (props: Props, theme: Theme) =>
   css({
     width: '100%',
-    color: props.color || 'black',
+    color: props.color || theme.defaults.black,
     padding: convert(props.paddings),
     margin: convert(props.margins),
     ...border(props.border),
     fontSize: '.75rem',
   });
 
-const Select = (props: Props) => {
+const Select: FunctionComponent<Props> = (props) => {
   const { name, refFn, options } = props;
-  return (
-    <select css={style(props)} name={name} ref={refFn}>
+  const theme: Theme = useContext(ThemeContext).theme;
+  return useMemo(() => (
+    <select css={style(props, theme)} name={name} ref={refFn}>
       {options.map((opt, i) => (
         <option key={i} value={opt}>
           {opt}
         </option>
       ))}
     </select>
-  );
+  ), [props, theme]);
 };
 
 export default Select;

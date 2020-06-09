@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent, useMemo } from "react";
 import Label from '../../simple/Label/label';
 import { css } from '@emotion/core';
 import { id } from '../../../../../utils/functions/create-local-id';
@@ -26,14 +26,14 @@ const style = (props: Props) =>
     })(),
   });
 
-const LabelledSelect = (props: Props) => {
+const LabelledSelect: FunctionComponent<Props> = (props) => {
   const { key, name, refFn, options } = props;
-  return (
+  return useMemo(() => (
     <div css={style(props)} key={`${key || id(4)}-${name}`}>
       <Label>{_.startCase(_.toLower(name))}</Label>
       <Select name={`${name}`} refFn={refFn} options={options} />
     </div>
-  );
+  ), [props]);
 };
 
 export default LabelledSelect;

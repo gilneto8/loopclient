@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import Label from '../../simple/Label/label';
 import Input from '../../simple/Input/input';
 import { css } from '@emotion/core';
@@ -25,14 +25,14 @@ const style = (props: Props) =>
     })(),
   });
 
-const LabelledInput = (props: Props) => {
+const LabelledInput: FunctionComponent<Props> = (props) => {
   const { key, name, refFn } = props;
-  return (
+  return useMemo(() => (
     <div css={style(props)} key={`${key || id(4)}-${name}`}>
       <Label>{_.startCase(_.toLower(name))}</Label>
       <Input name={`${name}`} refFn={refFn} />
     </div>
-  );
+  ), [props]);
 };
 
 export default LabelledInput;
