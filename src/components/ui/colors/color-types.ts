@@ -1,3 +1,8 @@
+export type BaseColors = {
+  foreground: string;
+  background: string;
+};
+
 export type ColorThemeTones = {
   l_10: string;
   l_30: string;
