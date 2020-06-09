@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 import { faAngleDoubleLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,16 +8,18 @@ import { useStoreSelector } from '../../../../logic/shared/store/use-store-selec
 import { loadSidenav } from '../../../../logic/features/sidenav/sidenav-thunks';
 import SidenavBody from './components/sidenav-body/sidenav-body';
 import { loadMap } from '../../../../logic/features/map/map-thunks';
+import { ThemeConsumer } from '../../../ui/colors/theme-context';
+import { Theme } from '../../../ui/colors/color-types';
 
 type Props = {
   blocking?: boolean;
 };
 
-function getStyle(isOpen: boolean): SerializedStyles {
+function getStyle(isOpen: boolean, theme: Theme): SerializedStyles {
   return css({
     transition: 'all .3s',
     marginRight: 45,
-    backgroundColor: '#142430',
+    backgroundColor: theme.background.color,
     width: 300,
     height: '100%',
     position: 'absolute',
@@ -38,7 +40,7 @@ function getStyle(isOpen: boolean): SerializedStyles {
     '& > #overlay': {
       transition: 'background-color 1s',
       position: 'absolute',
-      backgroundColor: isOpen ? 'black' : 'transparent',
+      backgroundColor: isOpen ? theme.defaults.black : 'transparent',
       opacity: 0.3,
       zIndex: z.PAGE.overlay.v,
       width: isOpen ? '100vw' : 0,
@@ -57,8 +59,6 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
-  const memoizedStyle = useMemo(() => getStyle(selected?.open || false), [selected]);
-
   const open = () => {
     storeDispatch(sidenavThunks.open());
   };
@@ -69,19 +69,25 @@ const SideNav = React.memo<Props>(({ children, blocking }) => {
   };
 
   return (
-    <div css={memoizedStyle}>
-      {blocking && <div id={'overlay'} onClick={close} />}
-      <FontAwesomeIcon
-        color={'white'}
-        size={'sm'}
-        rotation={selected?.open ? undefined : 180}
-        icon={selected?.open ? faAngleDoubleLeft : faBars}
-        onClick={() => (selected?.open ? close() : open())}
-      />
-      <SidenavHeader />
-      <SidenavBody item={selected?.data} />
-      {children}
-    </div>
+    <ThemeConsumer>
+      {({ theme }) => {
+        return (
+          <div css={getStyle(selected?.open || false, theme)}>
+            {blocking && <div id={'overlay'} onClick={close} />}
+            <FontAwesomeIcon
+              color={theme.defaults.white}
+              size={'sm'}
+              rotation={selected?.open ? undefined : 180}
+              icon={selected?.open ? faAngleDoubleLeft : faBars}
+              onClick={() => (selected?.open ? close() : open())}
+            />
+            <SidenavHeader />
+            <SidenavBody item={selected?.data} />
+            {children}
+          </div>
+        );
+      }}
+    </ThemeConsumer>
   );
 });
 

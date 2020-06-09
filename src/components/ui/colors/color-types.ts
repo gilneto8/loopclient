@@ -1,7 +1,17 @@
+export const DefaultColors = {
+  black: 'rgb(17,17,17)',
+  white: 'rgb(255,238,220)',
+  grey: 'rgb(135,134,132)',
+  danger: 'rgb(238,59,59)',
+  warning: 'rgb(246,191,34)',
+  success: 'rgb(62,187,50)',
+};
+
 export type BaseColors = {
   foreground: string;
   background: string;
 };
+export type BaseTheme = BaseColors & { defaults: typeof DefaultColors };
 
 export type ColorThemeTones = {
   l_10: string;
@@ -36,4 +46,5 @@ export type Theme = {
   foreground: ColorTheme;
   background: ColorTheme;
   text: TextTheme;
+  defaults: typeof DefaultColors;
 };

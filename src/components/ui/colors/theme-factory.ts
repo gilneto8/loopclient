@@ -1,5 +1,5 @@
 import tinycolor from 'tinycolor2';
-import { BaseColors, ColorTheme, TextTheme, Theme } from './color-types';
+import { BaseTheme, ColorTheme, DefaultColors, TextTheme, Theme } from './color-types';
 import { DEFAULT_THEME } from './default-theme';
 
 const getTextTheme = (fg: string, bg: string): TextTheme => {
@@ -31,22 +31,19 @@ const getColorTheme = (color: string): ColorTheme => ({
     .map((color: tinycolor.Instance) => color.toRgbString()),
 });
 
-const createTheme = (fg: string, bg: string): Theme => ({
-  foreground: getColorTheme(fg),
-  background: getColorTheme(bg),
-  text: getTextTheme(fg, bg),
+const createTheme = ({ foreground, background, defaults }: BaseTheme): Theme => ({
+  foreground: getColorTheme(foreground),
+  background: getColorTheme(background),
+  text: getTextTheme(foreground, background),
+  defaults: defaults || DefaultColors,
 });
 
 const ThemeFactory = (() => {
   let theme: Theme;
 
   return {
-    getTheme: (colors?: BaseColors) => {
-      if (!theme)
-        theme = colors
-          ? createTheme(colors.foreground, colors.background)
-          : createTheme(DEFAULT_THEME.foreground, DEFAULT_THEME.background);
-
+    getTheme: (colors?: BaseTheme) => {
+      if (!theme) theme = createTheme(colors || DEFAULT_THEME);
       return theme;
     },
   };
