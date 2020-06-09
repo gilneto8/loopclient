@@ -1,40 +1,43 @@
 import tinycolor from 'tinycolor2';
-import { ColorTheme, TextTheme } from './color-types';
+import { ColorTheme, TextTheme, Theme } from './color-types';
 
-const mainForegroundColor = '#00e87d';
-const mainBackgroundColor = '#1c006a';
-
-const getColorFunctions = (color: string, generateComplements: boolean = false): ColorTheme => ({
-  color: tinycolor(color).saturate(13),
-  /*tones: {
-    l_10: color.brighten(10),
-    l_30: color.brighten(30),
-    l_50: color.brighten(50),
-    d_10: color.darken(10),
-    d_30: color.darken(30),
-    d_50: color.darken(50),
-  },
-  functional: {
-    hovering: color.brighten(10),
-    selected: color.brighten(30),
-    disabled: color.desaturate(30),
-  },
-  complements: !generateComplements ? [] : color.tetrad().map((color) => {
-    return getColorFunctions(color)
-  }),*/
-});
-
-const getTextFunctions = (fg: string, bg: string): TextTheme => ({
-  contrast_bg: tinycolor(fg).desaturate(25),
-  blend_bg: tinycolor(bg).lighten(25),
-  contrast_fg: tinycolor(bg).desaturate(25),
-  blend_fg: tinycolor(fg).darken(15),
-});
-
-const DEFAULT_THEME = {
-  foreground: getColorFunctions(mainForegroundColor, true),
-  background: getColorFunctions(mainBackgroundColor, true),
-  text: getTextFunctions(mainForegroundColor, mainBackgroundColor),
+const getTextTheme = (fg: string, bg: string): TextTheme => {
+  return {
+    contrast_bg: tinycolor(fg).lighten(10).toRgbString(),
+    blend_bg: tinycolor(bg).lighten(25).toRgbString(),
+    contrast_fg: tinycolor(bg).lighten(10).toRgbString(),
+    blend_fg: tinycolor(fg).darken(15).toRgbString(),
+  };
 };
 
-export default DEFAULT_THEME;
+const getColorTheme = (color: string): ColorTheme => ({
+  color: tinycolor(color).toRgbString(),
+  tones: {
+    l_10: tinycolor(color).brighten(10).toRgbString(),
+    l_30: tinycolor(color).brighten(30).toRgbString(),
+    l_50: tinycolor(color).brighten(50).toRgbString(),
+    d_10: tinycolor(color).darken(10).toRgbString(),
+    d_30: tinycolor(color).darken(30).toRgbString(),
+    d_50: tinycolor(color).darken(50).toRgbString(),
+  },
+  functional: {
+    hovering: tinycolor(color).brighten(10).toRgbString(),
+    selected: tinycolor(color).brighten(30).toRgbString(),
+    disabled: tinycolor(color).desaturate(30).toRgbString(),
+  },
+  complements: tinycolor(color)
+    .splitcomplement()
+    .map((color: tinycolor.Instance) => color.toRgbString()),
+});
+
+const createTheme = (fg: string, bg: string): Theme => ({
+  foreground: getColorTheme(fg),
+  background: getColorTheme(bg),
+  text: getTextTheme(fg, bg),
+});
+
+const mainForegroundColor = 'rgb(0,232,125)';
+const mainBackgroundColor = 'rgb(28,0,106)';
+
+export const DEFAULT_THEME: Theme = createTheme(mainForegroundColor, mainBackgroundColor);
+export default createTheme;

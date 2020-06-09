@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { useStoreDispatch } from '../../logic/shared/store/use-store-dispatch';
 import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
 import { loadMap } from '../../logic/features/map/map-thunks';
-import DEFAULT_THEME from '../ui/colors/default-theme';
+import ThemeFactory from '../ui/colors/theme-factory';
+import { ThemeProvider } from '../ui/colors/theme-context';
 
 /*
   TODO:
@@ -21,12 +22,12 @@ const ContextualizedRootFrame: FunctionComponent = (props) => {
 export const RootFrame: FunctionComponent = ({ children }) => {
   const [storeManager] = useState(() => createStoreManager());
   const store = storeManager.store;
-
-  console.log(DEFAULT_THEME);
-
+  const theme = ThemeFactory.getTheme();
   return (
     <Provider store={store}>
-      <ContextualizedRootFrame>{children}</ContextualizedRootFrame>
+      <ThemeProvider theme={theme}>
+        <ContextualizedRootFrame>{children}</ContextualizedRootFrame>
+      </ThemeProvider>
     </Provider>
   );
 };
