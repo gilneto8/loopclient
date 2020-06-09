@@ -22,7 +22,7 @@ const getColorTheme = (color: string): ColorTheme => ({
     d_50: tinycolor(color).darken(50).toRgbString(),
   },
   functional: {
-    hovering: tinycolor(color).brighten(10).toRgbString(),
+    hovering: tinycolor(color).brighten(15).toRgbString(),
     selected: tinycolor(color).brighten(30).toRgbString(),
     disabled: tinycolor(color).desaturate(30).toRgbString(),
   },

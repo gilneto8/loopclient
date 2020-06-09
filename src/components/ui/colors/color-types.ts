@@ -30,8 +30,8 @@ export type ColorThemeFunctional = {
 
 export type ColorTheme = {
   color: string;
-  tones?: ColorThemeTones;
-  functional?: ColorThemeFunctional;
+  tones: ColorThemeTones;
+  functional: ColorThemeFunctional;
   complements?: string[];
 };
 

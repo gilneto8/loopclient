@@ -6,12 +6,6 @@ import { ThemeConsumer } from '../../../colors/theme-context';
 import { Theme } from "../../../colors/color-types"
 
 type Props = {
-  color?: string;
-  hoverColor?: string;
-  activeColor?: string;
-  backgroundColor?: string;
-  hoverBackgroundColor?: string;
-  activeBackgroundColor?: string;
   width?: number;
   fontSize?: number;
   enableAutoMargin?: boolean;
@@ -26,16 +20,16 @@ type Props = {
 
 const _getBackgroundColor = (props: Props, theme: Theme) => {
   // indirect hovering through map
-  if (props.hovered) return props.hoverBackgroundColor || 'grey';
-  if (!props.active) return props.backgroundColor || 'black';
-  else return props.activeBackgroundColor || 'white';
+  if (props.hovered) return theme.background.functional?.hovering || theme.defaults.grey;
+  if (!props.active) return theme.background.tones?.l_10 || theme.defaults.black;
+  else return theme.background.functional?.selected || theme.defaults.white;
 };
 
 const _getColor = (props: Props, theme: Theme) => {
   // indirect hovering through map
-  if (props.hovered) return props.hoverColor || 'white';
-  if (!props.active) return props.color || 'white';
-  else return props.activeColor || 'black';
+  if (props.hovered) return theme.text.blend_fg || theme.defaults.grey;
+  if (!props.active) return theme.text.blend_bg || theme.defaults.white;
+  else return theme.text.contrast_bg || theme.defaults.black;
 };
 
 const style = (props: Props, theme: Theme) =>
@@ -53,8 +47,8 @@ const style = (props: Props, theme: Theme) =>
     fontSize: props.fontSize || '1rem',
     cursor: 'pointer',
     '&:hover': {
-      color: props.hoverColor || theme.defaults.white,
-      backgroundColor: props.hoverBackgroundColor || theme.defaults.grey,
+      color: theme.text.contrast_bg || theme.defaults.white,
+      backgroundColor: theme.background.functional?.hovering || theme.defaults.grey,
     },
     '& > span': {
       paddingLeft: 35,
@@ -78,7 +72,7 @@ const Badge = (props: Props) => {
           onMouseEnter={() => onHover && onHover(true)}
         >
           <span>{children}</span>
-          {removable && <FontAwesomeIcon icon={faTrash} size={'sm'} color={'red'} onClick={onRemove} />}
+          {removable && <FontAwesomeIcon icon={faTrash} size={'sm'} color={theme.defaults.danger} onClick={onRemove} />}
         </div>
       )}
     </ThemeConsumer>
