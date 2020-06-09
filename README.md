@@ -1,99 +1,78 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+### Ref
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+- Map Lib `https://www.reddit.com/r/reactjs/comments/di9t67/i_made_an_interactive_solver_for_the_traveling/f3usd67/`
+  - `http://visgl.github.io/react-map-gl/`
+  - `https://deck.gl/#/` ?
+- Side navbar `https://stackoverflow.com/questions/39974486/accordion-sidebar-menu-using-nav-components-with-react-bootstrap`
+- Routing
+  - `https://docs.mapbox.com/api/navigation/`
+  - `https://developer.here.com/`
+  - `https://wiki.openstreetmap.org/wiki/YOURS#API_users`
+  - `https://wiki.openstreetmap.org/wiki/Routing/online_routers`
+- Forms
+  - Formik
+  - React Hook Form `https://react-hook-form.com/get-started`
+    - w/ Yup `https://codesandbox.io/s/928po918qr`
+- Gatsby Templates?
+  - `https://www.gatsbyjs.org/docs/building-with-components/#page-template-components`
+  
+### Done 
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+- [x] side navigator component
+- [x] form structure could be saved on the marker/line with the yup schema, and then transformed in runtime to a form with react-hook-form
+  - `https://codesandbox.io/s/928po918qr`
+  - initial information can come from `data`
+- [x] redux
+  - `store-types.ts` - all store types (reducers)
+  - `create-store-manager.ts` - override to the pure `combineReducers` method, loads each async
+  - `use-store-dispatch` - created hook to use for dispatching actions
+  - `use-store-selector` - similar to `useSelector`, but async, within the async store manager
+  - examples:
+    - `users-thunks` - actions file
+    - `users-reducer` - reducer file itself
+- [x] remove forms from popups and only show info
+- [x] put markers on reducer
+- [x] visual indication that a marker is selected and that changes were made
+- [x] change way some components connect to each other:
+  - [x] SidenavBody should choose which form to pick by filtering props.item type
+  - [x] Sidenav logic - should it update something on itself after a form submit? study
+- [x] fix typings - lots of '| null' and '| undefined' around
+- [x] delete markers
+- [x] create marker list on sidenav
+- [x] colors should come from a single place, and not being calculated on each component - ui
+- [x] on hover updates reducer 
 
-## 🚀 Quick start
 
-1.  **Create a Gatsby site.**
+### To Do
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+#### Functionalities
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+- [ ] create forms on sidenav, while validating schema
+  - should create generic components (label, input)
+  - memoizing where possible
+- [ ] marker info with X to close info and not close the sidenav
+  - Submit does not close sidenav, just clears info
+- [ ] dnd on marker list
+- [ ] way of drawing itineraries (not just by placing markers?);
 
-1.  **Start developing.**
+#### Bugs
 
-    Navigate into your new site’s directory and start it up.
+#### Optimization
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+- [ ] optimize color selection and logic (contexts)
+  - `https://kentcdodds.com/blog/how-to-optimize-your-context-value`
+- [ ] separate into logic functions to unclutter component spec
 
-1.  **Open the source code and start editing!**
+#### Other
 
-    Your site is now running at `http://localhost:8000`!
+- [ ] write articles as tutorials?
+  - must organize steps...
+  
+    
+### Misc
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
-
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.tsx`. Save your changes and the browser will update in real time!
-
-## 🧐 What's inside?
-
-A quick look at the top-level files and directories you'll see in a Gatsby project.
-
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
-
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
-
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+```
+Avoid component rendering - React.memo
+Avoid re-computing internal component state - useMemo
+Avoid re-computing information derived from the redux state - createSelector from reselect
+```
