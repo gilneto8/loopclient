@@ -37,6 +37,7 @@
 #### Bugs
 
 - [ ] handle warnings and a11y issues
+- [ ] popup background color should fill popup container
 
 #### Optimization
 
