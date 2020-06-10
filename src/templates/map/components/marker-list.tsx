@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import Marker from './marker';
-import { MarkerObj } from '../../../logic/features/map/marker-types';
+import { MarkerObj } from '../../../logic/features/trip/marker-types';
 import { MapItemObj } from '../../../logic/features/map/map-types';
 import { isMarker } from '../../../utils/functions/is-marker';
 

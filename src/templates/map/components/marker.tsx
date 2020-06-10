@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { Marker as ReactMapGLMarker } from 'react-map-gl';
 import { css } from '@emotion/core';
-import { MarkerObj } from '../../../logic/features/map/marker-types';
+import { MarkerObj } from '../../../logic/features/trip/marker-types';
 import MarkerPoint from '../../../assets/images/marker';
 import { ThemeContext } from '../../../components/ui/colors/theme-context';
 import { Theme } from '../../../components/ui/colors/color-types';

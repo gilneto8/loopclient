@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
-import { ItemForm } from '../../../logic/features/map/map-types';
+import { ItemForm } from '../../../logic/features/trip/trip-types';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
 import { enumToArray } from '../../../utils/enums/enum-to-array';
-import { MarkerObj, MarkerTypes } from '../../../logic/features/map/marker-types';
+import { MarkerObj, MarkerTypes } from '../../../logic/features/trip/marker-types';
 import { useStoreSelector } from '../../../logic/shared/store/use-store-selector';
 import { loadMap } from '../../../logic/features/map/map-thunks';
 import Button from '../../../components/ui/components/simple/Button/button';

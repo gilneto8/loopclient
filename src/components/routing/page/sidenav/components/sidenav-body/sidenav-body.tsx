@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { MapItemObj } from '../../../../../../logic/features/map/map-types';
+import { MapItemObj } from '../../../../../../logic/features/trip/trip-types';
 import MarkerForm from '../../../../../../templates/map/forms/marker-form';
 import { isMarker } from '../../../../../../utils/functions/is-marker';
-import { MarkerObj } from '../../../../../../logic/features/map/marker-types';
-import { LineObj } from '../../../../../../logic/features/map/line-types';
+import { MarkerObj } from '../../../../../../logic/features/trip/marker-types';
+import { LineObj } from '../../../../../../logic/features/trip/line-types';
 import LineForm from '../../../../../../templates/map/forms/line-form';
 import { css } from '@emotion/core';
 import MarkerList from './components/marker-list';

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
 import { MapItemObj, Viewport } from '../../../logic/features/map/map-types';
-import { LineObj } from '../../../logic/features/map/line-types';
+import { LineObj } from '../../../logic/features/trip/line-types';
 import { ThemeContext } from '../../../components/ui/colors/theme-context';
 import { Theme } from '../../../components/ui/colors/color-types';
 import tinycolor from 'tinycolor2';

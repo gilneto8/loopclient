@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineObj } from '../../../logic/features/map/line-types';
+import { LineObj } from '../../../logic/features/trip/line-types';
 import Label from '../../../components/ui/components/simple/Label/label';
 import * as _ from 'lodash';
 import { css } from '@emotion/core';

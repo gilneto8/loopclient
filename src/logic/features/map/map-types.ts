@@ -1,6 +1,6 @@
 import { PointerEvent } from 'react-map-gl';
-import { MarkerObj } from './marker-types';
-import { LineObj } from './line-types';
+import { MarkerObj } from '../trip/marker-types';
+import { LineObj } from '../trip/line-types';
 
 export type Viewport = {
   latitude: number;
@@ -13,14 +13,6 @@ export type Viewport = {
   minPitch?: number;
 };
 
-export type ItemForm<T> = {
-  name: string;
-  description: string;
-  type: T;
-};
-
-export type CoordsObj = [number, number, number];
+export type OnClickEvent = PointerEvent;
 
 export type MapItemObj = MarkerObj | LineObj;
-
-export type OnClickEvent = PointerEvent;

@@ -2,10 +2,12 @@ import { AnyAction, Store as StoreBase } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { SidenavReducer } from '../../features/sidenav/sidenav-reducer';
 import { MapReducer } from '../../features/map/map-reducer';
+import { TripReducer } from '../../features/trip/trip-reducer';
 
 export type StoreReducersMap = {
   sidenav?: SidenavReducer;
   map?: MapReducer;
+  trip?: TripReducer;
 };
 
 export type StoreState = {

@@ -1,8 +1,8 @@
 import { StoreThunkActionBase } from '../../shared/store/store-types';
 import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_CLEAR, SIDENAV_UPDATE, SidenavAction } from './sidenav-actions';
 import { sidenavReducer } from './sidenav-reducer';
-import { MarkerObj } from '../map/marker-types';
-import { LineObj } from '../map/line-types';
+import { MarkerObj } from '../trip/marker-types';
+import { LineObj } from '../trip/line-types';
 import { hold } from '../../../utils/functions/hold';
 
 type SidenavThunkAction<R = void> = StoreThunkActionBase<SidenavAction, R>;

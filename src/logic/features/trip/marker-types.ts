@@ -1,4 +1,4 @@
-import { CoordsObj, ItemForm } from './map-types';
+import { CoordsObj, ItemForm } from '../trip/trip-types';
 
 export enum MarkerTypes {
   HOTEL = 'Hotel',

@@ -3,8 +3,8 @@ import * as _ from 'lodash';
 import { OnClickEvent, Viewport } from '../../logic/features/map/map-types';
 import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
 import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
-import { MarkerObj, MarkerTypes } from '../../logic/features/map/marker-types';
-import { LineObj, LineTypes } from '../../logic/features/map/line-types';
+import { MarkerObj, MarkerTypes } from '../../logic/features/trip/marker-types';
+import { LineObj, LineTypes } from '../../logic/features/trip/line-types';
 import { loadMap } from '../../logic/features/map/map-thunks';
 import { id } from '../../utils/functions/create-local-id';
 
