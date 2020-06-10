@@ -24,6 +24,7 @@
 
 #### Functionalities
 
+- [ ] concept of Trip
 - [ ] visual indication that changes were made
 - [ ] create forms on sidenav, while validating schema
   - should create generic components (label, input)
@@ -43,11 +44,13 @@
 
 - [ ] separate into logic functions to unclutter component spec
 - [ ] memoize static styles so they never reload
+- [ ] check React Developer Tools and profiling tools
 
 #### Other
 
-- [ ] write articles as tutorials?
-  - must organize steps...
+- [ ] investigate if Web Components should be considered here
+- [ ] get project build-ready
+- [ ] write articles for the ongoing process
 
 ---
 
