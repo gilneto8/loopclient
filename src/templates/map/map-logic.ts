@@ -37,7 +37,7 @@ export const useMapLogic = () => {
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
-  const [editMode, setEditMode] = useState<boolean>(true);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   const switchMode = () => {
     setEditMode(!editMode);
