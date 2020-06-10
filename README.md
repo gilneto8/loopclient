@@ -71,5 +71,7 @@
   - [Formik](https://jaredpalmer.com/formik/)
   - [React Hook Form](https://react-hook-form.com/get-started)
   - [RHF with Yup](https://codesandbox.io/s/928po918qr)
-- On Gatsby templates?
+- On Gatsby templates:
   - [How they work (official documentation)](https://www.gatsbyjs.org/docs/building-with-components/#page-template-components)
+- On color manipulation and conversion:
+  - [Color scheme from base color](https://bgrins.github.io/TinyColor/)

@@ -52,7 +52,7 @@ const Marker: FunctionComponent<Props> = (props) => {
         </div>
       </ReactMapGLMarker>
     ),
-    [props]
+    [props, theme]
   );
 };
 

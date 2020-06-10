@@ -11,7 +11,7 @@ export type BaseColors = {
   foreground: string;
   background: string;
 };
-export type BaseTheme = BaseColors & { defaults: typeof DefaultColors };
+export type BaseTheme = BaseColors & { defaults?: typeof DefaultColors };
 
 export type ColorThemeTones = {
   l_10: string;

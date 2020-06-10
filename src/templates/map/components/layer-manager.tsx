@@ -57,8 +57,8 @@ const LayerManager: FunctionComponent<Props> = (props) => {
             getColor: (obj) => getColor(theme, hovered?.id === obj.id, selected?.id === obj.id),
             getWidth: (obj) => getWidth(hovered?.id === obj.id, selected?.id === obj.id),
             updateTriggers: {
-              getColor: [hovered, selected],
-              getWidth: [hovered, selected],
+              getColor: [hovered, selected, theme],
+              getWidth: [hovered, selected, theme],
             },
           }),
         ]}

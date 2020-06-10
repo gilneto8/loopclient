@@ -31,19 +31,26 @@ const getColorTheme = (color: string): ColorTheme => ({
     .map((color: tinycolor.Instance) => color.toRgbString()),
 });
 
-const createTheme = ({ foreground, background, defaults }: BaseTheme): Theme => ({
-  foreground: getColorTheme(foreground),
-  background: getColorTheme(background),
-  text: getTextTheme(foreground, background),
-  defaults: defaults || DefaultColors,
-});
+const createTheme = (theme?: BaseTheme): Theme => {
+  const { foreground, background, defaults } = theme || DEFAULT_THEME;
+  return {
+    foreground: getColorTheme(foreground),
+    background: getColorTheme(background),
+    text: getTextTheme(foreground, background),
+    defaults: defaults || DefaultColors,
+  };
+};
 
 const ThemeFactory = (() => {
   let theme: Theme;
+  let baseTheme: BaseTheme = DEFAULT_THEME;
 
   return {
-    getTheme: (colors?: BaseTheme) => {
-      if (!theme) theme = createTheme(colors || DEFAULT_THEME);
+    getTheme: (_baseTheme?: BaseTheme) => {
+      if (!theme || baseTheme !== _baseTheme) {
+        baseTheme = _baseTheme ? _baseTheme : DEFAULT_THEME;
+        theme = createTheme(baseTheme);
+      }
       return theme;
     },
   };
