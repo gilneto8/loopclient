@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { MapItemObj } from '../../../../../../logic/features/trip/trip-types';
+import { MapItemObj } from '../../../../../../logic/features/map/map-types';
 import MarkerForm from '../../../../../../templates/map/forms/marker-form';
 import { isMarker } from '../../../../../../utils/functions/is-marker';
 import { MarkerObj } from '../../../../../../logic/features/trip/marker-types';

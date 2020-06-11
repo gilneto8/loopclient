@@ -13,7 +13,7 @@ import {
 } from './trip-actions';
 import { MarkerObj } from "./marker-types";
 import { LineObj } from "./line-types";
-import { tripReducer } from './trip-reducer';
+import { tripsReducer } from './trip-reducer';
 import { TripObj } from './trip-types';
 
 type TripThunkAction<R = void> = StoreThunkActionBase<TripAction, R>;
@@ -101,13 +101,13 @@ class TripThunks {
   }
 }
 
-export function loadTrip(): TripThunkAction<{
-  tripThunks: TripThunks;
+export function loadTrips(): TripThunkAction<{
+  tripsThunks: TripThunks;
 }> {
   return (_, __, { storeManager }) => {
-    storeManager.loadReducersMap({ trip: tripReducer });
+    storeManager.loadReducersMap({ trips: tripsReducer });
     return {
-      tripThunks: new TripThunks(),
+      tripsThunks: new TripThunks(),
     };
   };
 }

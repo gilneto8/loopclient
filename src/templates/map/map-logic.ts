@@ -7,6 +7,7 @@ import { MarkerObj, MarkerTypes } from '../../logic/features/trip/marker-types';
 import { LineObj, LineTypes } from '../../logic/features/trip/line-types';
 import { loadMap } from '../../logic/features/map/map-thunks';
 import { id } from '../../utils/functions/create-local-id';
+import { loadTrips } from '../../logic/features/trip/trip-thunks';
 
 const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },
@@ -36,6 +37,10 @@ export const useMapLogic = () => {
     selected: map,
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
+  const {
+    selected: trips,
+    thunkResult: { tripsThunks },
+  } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
 
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -49,45 +54,59 @@ export const useMapLogic = () => {
   };
 
   const addMarker = (p: OnClickEvent) => {
-    if (!map) throw new Error('No access to state management system.');
+    if (!map || !trips) throw new Error('No access to state management system.');
 
-    const { markers, lines } = map;
+    const { markers, lines } = trips.selected.geometry;
     const marker = createMarkerObj(+p.lngLat[0].toFixed(3), +p.lngLat[1].toFixed(3));
-    storeDispatch(mapThunks.addMarker(marker));
+    storeDispatch(tripsThunks.addMarker(trips.selected.id, marker));
     const startMarker = lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end;
-    if (markers.length >= 1) storeDispatch(mapThunks.addLine(createLineObj(startMarker, marker)));
+    if (markers.length >= 1) storeDispatch(tripsThunks.addLine(trips.selected.id, createLineObj(startMarker, marker)));
   };
 
   const selectMarker = async (id: string) => {
-    const marker = _.find(map?.markers || [], (m) => m.id === id);
+    if (!map || !trips) throw new Error('No access to state management system.');
+
+    const { markers } = trips.selected.geometry;
+
+    const marker = _.find(markers || [], (m) => m.id === id);
     if (marker) {
       storeDispatch(sidenavThunks.open(marker));
-      storeDispatch(mapThunks.selectMarker(marker.id));
+      storeDispatch(mapThunks.selectMarker(marker));
     }
   };
 
   const selectLine = async (obj: LineObj) => {
     if (obj) {
       storeDispatch(sidenavThunks.open(obj));
-      storeDispatch(mapThunks.selectLine(obj.id));
+      storeDispatch(mapThunks.selectLine(obj));
     }
   };
 
   const hoverOnMarker = (id?: string) => {
-    if (!id) storeDispatch(mapThunks.unhover());
-    else storeDispatch(mapThunks.hoverMarker(id));
+    if (!id) {
+      storeDispatch(mapThunks.unhover());
+      return;
+    }
+    if (!map || !trips) throw new Error('No access to state management system.');
+
+    const { markers } = trips.selected.geometry;
+
+    const marker = _.find(markers || [], (m) => m.id === id);
+    if (marker) storeDispatch(mapThunks.hoverMarker(marker));
   };
 
   const hoverOnLine = (obj: LineObj) => {
     if (obj === undefined) storeDispatch(mapThunks.unhover());
-    else storeDispatch(mapThunks.hoverLine(obj.id));
+    else storeDispatch(mapThunks.hoverLine(obj));
   };
 
+  console.log('m', trips?.selected.geometry.markers);
+  console.log('l', trips?.selected.geometry.lines);
   return {
     state: {
       viewport: map?.viewport,
-      markers: map?.markers || [],
-      lines: map?.lines || [],
+      markers: trips?.selected.geometry.markers || [],
+      lines: trips?.selected.geometry.lines || [],
       selected: map?.selected,
       hovered: map?.hovered,
       editMode,

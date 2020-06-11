@@ -11,6 +11,7 @@ import LabelledInput from '../../../components/ui/components/complex/LabelledInp
 import LabelledSelect from '../../../components/ui/components/complex/LabelledSelect/labelled-select';
 import { loadSidenav } from '../../../logic/features/sidenav/sidenav-thunks';
 import { StoreState } from '../../../logic/shared/store/store-types';
+import { loadTrips } from '../../../logic/features/trip/trip-thunks';
 
 type Props = {
   item: LineObj;
@@ -18,32 +19,40 @@ type Props = {
 
 const LineForm: FunctionComponent<Props> = ({ item }) => {
   const {
-    selected,
+    selected: selectedPoint,
     storeDispatch,
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (state: StoreState) => state.map?.selected);
   const {
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), () => {});
+  const {
+    selected: selectedTrip,
+    thunkResult: { tripsThunks },
+  } = useStoreSelector(loadTrips(), (state: StoreState) => state.trips?.selected);
   const { reset, register, handleSubmit } = useForm<ItemForm<LineTypes>>({
-    defaultValues: (selected as LineObj)?.data || item.data,
+    defaultValues: (selectedPoint as LineObj)?.data || item.data,
   });
 
   useEffect(() => {
     reset(item.data);
-  }, [item, selected?.data]);
+  }, [item, selectedPoint?.data]);
 
   return useMemo(() => {
     const onSubmit = (data: ItemForm<LineTypes>) => {
-      const updatedItem = _.set(item, 'data', data);
-      storeDispatch(mapThunks.updateLine(updatedItem.id, updatedItem));
-      storeDispatch(sidenavThunks.update(updatedItem));
+      if (selectedTrip) {
+        const updatedItem = _.set(item, 'data', data);
+        storeDispatch(tripsThunks.updateLine(selectedTrip.id, updatedItem.id, updatedItem));
+        storeDispatch(sidenavThunks.update(updatedItem));
+      }
     };
 
     const remove = () => {
-      storeDispatch(mapThunks.removeLine(item.id));
-      storeDispatch(mapThunks.unselect());
-      storeDispatch(sidenavThunks.clear());
+      if (selectedTrip) {
+        storeDispatch(tripsThunks.removeLine(selectedTrip.id, item.id));
+        storeDispatch(mapThunks.unselect());
+        storeDispatch(sidenavThunks.clear());
+      }
     };
     return (
       <div>
@@ -56,7 +65,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
         </form>
       </div>
     );
-  }, [item, selected, reset, register, handleSubmit]);
+  }, [item, selectedPoint, reset, register, handleSubmit]);
 };
 
 export default LineForm;

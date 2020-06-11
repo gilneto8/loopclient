@@ -9,25 +9,31 @@ import {
   TripAction,
   UPDATE_LINE,
   UPDATE_MARKER,
-  UPDATE_TRIP,
-} from './trip-actions';
+  UPDATE_TRIP
+} from "./trip-actions";
 import * as _ from 'lodash';
-import { TripObj } from './trip-types';
-import { _removeLineByMarker } from "../../../utils/functions/remove-line-by-marker";
+import { TripObj, TripTypes } from './trip-types';
+import { _removeLineByMarker } from '../../../utils/functions/remove-line-by-marker';
+import { id } from '../../../utils/functions/create-local-id';
 
 export type TripStoreState = {
   trips: Array<TripObj>;
-  selected?: TripObj;
+  selected: TripObj;
 };
 
-export type TripReducer = Reducer<TripStoreState, TripAction>;
+export type TripsReducer = Reducer<TripStoreState, TripAction>;
 
+const defaultTrip = {
+  id: id(),
+  data: { name: 'Untitled trip', type: TripTypes.LEISURE, description: '' },
+  geometry: { lines: [], markers: [] },
+};
 const initialState: TripStoreState = {
-  trips: [],
-  selected: undefined,
+  trips: [defaultTrip],
+  selected: defaultTrip,
 };
 
-export const tripReducer: TripReducer = (state = initialState, action) => {
+export const tripsReducer: TripsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TRIP:
       return { ...state, trips: _.concat(state.trips, action.payload) };
@@ -82,11 +88,11 @@ export const tripReducer: TripReducer = (state = initialState, action) => {
           if (t.id !== action.payload.tripId) return t;
           return {
             ...t,
-          geometry: {
-            markers: _.filter(t.geometry.markers, (m) => m.id !== action.payload.id),
-            lines: _removeLineByMarker(t.geometry.lines, action.payload.id)
-          }
-          }
+            geometry: {
+              markers: _.filter(t.geometry.markers, (m) => m.id !== action.payload.id),
+              lines: _removeLineByMarker(t.geometry.lines, action.payload.id),
+            },
+          };
         }),
       };
     case REMOVE_LINE:
