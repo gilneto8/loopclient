@@ -61,7 +61,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
           <LabelledInput name={'description'} refFn={register} />
           <LabelledSelect last name={'type'} refFn={register} options={enumToArray(MarkerTypes)} />
           <Button type={'submit'}>{'Submit'}</Button>
-          <Button onClick={remove}>{'Remove Marker'}</Button>
+          <Button type={'button'} onClick={remove}>{'Remove Marker'}</Button>
         </form>
       </div>
     );

@@ -65,7 +65,6 @@ const Badge: FunctionComponent<Props> = (props) => {
   return useMemo(
     () => (
       <div
-        role={'button'}
         css={style(props, theme)}
         onClick={onClick}
         onMouseLeave={() => onHover && onHover(false)}
