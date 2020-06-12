@@ -13,6 +13,8 @@ type Props = {
 const style = (theme: Theme) =>
   css({
     height: 50,
+    paddingLeft: 15,
+    paddingRight: 45,
     borderBottom: `1px solid ${theme.defaults.white}`,
   });
 
