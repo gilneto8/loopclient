@@ -19,12 +19,12 @@
 - [x] colors should come from a single place, and not being calculated on each component - ui
 - [x] on hover updates reducer
 - [x] optimize color selection and logic (contexts)
+- [x] concept of Trip
 
 ### To Do
 
 #### Functionalities
 
-- [ ] concept of Trip
 - [ ] visual indication that changes were made
 - [ ] create forms on sidenav, while validating schema
   - should create generic components (label, input)
@@ -34,6 +34,7 @@
   - Submit does not close sidenav, just clears info
 - [ ] dnd on marker list
 - [ ] way of drawing itineraries (not just by placing markers?);
+- [ ] marker clustering
 
 #### Bugs
 
