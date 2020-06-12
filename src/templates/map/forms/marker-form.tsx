@@ -42,14 +42,14 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
     const onSubmit = (data: ItemForm<MarkerTypes>) => {
       if (selectedTrip) {
         const updatedItem = _.set(item, 'data', data);
-        storeDispatch(tripsThunks.updateMarker(selectedTrip.id, updatedItem.id, updatedItem));
+        storeDispatch(tripsThunks.updateMarker(selectedTrip, updatedItem.id, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
     };
 
     const remove = () => {
       if (selectedTrip) {
-        storeDispatch(tripsThunks.removeMarker(selectedTrip.id, item.id));
+        storeDispatch(tripsThunks.removeMarker(selectedTrip, item.id));
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
       }

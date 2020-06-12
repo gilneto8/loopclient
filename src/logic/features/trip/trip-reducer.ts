@@ -9,8 +9,8 @@ import {
   TripAction,
   UPDATE_LINE,
   UPDATE_MARKER,
-  UPDATE_TRIP
-} from "./trip-actions";
+  UPDATE_TRIP,
+} from './trip-actions';
 import * as _ from 'lodash';
 import { TripObj, TripTypes } from './trip-types';
 import { _removeLineByMarker } from '../../../utils/functions/remove-line-by-marker';
@@ -18,7 +18,7 @@ import { id } from '../../../utils/functions/create-local-id';
 
 export type TripStoreState = {
   trips: Array<TripObj>;
-  selected: TripObj;
+  selected: string;
 };
 
 export type TripsReducer = Reducer<TripStoreState, TripAction>;
@@ -30,7 +30,7 @@ const defaultTrip = {
 };
 const initialState: TripStoreState = {
   trips: [defaultTrip],
-  selected: defaultTrip,
+  selected: defaultTrip.id,
 };
 
 export const tripsReducer: TripsReducer = (state = initialState, action) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import { OnClickEvent, Viewport } from '../../logic/features/map/map-types';
 import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
@@ -8,6 +8,7 @@ import { LineObj, LineTypes } from '../../logic/features/trip/line-types';
 import { loadMap } from '../../logic/features/map/map-thunks';
 import { id } from '../../utils/functions/create-local-id';
 import { loadTrips } from '../../logic/features/trip/trip-thunks';
+import { TripObj } from '../../logic/features/trip/trip-types';
 
 const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },
@@ -34,15 +35,22 @@ export const useMapLogic = () => {
     thunkResult: { sidenavThunks },
   } = useStoreSelector(loadSidenav(), () => {});
   const {
-    selected: map,
+    selected: mapInfo,
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
   const {
-    selected: { selected: trip },
+    selected: tripInfo,
     thunkResult: { tripsThunks },
   } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
 
+  if (!tripInfo) throw new Error('Could not access Trip Reducer information.');
+
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [trip, setTrip] = useState<TripObj>(tripInfo.trips.filter((t) => t.id === tripInfo.selected)[0]);
+
+  useEffect(() => {
+    setTrip(tripInfo.trips.filter((t) => t.id === tripInfo?.selected)[0]);
+  }, [tripInfo]);
 
   const switchMode = () => {
     setEditMode(!editMode);
@@ -54,7 +62,7 @@ export const useMapLogic = () => {
   };
 
   const addMarker = (p: OnClickEvent) => {
-    if (!map || !trip) throw new Error('No access to state management system.');
+    if (!mapInfo || !tripInfo) throw new Error('No access to state management system.');
 
     const { markers, lines } = trip.geometry;
     const marker = createMarkerObj(+p.lngLat[0].toFixed(3), +p.lngLat[1].toFixed(3));
@@ -64,7 +72,7 @@ export const useMapLogic = () => {
   };
 
   const selectMarker = async (id: string) => {
-    if (!map || !trip) throw new Error('No access to state management system.');
+    if (!mapInfo || !tripInfo) throw new Error('No access to state management system.');
 
     const { markers } = trip.geometry;
 
@@ -87,7 +95,7 @@ export const useMapLogic = () => {
       storeDispatch(mapThunks.unhover());
       return;
     }
-    if (!map || !trip) throw new Error('No access to state management system.');
+    if (!mapInfo || !tripInfo) throw new Error('No access to state management system.');
 
     const { markers } = trip.geometry;
 
@@ -100,15 +108,13 @@ export const useMapLogic = () => {
     else storeDispatch(mapThunks.hoverLine(obj));
   };
 
-  console.log('m', trip.geometry.markers);
-  console.log('l', trip.geometry.lines);
   return {
     state: {
-      viewport: map?.viewport,
+      viewport: mapInfo?.viewport,
       markers: trip.geometry.markers || [],
       lines: trip.geometry.lines || [],
-      selected: map?.selected,
-      hovered: map?.hovered,
+      selected: mapInfo?.selected,
+      hovered: mapInfo?.hovered,
       editMode,
     },
     methods: {

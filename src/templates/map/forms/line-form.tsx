@@ -42,14 +42,14 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
     const onSubmit = (data: ItemForm<LineTypes>) => {
       if (selectedTrip) {
         const updatedItem = _.set(item, 'data', data);
-        storeDispatch(tripsThunks.updateLine(selectedTrip.id, updatedItem.id, updatedItem));
+        storeDispatch(tripsThunks.updateLine(selectedTrip, updatedItem.id, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
     };
 
     const remove = () => {
       if (selectedTrip) {
-        storeDispatch(tripsThunks.removeLine(selectedTrip.id, item.id));
+        storeDispatch(tripsThunks.removeLine(selectedTrip, item.id));
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
       }
@@ -61,7 +61,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
           <LabelledInput name={'description'} refFn={register} />
           <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} />
           <Button type={'submit'}>{'Submit'}</Button>
-          <Button onClick={remove}>{'Remove Line'}</Button>
+          <Button type={'button'} onClick={remove}>{'Remove Line'}</Button>
         </form>
       </div>
     );
