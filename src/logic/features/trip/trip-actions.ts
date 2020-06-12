@@ -2,6 +2,7 @@ import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
 import { TripObj } from './trip-types';
 
+export const SELECT_TRIP = 'SELECT_TRIP';
 export const ADD_TRIP = 'ADD_TRIP';
 export const UPDATE_TRIP = 'UPDATE_TRIP';
 export const REMOVE_TRIP = 'REMOVE_TRIP';
@@ -13,6 +14,7 @@ export const REMOVE_MARKER = 'REMOVE_MARKER';
 export const REMOVE_LINE = 'REMOVE_LINE';
 
 export type TripAction =
+  | { type: typeof SELECT_TRIP; payload: string }
   | { type: typeof ADD_TRIP; payload: TripObj }
   | { type: typeof UPDATE_TRIP; payload: { id: string; data: TripObj } }
   | { type: typeof REMOVE_TRIP; payload: string }

@@ -10,15 +10,25 @@ import {
   REMOVE_MARKER,
   UPDATE_LINE,
   UPDATE_MARKER,
+  SELECT_TRIP,
 } from './trip-actions';
-import { MarkerObj } from "./marker-types";
-import { LineObj } from "./line-types";
+import { MarkerObj } from './marker-types';
+import { LineObj } from './line-types';
 import { tripsReducer } from './trip-reducer';
 import { TripObj } from './trip-types';
 
 type TripThunkAction<R = void> = StoreThunkActionBase<TripAction, R>;
 
 class TripThunks {
+  selectTrip(id: string): TripThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: SELECT_TRIP,
+        payload: id,
+      });
+    };
+  }
+
   addTrip(data: TripObj): TripThunkAction {
     return async (dispatch) => {
       dispatch({

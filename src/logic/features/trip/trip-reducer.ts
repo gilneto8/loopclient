@@ -6,6 +6,7 @@ import {
   REMOVE_LINE,
   REMOVE_MARKER,
   REMOVE_TRIP,
+  SELECT_TRIP,
   TripAction,
   UPDATE_LINE,
   UPDATE_MARKER,
@@ -23,18 +24,25 @@ export type TripStoreState = {
 
 export type TripsReducer = Reducer<TripStoreState, TripAction>;
 
-const defaultTrip = {
-  id: id(),
-  data: { name: 'Untitled trip', type: TripTypes.LEISURE, description: '' },
+const defaultTrip_1 = {
+  id: 'trip-1',
+  data: { name: 'Untitled trip 1', type: TripTypes.LEISURE, description: '' },
+  geometry: { lines: [], markers: [] },
+};
+const defaultTrip_2 = {
+  id: 'trip-2',
+  data: { name: 'Untitled trip 2', type: TripTypes.LEISURE, description: '' },
   geometry: { lines: [], markers: [] },
 };
 const initialState: TripStoreState = {
-  trips: [defaultTrip],
-  selected: defaultTrip.id,
+  trips: [defaultTrip_1, defaultTrip_2],
+  selected: defaultTrip_1.id,
 };
 
 export const tripsReducer: TripsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SELECT_TRIP:
+      return { ...state, selected: action.payload };
     case ADD_TRIP:
       return { ...state, trips: _.concat(state.trips, action.payload) };
     case UPDATE_TRIP:

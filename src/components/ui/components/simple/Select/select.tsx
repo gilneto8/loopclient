@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useMemo } from "react";
+import React, { ChangeEvent, FunctionComponent, SyntheticEvent, useContext, useMemo } from "react";
 import { css } from '@emotion/core';
 import { Theme } from "../../../colors/color-types";
 import { ThemeContext } from "../../../colors/theme-context";
@@ -16,6 +16,7 @@ type Props = {
   paddings?: [number] | [number, number] | [number, number, number, number];
   margins?: [number] | [number, number] | [number, number, number, number];
   refFn?: (ref: Element | null) => void;
+  onChange?: (evt: ChangeEvent<HTMLSelectElement>) => void;
   selected?: any;
   options: Array<any>;
 };
@@ -39,10 +40,10 @@ const style = (props: Props, theme: Theme) =>
   });
 
 const Select: FunctionComponent<Props> = (props) => {
-  const { name, refFn, options } = props;
+  const { name, refFn, onChange, options } = props;
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(() => (
-    <select css={style(props, theme)} name={name} ref={refFn}>
+    <select css={style(props, theme)} name={name} ref={refFn} onChange={onChange}>
       {options.map((opt, i) => (
         <option key={i} value={opt}>
           {opt}

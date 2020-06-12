@@ -2,6 +2,9 @@ import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { ThemeContext } from '../../../../../ui/colors/theme-context';
 import { Theme } from '../../../../../ui/colors/color-types';
+import { useStoreSelector } from '../../../../../../logic/shared/store/use-store-selector';
+import LabelledSelect from '../../../../../ui/components/complex/LabelledSelect/labelled-select';
+import { loadTrips } from '../../../../../../logic/features/trip/trip-thunks';
 
 type Props = {
   title?: string;
@@ -14,9 +17,26 @@ const style = (theme: Theme) =>
   });
 
 const SidenavHeader: FunctionComponent<Props> = (props) => {
-  const { title } = props;
   const theme = useContext(ThemeContext).theme;
-  return useMemo(() => <div css={style(theme)}>{/*PLACEHOLDER*/}</div>, [title, theme]);
+  const {
+    storeDispatch,
+    selected: tripInfo,
+    thunkResult: { tripsThunks },
+  } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
+  return useMemo(
+    () => (
+      <div css={style(theme)}>
+        <LabelledSelect
+          name={'Trips'}
+          options={tripInfo?.trips.map((t) => t.id) || []}
+          onChange={(e) => {
+            storeDispatch(tripsThunks.selectTrip(e.target.value));
+          }}
+        />
+      </div>
+    ),
+    [theme]
+  );
 };
 
 export default SidenavHeader;

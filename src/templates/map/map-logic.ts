@@ -108,8 +108,8 @@ export const useMapLogic = () => {
   return {
     state: {
       viewport: mapInfo.viewport,
-      markers: selectedTrip.geometry.markers || [],
-      lines: selectedTrip.geometry.lines || [],
+      markers: selectedTrip?.geometry.markers || [],
+      lines: selectedTrip?.geometry.lines || [],
       selected: mapInfo.selected,
       hovered: mapInfo.hovered,
       editMode,
