@@ -20,11 +20,9 @@ const MarkerList: FunctionComponent<Props> = () => {
     thunkResult: { tripsThunks },
   } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
 
-  if (!tripInfo) throw new Error('Could not access Trip Reducer information.');
-
   const theme: Theme = useContext(ThemeContext).theme;
 
-  const selectedTrip = tripInfo.trips.filter((t) => t.id === tripInfo.selected)[0];
+  const selectedTrip = tripInfo?.trips.filter((t) => t.id === tripInfo?.selected)[0];
 
   return useMemo(() => {
     const switchSelect = (obj: MarkerObj) => {
@@ -37,7 +35,7 @@ const MarkerList: FunctionComponent<Props> = () => {
       else storeDispatch(mapThunks.unhover());
     };
 
-    return !mapInfo ? (
+    return !mapInfo || !tripInfo ? (
       <></>
     ) : (
       <div>
@@ -46,7 +44,7 @@ const MarkerList: FunctionComponent<Props> = () => {
             key={m.id}
             enableAutoMargin
             removable
-            onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo.selected, m.id))}
+            onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id))}
             onClick={() => switchSelect(m)}
             onHover={(h) => switchHover(m, h)}
             hovered={mapInfo.hovered?.id === m.id}
