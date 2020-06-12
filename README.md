@@ -35,6 +35,7 @@
 - [ ] dnd on marker list
 - [ ] way of drawing itineraries (not just by placing markers?);
 - [ ] marker clustering
+    - consider `@urbica/react-map-gl` for OOTB marker clustering; possibly no typescript support.
 
 #### Bugs
 
