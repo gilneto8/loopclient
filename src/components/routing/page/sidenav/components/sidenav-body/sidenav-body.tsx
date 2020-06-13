@@ -22,7 +22,7 @@ const style = css({
   overflowY: 'auto',
   '& > hr': {
     marginTop: '1.5rem',
-  }
+  },
 });
 
 function getForm({ item }: Props): Array<() => JSX.Element> {
