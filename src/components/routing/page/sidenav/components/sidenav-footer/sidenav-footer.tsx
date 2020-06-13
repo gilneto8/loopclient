@@ -22,7 +22,11 @@ const style = (theme: Theme, isOpen: boolean) =>
   });
 
 const SidenavFooter: FunctionComponent<Props> = (props) => {
-  const { storeDispatch, selected: isOpen } = useStoreSelector(loadSidenav(), (storeState) => storeState.sidenav?.open);
+  const {
+    storeDispatch,
+    thunkResult: { sidenavThunks },
+    selected: isOpen,
+  } = useStoreSelector(loadSidenav(), (storeState) => storeState.sidenav?.open);
   const {
     thunkResult: { mapThunks },
     selected: editMode,
@@ -33,6 +37,7 @@ const SidenavFooter: FunctionComponent<Props> = (props) => {
       if (editMode) storeDispatch(mapThunks.setViewMode());
       else storeDispatch(mapThunks.setEditMode());
       storeDispatch(mapThunks.unselect());
+      storeDispatch(sidenavThunks.clear());
     };
 
     return (
