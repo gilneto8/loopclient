@@ -21,7 +21,7 @@ function getForm({ item }: Props): () => JSX.Element {
 const style = css({
   paddingLeft: 15,
   paddingRight: 15,
-  height: 'calc(100% - 125px)',
+  flex: '1 1 auto',
   overflowX: 'hidden',
   overflowY: 'auto',
 });

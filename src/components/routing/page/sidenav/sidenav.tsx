@@ -23,6 +23,8 @@ function getStyle(isOpen: boolean, theme: Theme): SerializedStyles {
     backgroundColor: theme.background.color,
     width: 300,
     height: '100%',
+    display: 'flex',
+    flexFlow: 'column',
     position: 'absolute',
     left: isOpen ? 0 : -300,
     zIndex: z.SIDENAV.general.v,
