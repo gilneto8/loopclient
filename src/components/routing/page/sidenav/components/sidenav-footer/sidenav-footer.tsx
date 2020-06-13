@@ -11,17 +11,17 @@ type Props = {};
 
 const style = (theme: Theme, isOpen: boolean) =>
   css({
-    width: '100%',
     transition: 'all .3s',
     position: 'fixed',
     left: isOpen ? 0 : -300,
     bottom: 0,
+    height: 50,
+    lineHeight: '50px',
     paddingLeft: 15,
     paddingRight: 45,
-    marginBottom: 10,
   });
 
-const SidenavFooter: FunctionComponent<Props> = (props) => {
+const SidenavFooter: FunctionComponent<Props> = () => {
   const {
     storeDispatch,
     thunkResult: { sidenavThunks },
