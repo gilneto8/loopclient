@@ -27,12 +27,15 @@ const style = (props: Props) =>
 
 const LabelledInput: FunctionComponent<Props> = (props) => {
   const { key, name, refFn } = props;
-  return useMemo(() => (
-    <div css={style(props)} key={`${key || id(4)}-${name}`}>
-      <Label>{_.startCase(_.toLower(name))}</Label>
-      <Input name={`${name}`} refFn={refFn} />
-    </div>
-  ), [props]);
+  return useMemo(
+    () => (
+      <div css={style(props)} key={`${key || id(4)}-${name}`}>
+        <Label>{_.startCase(_.toLower(name))}</Label>
+        <Input name={`${name}`} refFn={refFn} />
+      </div>
+    ),
+    [props]
+  );
 };
 
 export default LabelledInput;

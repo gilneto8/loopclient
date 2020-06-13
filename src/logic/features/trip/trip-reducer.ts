@@ -15,7 +15,6 @@ import {
 import * as _ from 'lodash';
 import { TripObj, TripTypes } from './trip-types';
 import { _removeLineByMarker } from '../../../utils/functions/remove-line-by-marker';
-import { id } from '../../../utils/functions/create-local-id';
 
 export type TripStoreState = {
   trips: Array<TripObj>;

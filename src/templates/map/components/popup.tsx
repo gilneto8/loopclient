@@ -15,11 +15,12 @@ type Props = {
   item?: MapItemObj;
 };
 
-const style = (theme: Theme) => css({
-  width: 250,
-  backgroundColor: theme.defaults.white,
-  overflowWrap: 'anywhere',
-});
+const style = (theme: Theme) =>
+  css({
+    width: 250,
+    backgroundColor: theme.defaults.white,
+    overflowWrap: 'anywhere',
+  });
 
 const Popup: FunctionComponent<Props> = ({ item }) => {
   const theme: Theme = useContext(ThemeContext).theme;

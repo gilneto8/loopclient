@@ -1,6 +1,6 @@
-import { LineObj } from "../../logic/features/trip/line-types";
-import * as _ from "lodash";
-import { id } from "./create-local-id";
+import { LineObj } from '../../logic/features/trip/line-types';
+import * as _ from 'lodash';
+import { id } from './create-local-id';
 
 /* on deleting a marker, removes connecting lines (before and after) and connects previous and next marker */
 export function _removeLineByMarker(lines: Array<LineObj>, mId: string): Array<LineObj> {

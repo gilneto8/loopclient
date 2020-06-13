@@ -61,7 +61,9 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
           <LabelledInput name={'description'} refFn={register} />
           <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} />
           <Button type={'submit'}>{'Submit'}</Button>
-          <Button type={'button'} onClick={remove}>{'Remove Line'}</Button>
+          <Button type={'button'} onClick={remove}>
+            {'Remove Line'}
+          </Button>
         </form>
       </div>
     );

@@ -15,9 +15,7 @@ const LineInfo = (props: Props) => {
     <div css={style}>
       {Object.keys(props.line.data).map((key, index) => (
         <div key={index}>
-          <Label color={'black'} paddings={[20, 30, 0, 0]}>
-            {_.startCase(_.toLower(key))}
-          </Label>
+          <Label color={'black'}>{_.startCase(_.toLower(key))}</Label>
           <span>{_.get(props.line.data, key)}</span>
         </div>
       ))}

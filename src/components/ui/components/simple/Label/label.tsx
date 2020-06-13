@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useMemo } from "react";
+import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { Theme } from '../../../colors/color-types';
 import { ThemeContext } from '../../../colors/theme-context';
@@ -13,7 +13,6 @@ type Props = {
 
 const convert = (array: Array<number> | undefined) =>
   array?.map((p, i, a) => `${p === 0 ? p : `${p}px`}${i < a.length - 1 ? ' ' : ''}`).join(' ');
-
 
 const style = (props: Props, theme: Theme) =>
   css({

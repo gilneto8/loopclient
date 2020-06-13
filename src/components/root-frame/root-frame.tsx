@@ -22,16 +22,16 @@ const ContextualizedRootFrame: FunctionComponent = (props) => {
 export const RootFrame: FunctionComponent = ({ children }) => {
   const [storeManager] = useState(() => createStoreManager());
   const store = storeManager.store;
-/*  const colors: any = {
+  /*  const colors: any = {
     foreground: '#fe8372',
     background: '#123123',
   };*/
   const theme = ThemeFactory.getTheme();
   return (
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ContextualizedRootFrame>{children}</ContextualizedRootFrame>
-        </ThemeProvider>
-      </Provider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <ContextualizedRootFrame>{children}</ContextualizedRootFrame>
+      </ThemeProvider>
+    </Provider>
   );
 };
