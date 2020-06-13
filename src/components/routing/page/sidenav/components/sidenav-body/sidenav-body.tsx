@@ -39,10 +39,10 @@ const SidenavBody = (props: Props) => {
   return (
     <div css={style}>
       {memoizedComponents.map((Component, index, array) => (
-        <>
-          <Component key={index} />
+        <React.Fragment key={index}>
+          <Component />
           {index !== array.length - 1 && <hr />}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

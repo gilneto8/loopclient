@@ -30,8 +30,10 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
     selected: selectedTrip,
     thunkResult: { tripsThunks },
   } = useStoreSelector(loadTrips(), (state: StoreState) => state.trips?.selected);
-  const { reset, register, handleSubmit } = useForm<ItemForm<LineTypes>>({
+
+  const { reset, register, handleSubmit, errors } = useForm<ItemForm<LineTypes>>({
     defaultValues: (selectedPoint as LineObj)?.data || item.data,
+    validationSchema: item.schema,
   });
 
   useEffect(() => {
@@ -57,9 +59,9 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
     return (
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <LabelledInput first name={'name'} refFn={register} />
-          <LabelledInput name={'description'} refFn={register} />
-          <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} />
+          <LabelledInput first name={'name'} refFn={register} errors={errors} />
+          <LabelledInput name={'description'} refFn={register} errors={errors} />
+          <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} errors={errors} />
           <Button type={'submit'}>{'Submit'}</Button>
           <Button type={'button'} onClick={remove}>
             {'Remove Line'}
@@ -67,7 +69,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
         </form>
       </div>
     );
-  }, [item, selectedPoint, reset, register, handleSubmit]);
+  }, [item, selectedPoint, reset, register, handleSubmit, errors]);
 };
 
 export default LineForm;

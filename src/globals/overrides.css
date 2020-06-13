@@ -3,7 +3,7 @@ body {
   height: 100%;
 }
 
-body, button, input, label, option, select {
+body, button, input, label, option, select, p {
   font-family: 'Barlow', 'Helvetica', 'Arial', sans-serif;
 }
 
@@ -16,4 +16,8 @@ select, option, input {
 label {
   font-size: 1rem;
   font-weight: normal;
+}
+
+p {
+  font-size: .75rem;
 }

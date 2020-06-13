@@ -1,5 +1,7 @@
 import { MarkerObj } from './marker-types';
-import { ItemForm } from '../trip/trip-types';
+import { ItemForm } from './trip-types';
+import * as yup from 'yup';
+import { enumToArray } from '../../../utils/enums/enum-to-array';
 
 export enum LineTypes {
   TRAIN = 'Train',
@@ -8,6 +10,12 @@ export enum LineTypes {
   PEDESTRIAN = 'Pedestrian',
 }
 
+export const lineSchema = yup.object().shape<ItemForm<LineTypes>>({
+  name: yup.string().required('Please define a name for this point.'),
+  description: yup.string(),
+  type: yup.string().oneOf(enumToArray(LineTypes)).required(),
+});
+
 export type LineObj = {
   id: string;
   geometry: {
@@ -15,4 +23,5 @@ export type LineObj = {
     end: MarkerObj;
   };
   data: ItemForm<LineTypes>;
+  schema: yup.InferType<typeof lineSchema>;
 };

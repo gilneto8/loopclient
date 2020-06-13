@@ -1,4 +1,6 @@
-import { CoordsObj, ItemForm } from '../trip/trip-types';
+import { CoordsObj, ItemForm } from './trip-types';
+import * as yup from 'yup';
+import { enumToArray } from '../../../utils/enums/enum-to-array';
 
 export enum MarkerTypes {
   HOTEL = 'Hotel',
@@ -7,10 +9,17 @@ export enum MarkerTypes {
   TRANSPORT = 'Transportation',
 }
 
+export const markerSchema = yup.object().shape<ItemForm<MarkerTypes>>({
+  name: yup.string().required('Please define a name for this point.'),
+  description: yup.string(),
+  type: yup.string().oneOf(enumToArray(MarkerTypes)).required(),
+});
+
 export type MarkerObj = {
   id: string;
   geometry: {
     position: CoordsObj;
   };
   data: ItemForm<MarkerTypes>;
+  schema: yup.InferType<typeof markerSchema>;
 };

@@ -3,8 +3,8 @@ import * as _ from 'lodash';
 import { OnClickEvent, Viewport } from '../../logic/features/map/map-types';
 import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
 import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
-import { MarkerObj, MarkerTypes } from '../../logic/features/trip/marker-types';
-import { LineObj, LineTypes } from '../../logic/features/trip/line-types';
+import { MarkerObj, markerSchema, MarkerTypes } from '../../logic/features/trip/marker-types';
+import { LineObj, lineSchema, LineTypes } from '../../logic/features/trip/line-types';
 import { loadMap } from '../../logic/features/map/map-thunks';
 import { id } from '../../utils/functions/create-local-id';
 import { loadTrips } from '../../logic/features/trip/trip-thunks';
@@ -18,6 +18,7 @@ const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
     description: '',
     type: MarkerTypes.POI,
   },
+  schema: markerSchema,
 });
 const createLineObj = (start: MarkerObj, end: MarkerObj): LineObj => ({
   id: id(),
@@ -27,6 +28,7 @@ const createLineObj = (start: MarkerObj, end: MarkerObj): LineObj => ({
     description: '',
     type: LineTypes.PEDESTRIAN,
   },
+  schema: lineSchema,
 });
 
 export const useMapLogic = () => {

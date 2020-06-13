@@ -17,7 +17,7 @@ export type TripObj = {
 
 export type ItemForm<T> = {
   name: string;
-  description: string;
+  description?: string;
   type: T;
 };
 
