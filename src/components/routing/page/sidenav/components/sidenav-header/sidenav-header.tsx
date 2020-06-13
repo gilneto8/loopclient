@@ -5,6 +5,8 @@ import { Theme } from '../../../../../ui/colors/color-types';
 import { useStoreSelector } from '../../../../../../logic/shared/store/use-store-selector';
 import LabelledSelect from '../../../../../ui/components/complex/LabelledSelect/labelled-select';
 import { loadTrips } from '../../../../../../logic/features/trip/trip-thunks';
+import { loadMap } from '../../../../../../logic/features/map/map-thunks';
+import { loadSidenav } from '../../../../../../logic/features/sidenav/sidenav-thunks';
 
 type Props = {
   title?: string;
@@ -19,27 +21,36 @@ const style = (theme: Theme) =>
     borderBottom: `1px solid ${theme.defaults.white}`,
   });
 
-const SidenavHeader: FunctionComponent<Props> = (props) => {
+const SidenavHeader: FunctionComponent<Props> = () => {
   const theme = useContext(ThemeContext).theme;
   const {
     storeDispatch,
     selected: tripInfo,
     thunkResult: { tripsThunks },
   } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
-  return useMemo(
-    () => (
+  const {
+    thunkResult: { mapThunks },
+  } = useStoreSelector(loadMap(), () => {});
+  const {
+    thunkResult: { sidenavThunks },
+  } = useStoreSelector(loadSidenav(), () => {});
+  return useMemo(() => {
+    const selectTrip = (id: string) => {
+      storeDispatch(tripsThunks.selectTrip(id));
+      storeDispatch(mapThunks.unselect());
+      storeDispatch(sidenavThunks.clear());
+    };
+
+    return (
       <div css={style(theme)}>
         <LabelledSelect
           name={'Trips'}
           options={tripInfo?.trips.map((t) => t.id) || []}
-          onChange={(e) => {
-            storeDispatch(tripsThunks.selectTrip(e.target.value));
-          }}
+          onChange={(e) => selectTrip(e.target.value)}
         />
       </div>
-    ),
-    [theme]
-  );
+    );
+  }, [theme]);
 };
 
 export default SidenavHeader;
