@@ -5,14 +5,16 @@ import {
   MapAction,
   SELECT_LINE,
   SELECT_MARKER,
+  SET_EDIT_MODE,
+  SET_VIEW_MODE,
   UNHOVER,
   UNSELECT,
   UPDATE_VIEWPORT,
 } from './map-actions';
 import { Viewport } from './map-types';
 import { mapReducer } from './map-reducer';
-import { MarkerObj } from "../trip/marker-types";
-import { LineObj } from "../trip/line-types";
+import { MarkerObj } from '../trip/marker-types';
+import { LineObj } from '../trip/line-types';
 
 type MapThunkAction<R = void> = StoreThunkActionBase<MapAction, R>;
 
@@ -74,6 +76,22 @@ class MapThunks {
     return async (dispatch) => {
       dispatch({
         type: UNHOVER,
+      });
+    };
+  }
+
+  setEditMode(): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: SET_EDIT_MODE,
+      });
+    };
+  }
+
+  setViewMode(): MapThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: SET_VIEW_MODE,
       });
     };
   }

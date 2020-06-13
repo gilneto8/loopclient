@@ -1,19 +1,10 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Page } from '../../components/routing/page/page';
 import { useMapLogic } from './map-logic';
 import Popup from './components/popup';
 import Map from './components/map';
 import LayerManager from './components/layer-manager';
 import MarkerList from './components/marker-list';
-import Button from '../../components/ui/components/simple/Button/button';
-import z from '../../components/ui/constants/z-indexes';
-
-const style: CSSProperties = {
-  position: 'absolute',
-  top: 15,
-  right: 15,
-  zIndex: z.MAP.general.v,
-};
 
 type Props = {};
 
@@ -22,9 +13,6 @@ const MapTemplate: FunctionComponent<Props> = () => {
   return (
     <Page title={'Map'}>
       <>
-        <Button style={style} onClick={methods.switchMode}>
-          {'Editing - ' + state.editMode}
-        </Button>
         <Map editMode={state.editMode} viewport={state.viewport} onClick={methods.addMarker}>
           <LayerManager
             viewMode={!state.editMode}

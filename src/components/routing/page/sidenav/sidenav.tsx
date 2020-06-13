@@ -10,6 +10,7 @@ import SidenavBody from './components/sidenav-body/sidenav-body';
 import { loadMap } from '../../../../logic/features/map/map-thunks';
 import { ThemeContext } from '../../../ui/colors/theme-context';
 import { Theme } from '../../../ui/colors/color-types';
+import SidenavFooter from './components/sidenav-footer/sidenav-footer';
 
 type Props = {
   blocking?: boolean;
@@ -83,6 +84,7 @@ const SideNav: FunctionComponent<Props> = ({ children, blocking }) => {
         <SidenavHeader />
         <SidenavBody item={selected?.data} />
         {children}
+        <SidenavFooter />
       </div>
     );
   }, [theme, selected]);

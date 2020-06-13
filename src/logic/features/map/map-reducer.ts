@@ -8,6 +8,8 @@ import {
   MapAction,
   SELECT_LINE,
   SELECT_MARKER,
+  SET_EDIT_MODE,
+  SET_VIEW_MODE,
   UNHOVER,
   UNSELECT,
   UPDATE_VIEWPORT,
@@ -15,6 +17,7 @@ import {
 
 export type MapStoreState = {
   viewport: Viewport;
+  editMode: boolean;
   selected?: MarkerObj | LineObj;
   hovered?: MarkerObj | LineObj;
 };
@@ -29,6 +32,7 @@ const initialState: MapStoreState = {
     pitch: 35,
     minZoom: 3,
   },
+  editMode: false,
   selected: undefined,
   hovered: undefined,
 };
@@ -49,6 +53,10 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
       return { ...state, hovered: action.payload };
     case UNHOVER:
       return { ...state, hovered: undefined };
+    case SET_EDIT_MODE:
+      return { ...state, editMode: true };
+    case SET_VIEW_MODE:
+      return { ...state, editMode: false };
     default:
       return state;
   }

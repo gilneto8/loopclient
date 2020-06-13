@@ -12,9 +12,10 @@ type Props = {
 
 const style = (theme: Theme) =>
   css({
-    height: 50,
+    height: 65,
     paddingLeft: 15,
     paddingRight: 45,
+    marginTop: 10,
     borderBottom: `1px solid ${theme.defaults.white}`,
   });
 

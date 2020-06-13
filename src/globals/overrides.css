@@ -5,3 +5,14 @@ body {
 body, button, input, label, option, select {
   font-family: 'Barlow', 'Helvetica', 'Arial', sans-serif;
 }
+
+select, option, input {
+  font-size: 1rem;
+  height: 22px;
+  line-height: 22px;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: normal;
+}

@@ -47,7 +47,6 @@ export const useMapLogic = () => {
 
   if (!tripInfo || !mapInfo) throw new Error('Could not access state management information.');
 
-  const [editMode, setEditMode] = useState<boolean>(false);
   const [selectedTrip, setSelectedTrip] = useState<TripObj>(
     tripInfo.trips.filter((t) => t.id === tripInfo.selected)[0]
   );
@@ -55,11 +54,6 @@ export const useMapLogic = () => {
   useEffect(() => {
     setSelectedTrip(tripInfo.trips.filter((t) => t.id === tripInfo.selected)[0]);
   }, [tripInfo]);
-
-  const switchMode = () => {
-    setEditMode(!editMode);
-    storeDispatch(mapThunks.unselect());
-  };
 
   const updateViewport = async (vp: Viewport) => {
     storeDispatch(mapThunks.updateViewport(vp));
@@ -112,7 +106,7 @@ export const useMapLogic = () => {
       lines: selectedTrip?.geometry.lines || [],
       selected: mapInfo.selected,
       hovered: mapInfo.hovered,
-      editMode,
+      editMode: mapInfo.editMode,
     },
     methods: {
       updateViewport,
@@ -121,7 +115,6 @@ export const useMapLogic = () => {
       hoverOnMarker,
       selectLine,
       hoverOnLine,
-      switchMode,
     },
   };
 };
