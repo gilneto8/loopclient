@@ -12,7 +12,7 @@ type Props = {
   selected?: MapItemObj;
   hovered?: MapItemObj;
 };
-const MarkerList: FunctionComponent<Props> = (props) => {
+const MarkerMap: FunctionComponent<Props> = (props) => {
   const { markers, onHover, onSelect, hovered, selected, viewMode } = props;
   return useMemo(
     () => (
@@ -33,4 +33,4 @@ const MarkerList: FunctionComponent<Props> = (props) => {
   );
 };
 
-export default MarkerList;
+export default MarkerMap;

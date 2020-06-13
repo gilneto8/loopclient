@@ -1,17 +1,17 @@
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
-import { ItemForm } from '../../../logic/features/trip/trip-types';
+import { ItemForm } from '../../../../../../../logic/features/trip/trip-types';
 import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
-import { enumToArray } from '../../../utils/enums/enum-to-array';
-import { LineObj, LineTypes } from '../../../logic/features/trip/line-types';
-import { useStoreSelector } from '../../../logic/shared/store/use-store-selector';
-import { loadMap } from '../../../logic/features/map/map-thunks';
-import Button from '../../../components/ui/components/simple/Button/button';
-import LabelledInput from '../../../components/ui/components/complex/LabelledInput/labelled-input';
-import LabelledSelect from '../../../components/ui/components/complex/LabelledSelect/labelled-select';
-import { loadSidenav } from '../../../logic/features/sidenav/sidenav-thunks';
-import { StoreState } from '../../../logic/shared/store/store-types';
-import { loadTrips } from '../../../logic/features/trip/trip-thunks';
+import { enumToArray } from '../../../../../../../utils/enums/enum-to-array';
+import { LineObj, LineTypes } from '../../../../../../../logic/features/trip/line-types';
+import { useStoreSelector } from '../../../../../../../logic/shared/store/use-store-selector';
+import { loadMap } from '../../../../../../../logic/features/map/map-thunks';
+import Button from '../../../../../../ui/components/simple/Button/button';
+import LabelledInput from '../../../../../../ui/components/complex/LabelledInput/labelled-input';
+import LabelledSelect from '../../../../../../ui/components/complex/LabelledSelect/labelled-select';
+import { loadSidenav } from '../../../../../../../logic/features/sidenav/sidenav-thunks';
+import { StoreState } from '../../../../../../../logic/shared/store/store-types';
+import { loadTrips } from '../../../../../../../logic/features/trip/trip-thunks';
 
 type Props = {
   item: LineObj;

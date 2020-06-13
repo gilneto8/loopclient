@@ -4,7 +4,7 @@ import { useMapLogic } from './map-logic';
 import Popup from './components/popup';
 import Map from './components/map';
 import LayerManager from './components/layer-manager';
-import MarkerList from './components/marker-list';
+import MarkerMap from './components/marker-map';
 
 type Props = {};
 
@@ -24,7 +24,7 @@ const MapTemplate: FunctionComponent<Props> = () => {
             selected={state.selected}
             hovered={state.hovered}
           >
-            <MarkerList
+            <MarkerMap
               viewMode={!state.editMode}
               markers={state.markers}
               onHover={methods.hoverOnMarker}

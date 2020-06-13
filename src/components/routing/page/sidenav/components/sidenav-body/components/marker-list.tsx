@@ -6,6 +6,7 @@ import Badge from '../../../../../../ui/components/simple/Badge/badge';
 import { Theme } from '../../../../../../ui/colors/color-types';
 import { ThemeContext } from '../../../../../../ui/colors/theme-context';
 import { loadTrips } from '../../../../../../../logic/features/trip/trip-thunks';
+import { loadSidenav } from '../../../../../../../logic/features/sidenav/sidenav-thunks';
 
 type Props = {};
 
@@ -14,11 +15,15 @@ const MarkerList: FunctionComponent<Props> = () => {
     storeDispatch,
     selected: mapInfo,
     thunkResult: { mapThunks },
-  } = useStoreSelector(loadMap(), (storeState) => storeState.map);
+  } = useStoreSelector(loadMap(), (store) => store.map);
   const {
     selected: tripInfo,
     thunkResult: { tripsThunks },
-  } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
+  } = useStoreSelector(loadTrips(), (store) => store.trips);
+  const {
+    selected: data,
+    thunkResult: { sidenavThunks },
+  } = useStoreSelector(loadSidenav(), (store) => store.sidenav?.data);
 
   const theme: Theme = useContext(ThemeContext).theme;
 
@@ -26,8 +31,13 @@ const MarkerList: FunctionComponent<Props> = () => {
 
   return useMemo(() => {
     const switchSelect = (obj: MarkerObj) => {
-      if (mapInfo && mapInfo.selected?.id === obj.id) storeDispatch(mapThunks.unselect());
-      else storeDispatch(mapThunks.selectMarker(obj));
+      if (mapInfo && mapInfo.selected?.id === obj.id) {
+        storeDispatch(mapThunks.unselect());
+        storeDispatch(sidenavThunks.clear());
+      } else {
+        storeDispatch(mapThunks.selectMarker(obj));
+        storeDispatch(sidenavThunks.update(obj));
+      }
     };
 
     const switchHover = (obj: MarkerObj, hovering: boolean) => {
@@ -55,7 +65,7 @@ const MarkerList: FunctionComponent<Props> = () => {
         ))}
       </div>
     );
-  }, [selectedTrip?.geometry.markers, mapInfo?.selected, mapInfo?.hovered, theme]);
+  }, [selectedTrip?.geometry.markers, data, mapInfo?.selected, mapInfo?.hovered, theme]);
 };
 
 export default MarkerList;

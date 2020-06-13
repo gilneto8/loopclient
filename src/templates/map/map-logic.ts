@@ -72,15 +72,25 @@ export const useMapLogic = () => {
 
     const marker = _.find(markers || [], (m) => m.id === id);
     if (marker) {
-      storeDispatch(sidenavThunks.open(marker));
-      storeDispatch(mapThunks.selectMarker(marker));
+      if (!mapInfo.selected) {
+        storeDispatch(sidenavThunks.open(marker));
+        storeDispatch(mapThunks.selectMarker(marker));
+      } else {
+        storeDispatch(mapThunks.unselect());
+        storeDispatch(sidenavThunks.clear());
+      }
     }
   };
 
   const selectLine = async (obj: LineObj) => {
     if (obj) {
-      storeDispatch(sidenavThunks.open(obj));
-      storeDispatch(mapThunks.selectLine(obj));
+      if (!mapInfo.selected) {
+        storeDispatch(sidenavThunks.open(obj));
+        storeDispatch(mapThunks.selectLine(obj));
+      } else {
+        storeDispatch(mapThunks.unselect());
+        storeDispatch(sidenavThunks.clear());
+      }
     }
   };
 
