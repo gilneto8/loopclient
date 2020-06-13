@@ -31,7 +31,6 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
     thunkResult: { tripsThunks },
   } = useStoreSelector(loadTrips(), (state: StoreState) => state.trips?.selected);
 
-  console.log(item);
   const { reset, register, handleSubmit, errors } = useForm<ItemForm<MarkerTypes>>({
     defaultValues: (selectedPoint as MarkerObj)?.data || item.data,
     validationSchema: item.schema,
