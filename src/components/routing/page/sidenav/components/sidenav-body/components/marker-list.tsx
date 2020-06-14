@@ -21,9 +21,9 @@ const MarkerList: FunctionComponent<Props> = () => {
     thunkResult: { tripsThunks },
   } = useStoreSelector(loadTrips(), (store) => store.trips);
   const {
-    selected: data,
+    selected: sidenavInfo,
     thunkResult: { sidenavThunks },
-  } = useStoreSelector(loadSidenav(), (store) => store.sidenav?.data);
+  } = useStoreSelector(loadSidenav(), (store) => store.sidenav);
 
   const theme: Theme = useContext(ThemeContext).theme;
 
@@ -65,7 +65,7 @@ const MarkerList: FunctionComponent<Props> = () => {
         ))}
       </div>
     );
-  }, [selectedTrip?.geometry.markers, data, mapInfo?.selected, mapInfo?.hovered, theme]);
+  }, [selectedTrip?.geometry.markers, sidenavInfo, mapInfo?.selected, mapInfo?.hovered, theme]);
 };
 
 export default MarkerList;
