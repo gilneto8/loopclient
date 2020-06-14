@@ -81,3 +81,10 @@
   - [How they work (official documentation)](https://www.gatsbyjs.org/docs/building-with-components/#page-template-components)
 - On color manipulation and conversion:
   - [Color scheme from base color](https://bgrins.github.io/TinyColor/)
+- On performance:
+  - [Five tools to optimizing performance](https://blog.bitsrc.io/5-recommended-tools-for-optimizing-performance-in-reactjs-29eb2a3ec46d)
+    1. Profiler ([docs](https://reactjs.org/docs/profiler.html), [example](https://codesandbox.io/s/agitated-violet-ojlur))
+    2. React Developer Tools ([docs](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en))
+    3. Bit.dev ([docs](https://bit.dev/))
+    4. why-did-you-render ([docs](https://github.com/welldone-software/why-did-you-render))
+    5. Performance Timeline (from Chrome DevTools) 
