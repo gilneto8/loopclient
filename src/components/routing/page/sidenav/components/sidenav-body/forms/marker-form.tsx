@@ -59,9 +59,9 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
     return (
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <LabelledInput first name={'name'} ref={register} errors={errors} />
-          <LabelledInput name={'description'} ref={register} />
-          <LabelledSelect last name={'type'} refFn={register} options={enumToArray(MarkerTypes)} />
+          <LabelledInput first name={'name'} refFn={register} errors={errors} />
+          <LabelledInput name={'description'} refFn={register} errors={errors} />
+          <LabelledSelect last name={'type'} refFn={register} options={enumToArray(MarkerTypes)} errors={errors} />
           <Button type={'submit'}>{'Submit'}</Button>
           <Button type={'button'} onClick={remove}>
             {'Remove Marker'}

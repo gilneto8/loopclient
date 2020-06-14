@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { Theme } from '../../../colors/color-types';
 import { ThemeContext } from '../../../colors/theme-context';
@@ -9,6 +9,7 @@ type Props = {
   color?: string;
   errors?: FieldErrors<any>;
   margins?: [number] | [number, number] | [number, number, number, number];
+  refFn?: (ref: Element | null) => void;
   placeholder?: string;
 };
 
@@ -33,8 +34,8 @@ const spanCss = (props: Props, theme: Theme) =>
     color: theme.defaults.danger,
   });
 
-const Input = React.forwardRef<any, Props>((props, ref) => {
-  const { name, placeholder, errors } = props;
+const Input: FunctionComponent<Props> = (props) => {
+  const { name, refFn, placeholder, errors } = props;
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(
     () => (
@@ -43,7 +44,7 @@ const Input = React.forwardRef<any, Props>((props, ref) => {
           aria-invalid={errors && errors[name]}
           name={name}
           css={inputCss(props, theme)}
-          ref={ref}
+          ref={refFn}
           placeholder={placeholder}
         />
         {errors && errors[name] && (
@@ -55,6 +56,6 @@ const Input = React.forwardRef<any, Props>((props, ref) => {
     ),
     [theme, props]
   );
-});
+};
 
 export default Input;
