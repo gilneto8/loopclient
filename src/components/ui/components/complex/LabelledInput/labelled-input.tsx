@@ -1,15 +1,13 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Label from '../../simple/Label/label';
 import Input from '../../simple/Input/input';
 import { css } from '@emotion/core';
-import { id } from '../../../../../utils/functions/create-local-id';
 import * as _ from 'lodash';
 import { FieldErrors } from 'react-hook-form';
 
 type Props = {
   key?: string;
   name: string;
-  refFn?: (ref: Element | null) => void;
   errors?: FieldErrors<any>;
   first?: boolean;
   last?: boolean;
@@ -27,17 +25,20 @@ const style = (props: Props) =>
     })(),
   });
 
-const LabelledInput: FunctionComponent<Props> = (props) => {
-  const { key, name, refFn, errors } = props;
+const LabelledInput: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLInputElement>> = React.forwardRef<
+  HTMLInputElement,
+  Props
+>((props, ref) => {
+  const { key, name, errors } = props;
   return useMemo(
     () => (
-      <div css={style(props)} key={`${key || id(4)}-${name}`}>
+      <div css={style(props)} key={`${key || 'labelled-input'}-${name}`}>
         <Label>{_.startCase(_.toLower(name))}</Label>
-        <Input name={name} refFn={refFn} errors={errors} />
+        <Input name={name} ref={ref} errors={errors} />
       </div>
     ),
-    [props]
+    [props, ref]
   );
-};
+});
 
 export default LabelledInput;
