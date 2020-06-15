@@ -20,16 +20,16 @@
 - [x] on hover updates reducer
 - [x] optimize color selection and logic (contexts)
 - [x] concept of Trip
+- [x] create forms on sidenav, while validating schema
+  - should create generic components (label, input, select, etc.)
+  - memoizing where possible
+  - validation with yup
 
 ### To Do
 
 #### Functionalities
 
 - [ ] visual indication that changes were made
-- [ ] create forms on sidenav, while validating schema
-  - should create generic components (label, input)
-  - memoizing where possible
-  - validation with yup?
 - [ ] marker info with X to close info and not close the sidenav
   - Submit does not close sidenav, just clears info
 - [ ] dnd on marker list

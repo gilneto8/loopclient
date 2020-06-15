@@ -34,6 +34,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
   const { reset, register, handleSubmit, errors } = useForm<ItemForm<MarkerTypes>>({
     defaultValues: (selectedPoint as MarkerObj)?.data || item.data,
     validationSchema: item.schema,
+    validateCriteriaMode: 'all',
   });
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <LabelledInput first name={'name'} ref={register} errors={errors} />
-          <LabelledInput name={'description'} ref={register} />
+          <LabelledInput name={'description'} ref={register} errors={errors} />
           <LabelledSelect last name={'type'} ref={register} options={enumToArray(MarkerTypes)} />
           <Button type={'submit'}>{'Submit'}</Button>
           <Button type={'button'} onClick={remove}>

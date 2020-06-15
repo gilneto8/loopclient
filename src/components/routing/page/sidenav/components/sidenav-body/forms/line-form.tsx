@@ -34,6 +34,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
   const { reset, register, handleSubmit, errors } = useForm<ItemForm<LineTypes>>({
     defaultValues: (selectedPoint as LineObj)?.data || item.data,
     validationSchema: item.schema,
+    validateCriteriaMode: 'all',
   });
 
   useEffect(() => {
@@ -59,9 +60,9 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
     return (
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <LabelledInput first name={'name'} refFn={register} errors={errors} />
-          <LabelledInput name={'description'} refFn={register} errors={errors} />
-          <LabelledSelect last name={'type'} refFn={register} options={enumToArray(LineTypes)} errors={errors} />
+          <LabelledInput first name={'name'} ref={register} errors={errors} />
+          <LabelledInput name={'description'} ref={register} errors={errors} />
+          <LabelledSelect last name={'type'} ref={register} options={enumToArray(LineTypes)} errors={errors} />
           <Button type={'submit'}>{'Submit'}</Button>
           <Button type={'button'} onClick={remove}>
             {'Remove Line'}
