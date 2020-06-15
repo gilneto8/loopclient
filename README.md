@@ -29,10 +29,10 @@
 
 #### Functionalities
 
+- [ ] dnd on marker list
 - [ ] visual indication that changes were made
 - [ ] marker info with X to close info and not close the sidenav
   - Submit does not close sidenav, just clears info
-- [ ] dnd on marker list
 - [ ] way of drawing itineraries (not just by placing markers?);
 - [ ] marker clustering
   - consider `@urbica/react-map-gl` for OOTB marker clustering; possibly no typescript support.
@@ -45,6 +45,7 @@
 #### Optimization
 
 - [ ] separate into logic functions to unclutter component spec
+- [ ] generalize Form component for markers and lines (and possibly others)
 - [ ] memoize static styles so they never reload
 - [ ] check React Developer Tools and profiling tools
 
