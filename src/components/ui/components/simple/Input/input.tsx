@@ -33,7 +33,10 @@ const spanCss = (props: Props, theme: Theme) =>
     color: theme.defaults.danger,
   });
 
-const Input = React.forwardRef<any, Props>((props, ref) => {
+const Input: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLInputElement>> = React.forwardRef<
+  HTMLInputElement,
+  Props
+>((props, ref) => {
   const { name, placeholder, errors } = props;
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(
@@ -53,7 +56,7 @@ const Input = React.forwardRef<any, Props>((props, ref) => {
         )}
       </>
     ),
-    [theme, props]
+    [theme, props, ref]
   );
 });
 

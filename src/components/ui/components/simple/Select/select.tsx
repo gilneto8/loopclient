@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useContext, useMemo } from 'react';
+import React, { ChangeEvent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { Theme } from '../../../colors/color-types';
 import { ThemeContext } from '../../../colors/theme-context';
@@ -8,7 +8,6 @@ type Props = {
   color?: string;
   /*paddings?: [number] | [number, number] | [number, number, number, number];*/
   margins?: [number] | [number, number] | [number, number, number, number];
-  refFn?: (ref: Element | null) => void;
   onChange?: (evt: ChangeEvent<HTMLSelectElement>) => void;
   selected?: any;
   options: Array<any>;
@@ -33,12 +32,15 @@ const style = (props: Props, theme: Theme) =>
     cursor: 'pointer',
   });
 
-const Select: FunctionComponent<Props> = (props) => {
-  const { name, refFn, onChange, options } = props;
+const Select: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLSelectElement>> = React.forwardRef<
+  HTMLSelectElement,
+  Props
+>((props, ref) => {
+  const { name, onChange, options } = props;
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(
     () => (
-      <select css={style(props, theme)} name={name} ref={refFn} onChange={onChange}>
+      <select css={style(props, theme)} name={name} ref={ref} onChange={onChange}>
         {options.map((opt, i) => (
           <option key={i} value={opt}>
             {opt}
@@ -48,6 +50,6 @@ const Select: FunctionComponent<Props> = (props) => {
     ),
     [props, theme]
   );
-};
+});
 
 export default Select;

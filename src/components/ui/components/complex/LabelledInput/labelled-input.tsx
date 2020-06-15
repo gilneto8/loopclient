@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import Label from '../../simple/Label/label';
 import Input from '../../simple/Input/input';
 import { css } from '@emotion/core';
-import { id } from '../../../../../utils/functions/create-local-id';
 import * as _ from 'lodash';
 import { FieldErrors } from 'react-hook-form';
 
@@ -26,16 +25,19 @@ const style = (props: Props) =>
     })(),
   });
 
-const LabelledInput = React.forwardRef<any, Props>((props, ref) => {
+const LabelledInput: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLInputElement>> = React.forwardRef<
+  HTMLInputElement,
+  Props
+>((props, ref) => {
   const { key, name, errors } = props;
   return useMemo(
     () => (
-      <div css={style(props)} key={`${key || id(4)}-${name}`}>
+      <div css={style(props)} key={`${key || 'labelled-input'}-${name}`}>
         <Label>{_.startCase(_.toLower(name))}</Label>
         <Input name={name} ref={ref} errors={errors} />
       </div>
     ),
-    [props]
+    [props, ref]
   );
 });
 
