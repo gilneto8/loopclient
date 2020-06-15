@@ -33,6 +33,7 @@
 - [ ] marker info with X to close info and not close the sidenav
   - Submit does not close sidenav, just clears info
 - [ ] dnd on marker list
+  - [example](https://codesandbox.io/s/k260nyxq9v?file=/index.js)
 - [ ] way of drawing itineraries (not just by placing markers?);
 - [ ] marker clustering
   - consider `@urbica/react-map-gl` for OOTB marker clustering; possibly no typescript support.
