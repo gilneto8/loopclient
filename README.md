@@ -87,4 +87,4 @@
     2. React Developer Tools ([docs](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en))
     3. Bit.dev ([docs](https://bit.dev/))
     4. why-did-you-render ([docs](https://github.com/welldone-software/why-did-you-render))
-    5. Performance Timeline (from Chrome DevTools) 
+    5. Performance Timeline (from Chrome DevTools)

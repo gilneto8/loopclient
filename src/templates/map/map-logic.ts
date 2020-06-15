@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
-import { OnClickEvent, Viewport } from '../../logic/features/map/map-types';
-import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
-import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
-import { MarkerObj, markerSchema, MarkerTypes } from '../../logic/features/trip/marker-types';
-import { LineObj, lineSchema, LineTypes } from '../../logic/features/trip/line-types';
-import { loadMap } from '../../logic/features/map/map-thunks';
-import { id } from '../../utils/functions/create-local-id';
-import { loadTrips } from '../../logic/features/trip/trip-thunks';
-import { TripObj } from '../../logic/features/trip/trip-types';
+import { OnClickEvent, Viewport } from '@logic/features/map/map-types';
+import { useStoreSelector } from '@logic/shared/store/use-store-selector';
+import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
+import { MarkerObj, markerSchema, MarkerTypes } from '@logic/features/trip/marker-types';
+import { LineObj, lineSchema, LineTypes } from '@logic/features/trip/line-types';
+import { loadMap } from '@logic/features/map/map-thunks';
+import { id } from '@utils/functions/create-local-id';
+import { loadTrips } from '@logic/features/trip/trip-thunks';
+import { TripObj } from '@logic/features/trip/trip-types';
 
 const createMarkerObj = (lng: number, lat: number, order: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },
