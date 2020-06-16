@@ -7,6 +7,7 @@ import { Theme } from '@ui/colors/color-types';
 import { ThemeContext } from '@ui/colors/theme-context';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 type Props = {};
 
@@ -30,6 +31,10 @@ const MarkerList: FunctionComponent<Props> = () => {
   const selectedTrip = tripInfo?.trips.filter((t) => t.id === tripInfo?.selected)[0];
 
   return useMemo(() => {
+    const switchOrder = (result: DropResult) => {
+      // TODO algorithm to change order of markers
+      console.log(result);
+    };
     const switchSelect = (obj: MarkerObj) => {
       if (mapInfo && mapInfo.selected?.id === obj.id) {
         storeDispatch(mapThunks.unselect());
@@ -48,22 +53,43 @@ const MarkerList: FunctionComponent<Props> = () => {
     return !mapInfo || !tripInfo ? (
       <></>
     ) : (
-      <div>
-        {selectedTrip?.geometry.markers.map((m: MarkerObj) => (
-          <Badge
-            key={m.id}
-            enableAutoMargin
-            removable
-            onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id))}
-            onClick={() => switchSelect(m)}
-            onHover={(h) => switchHover(m, h)}
-            hovered={mapInfo.hovered?.id === m.id}
-            active={mapInfo.selected?.id === m.id}
-          >
-            {m.data.name}
-          </Badge>
-        ))}
-      </div>
+      <DragDropContext onDragEnd={switchOrder}>
+        <Droppable droppableId={'marker-list'}>
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              /*style={getListStyle(snapshot.isDraggingOver)}*/
+            >
+              {selectedTrip?.geometry.markers.map((m: MarkerObj, index) => (
+                <Draggable key={m.id} draggableId={m.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      /*style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}*/
+                    >
+                      <Badge
+                        enableAutoMargin
+                        removable
+                        onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id))}
+                        onClick={() => switchSelect(m)}
+                        onHover={(h) => switchHover(m, h)}
+                        hovered={mapInfo.hovered?.id === m.id}
+                        active={mapInfo.selected?.id === m.id}
+                      >
+                        {m.data.name}
+                      </Badge>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     );
   }, [selectedTrip?.geometry.markers, data, mapInfo?.selected, mapInfo?.hovered, theme]);
 };
