@@ -4,7 +4,12 @@
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types", "./node_modules/@danmarshall/deckgl-typings"],
     "paths": {
-      "@config/*": ["__config.debug/*"]
+      "@config/*": ["__config.debug/*"],
+      "@ui/*": ["src/components/ui/*"],
+      "@logic/*": ["src/logic/*"],
+      "@templates/*": ["src/templates/*"],
+      "@utils/*": ["src/utils/*"],
+      "@routing/*": ["src/components/routing/*"]
     },
     "noEmit": true,
     "target": "es5",
@@ -21,6 +26,7 @@
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "newLine": "crlf"
   }
 }

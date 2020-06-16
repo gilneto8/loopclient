@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
-import { ThemeContext } from '../../../../../ui/colors/theme-context';
-import { Theme } from '../../../../../ui/colors/color-types';
-import Button from '../../../../../ui/components/simple/Button/button';
-import { useStoreSelector } from '../../../../../../logic/shared/store/use-store-selector';
-import { loadMap } from '../../../../../../logic/features/map/map-thunks';
-import { loadSidenav } from '../../../../../../logic/features/sidenav/sidenav-thunks';
+import { ThemeContext } from '@ui/colors/theme-context';
+import { Theme } from '@ui/colors/color-types';
+import Button from '@ui/components/simple/Button/button';
+import { useStoreSelector } from '@logic/shared/store/use-store-selector';
+import { loadMap } from '@logic/features/map/map-thunks';
+import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 
 type Props = {};
 

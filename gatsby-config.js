@@ -36,6 +36,7 @@ module.exports = {
     'gatsby-plugin-robots-txt',
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-tsconfig-paths`,
 
     /*
       WARNING:

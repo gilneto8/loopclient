@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
-import { useStoreSelector } from '../../../../../../../logic/shared/store/use-store-selector';
-import { loadMap } from '../../../../../../../logic/features/map/map-thunks';
-import { MarkerObj } from '../../../../../../../logic/features/trip/marker-types';
-import Badge from '../../../../../../ui/components/simple/Badge/badge';
-import { Theme } from '../../../../../../ui/colors/color-types';
-import { ThemeContext } from '../../../../../../ui/colors/theme-context';
-import { loadTrips } from '../../../../../../../logic/features/trip/trip-thunks';
-import { loadSidenav } from '../../../../../../../logic/features/sidenav/sidenav-thunks';
+import { useStoreSelector } from '@logic/shared/store/use-store-selector';
+import { loadMap } from '@logic/features/map/map-thunks';
+import { MarkerObj } from '@logic/features/trip/marker-types';
+import Badge from '@ui/components/simple/Badge/badge';
+import { Theme } from '@ui/colors/color-types';
+import { ThemeContext } from '@ui/colors/theme-context';
+import { loadTrips } from '@logic/features/trip/trip-thunks';
+import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 
 type Props = {};
 

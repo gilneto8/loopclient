@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
-import { OnClickEvent, Viewport } from '../../logic/features/map/map-types';
-import { useStoreSelector } from '../../logic/shared/store/use-store-selector';
-import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
-import { MarkerObj, markerSchema, MarkerTypes } from '../../logic/features/trip/marker-types';
-import { LineObj, lineSchema, LineTypes } from '../../logic/features/trip/line-types';
-import { loadMap } from '../../logic/features/map/map-thunks';
-import { id } from '../../utils/functions/create-local-id';
-import { loadTrips } from '../../logic/features/trip/trip-thunks';
-import { TripObj } from '../../logic/features/trip/trip-types';
+import { OnClickEvent, Viewport } from '@logic/features/map/map-types';
+import { useStoreSelector } from '@logic/shared/store/use-store-selector';
+import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
+import { MarkerObj, markerSchema, MarkerTypes } from '@logic/features/trip/marker-types';
+import { LineObj, lineSchema, LineTypes } from '@logic/features/trip/line-types';
+import { loadMap } from '@logic/features/map/map-thunks';
+import { id } from '@utils/functions/create-local-id';
+import { loadTrips } from '@logic/features/trip/trip-thunks';
+import { TripObj } from '@logic/features/trip/trip-types';
 
-const createMarkerObj = (lng: number, lat: number): MarkerObj => ({
+const createMarkerObj = (lng: number, lat: number, order: number): MarkerObj => ({
   geometry: { position: [lng, lat, 1] },
   id: id(),
+  order,
   data: {
     name: 'New marker',
     description: '',
@@ -63,7 +64,7 @@ export const useMapLogic = () => {
 
   const addMarker = (p: OnClickEvent) => {
     const { markers, lines } = selectedTrip.geometry;
-    const marker = createMarkerObj(+p.lngLat[0].toFixed(3), +p.lngLat[1].toFixed(3));
+    const marker = createMarkerObj(+p.lngLat[0].toFixed(3), +p.lngLat[1].toFixed(3), markers.length);
     storeDispatch(tripsThunks.addMarker(selectedTrip.id, marker));
     const startMarker = lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end;
     if (markers.length >= 1) storeDispatch(tripsThunks.addLine(selectedTrip.id, createLineObj(startMarker, marker)));
