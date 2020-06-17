@@ -33,15 +33,6 @@ const MarkerList: FunctionComponent<Props> = () => {
   return useMemo(() => {
     const switchOrder = (result: DropResult) => {
       // TODO algorithm to change order of markers
-      /*
-      CASE: [1, 2, 3, 4, 5, 6] to [1, 5, 3, 4, 2, 6]
-        line that has start = 1, update to end = 5
-        line that has start = 2, update to end = 6
-        line that has start = 4, update to end = 2
-        line that has start = 5, update to end = 3
-
-        so, if X and Y are being changed, I need to access X-1, X, Y-1 and Y
-      */
       console.log(result);
     };
     const switchSelect = (obj: MarkerObj) => {

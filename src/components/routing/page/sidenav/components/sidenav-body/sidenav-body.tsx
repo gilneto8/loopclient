@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { MapItemObj } from '@logic/features/map/map-types';
 import MarkerForm from './forms/marker-form';
-import { isMarker } from '@utils/functions/is-marker';
 import { MarkerObj } from '@logic/features/trip/marker-types';
 import { LineObj } from '@logic/features/trip/line-types';
 import LineForm from './forms/line-form';
 import { css } from '@emotion/core';
 import * as _ from 'lodash';
 import MarkerList from './components/marker-list';
+import { isMarker } from "@utils/marker-utils/is-marker";
 
 type Props = {
   item: MapItemObj | undefined;

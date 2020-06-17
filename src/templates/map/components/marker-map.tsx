@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import Marker from './marker';
-import { MarkerObj } from '../../../logic/features/trip/marker-types';
-import { MapItemObj } from '../../../logic/features/map/map-types';
-import { isMarker } from '../../../utils/functions/is-marker';
+import { MarkerObj } from "@logic/features/trip/marker-types";
+import { MapItemObj } from "@logic/features/map/map-types";
+import { isMarker } from "@utils/marker-utils/is-marker";
 
 type Props = {
   markers: Array<MarkerObj>;

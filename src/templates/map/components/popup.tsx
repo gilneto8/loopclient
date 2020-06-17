@@ -1,15 +1,15 @@
 import React, { useContext, useMemo, FunctionComponent } from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
-import { MapItemObj } from '../../../logic/features/map/map-types';
-import { lineMidpoint } from '../../../utils/functions/line-midpoint';
+import { MapItemObj } from "@logic/features/map/map-types";
+import { lineMidpoint } from "@utils/functions/line-midpoint";
 import LineInfo from '../popups/line-info';
 import MarkerInfo from '../popups/marker-info';
-import { isMarker } from '../../../utils/functions/is-marker';
 import { css } from '@emotion/core';
-import { LineObj } from '../../../logic/features/trip/line-types';
-import { MarkerObj } from '../../../logic/features/trip/marker-types';
-import { Theme } from '../../../components/ui/colors/color-types';
-import { ThemeContext } from '../../../components/ui/colors/theme-context';
+import { LineObj } from "@logic/features/trip/line-types";
+import { MarkerObj } from "@logic/features/trip/marker-types";
+import { Theme } from "@ui/colors/color-types";
+import { ThemeContext } from "@ui/colors/theme-context";
+import { isMarker } from "@utils/marker-utils/is-marker";
 
 type Props = {
   item?: MapItemObj;
