@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { id } from '../functions/create-local-id';
 
 /* on deleting a marker, removes connecting lines (before and after) and connects previous and next marker */
-export function _removeLineByMarker(lines: Array<LineObj>, mId: string): Array<LineObj> {
+export function removeLineByMarker(lines: Array<LineObj>, mId: string): Array<LineObj> {
   const _lines = _.cloneDeep(lines);
   const i_Before = _.findIndex(_lines, (l) => l.geometry.end.id === mId);
   const i_After = _.findIndex(_lines, (l) => l.geometry.start.id === mId);
