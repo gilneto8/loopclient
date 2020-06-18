@@ -30,7 +30,6 @@
 #### Functionalities
 
 - [ ] change way things interact
-  - CRUD for markers should only be made on trips, while sidenav and map got information from them;
   - probably trips should have a different structure, to better show the connection between markers and lines;
 - [ ] dnd on marker list
   - [example](https://codesandbox.io/s/k260nyxq9v?file=/index.js)
