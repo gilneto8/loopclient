@@ -36,8 +36,10 @@ const MarkerList: FunctionComponent<Props> = () => {
       console.log('before', result);
       if (!selectedTrip) return;
       const { markers, lines } = moveMarker(selectedTrip.geometry.markers, selectedTrip.geometry.lines);
+      storeDispatch(tripsThunks.setGeometry(selectedTrip.id, markers, lines));
       console.log('result', markers, lines);
     };
+
     const switchSelect = (obj: MarkerObj) => {
       if (mapInfo && mapInfo.selected?.id === obj.id) {
         storeDispatch(mapThunks.unselect());

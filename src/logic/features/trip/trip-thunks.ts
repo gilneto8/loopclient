@@ -10,7 +10,7 @@ import {
   REMOVE_MARKER,
   UPDATE_LINE,
   UPDATE_MARKER,
-  SELECT_TRIP,
+  SELECT_TRIP, SET_GEOMETRY,
 } from './trip-actions';
 import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
@@ -106,6 +106,15 @@ class TripThunks {
       dispatch({
         type: REMOVE_LINE,
         payload: { tripId, id },
+      });
+    };
+  }
+
+  setGeometry(tripId: string, markers?: Array<MarkerObj>, lines?: Array<LineObj>): TripThunkAction {
+    return async (dispatch) => {
+      dispatch({
+        type: SET_GEOMETRY,
+        payload: { tripId, markers, lines },
       });
     };
   }

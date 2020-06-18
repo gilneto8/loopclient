@@ -7,6 +7,7 @@ import {
   REMOVE_MARKER,
   REMOVE_TRIP,
   SELECT_TRIP,
+  SET_GEOMETRY,
   TripAction,
   UPDATE_LINE,
   UPDATE_MARKER,
@@ -112,6 +113,20 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
             'geometry.lines',
             _.filter(t.geometry.lines, (l) => l.id !== action.payload.id)
           );
+        }),
+      };
+    case SET_GEOMETRY:
+      return {
+        ...state,
+        trips: _.map(state.trips, (t) => {
+          if (t.id !== action.payload.tripId) return t;
+          return {
+            ...t,
+            geometry: {
+              markers: action.payload.markers ?? t.geometry.markers,
+              lines: action.payload.lines ?? t.geometry.lines,
+            },
+          };
         }),
       };
     default:

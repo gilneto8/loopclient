@@ -7,5 +7,5 @@ type ResultType = {
 };
 
 export function moveMarker(markers: Array<MarkerObj>, lines: Array<LineObj>): ResultType {
-  return { markers: [], lines: [] };
+  return { markers, lines };
 }
