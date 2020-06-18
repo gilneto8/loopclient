@@ -8,6 +8,7 @@ import { ThemeContext } from '@ui/colors/theme-context';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { moveMarker } from '@utils/marker-utils/move-marker';
 
 type Props = {};
 
@@ -32,8 +33,10 @@ const MarkerList: FunctionComponent<Props> = () => {
 
   return useMemo(() => {
     const switchOrder = (result: DropResult) => {
-      // TODO algorithm to change order of markers
-      console.log(result);
+      console.log('before', result);
+      if (!selectedTrip) return;
+      const { markers, lines } = moveMarker(selectedTrip.geometry.markers, selectedTrip.geometry.lines);
+      console.log('result', markers, lines);
     };
     const switchSelect = (obj: MarkerObj) => {
       if (mapInfo && mapInfo.selected?.id === obj.id) {
@@ -55,7 +58,7 @@ const MarkerList: FunctionComponent<Props> = () => {
     ) : (
       <DragDropContext onDragEnd={switchOrder}>
         <Droppable droppableId={'marker-list'}>
-          {(provided, snapshot) => (
+          {(provided) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
@@ -63,7 +66,7 @@ const MarkerList: FunctionComponent<Props> = () => {
             >
               {selectedTrip?.geometry.markers.map((m: MarkerObj, index) => (
                 <Draggable key={m.id} draggableId={m.id} index={index}>
-                  {(provided, snapshot) => (
+                  {(provided) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
