@@ -14,19 +14,17 @@ export function moveMarker(dropResult: DropResult, geometry: GeometryObj): Geome
   if (!dropResult.destination) return geometry;
   const destinationMarker = geometry.markers[dropResult.destination.index];
 
-  let newMarkers: Array<MarkerObj>;
-  if (sourceMarker.order > destinationMarker.order) {
-    newMarkers = _.map(geometry.markers, (m) => {
-      if (m.order > destinationMarker.order) return { ...m, order: m.order - 1 };
-      if (m.id === destinationMarker.id) return { ...m, order: destinationMarker.order };
+  const newMarkers: Array<MarkerObj> = _.chain(geometry.markers)
+    .map((m) => {
+      if (m.id === sourceMarker.id) return { ...m, order: destinationMarker.order };
+      if (sourceMarker.order < destinationMarker.order && m.order <= destinationMarker.order)
+        return { ...m, order: m.order - 1 };
+      if (sourceMarker.order > destinationMarker.order && m.order >= destinationMarker.order)
+        return { ...m, order: m.order + 1 };
       return m;
-    });
-  } else
-    newMarkers = _.map(geometry.markers, (m) => {
-      if (m.order < destinationMarker.order) return { ...m, order: m.order + 1 };
-      if (m.id === destinationMarker.id) return { ...m, order: destinationMarker.order };
-      return m;
-    });
+    })
+    .sortBy('order')
+    .value();
   const newGeometry: GeometryObj = { markers: newMarkers, lines: geometry.lines };
   console.log('geometry', geometry.markers);
   console.log('newGeometry', newGeometry.markers);
