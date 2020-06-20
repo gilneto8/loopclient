@@ -31,6 +31,8 @@
 
 - [ ] change way things interact
   - probably trips should have a different structure, to better show the connection between markers and lines;
+  - change to hashmaps? implement interface to get O(1)?
+    - [Temporal complexity reference for hashmaps](https://adrianmejia.com/data-structures-time-complexity-for-beginners-arrays-hashmaps-linked-lists-stacks-queues-tutorial/)
 - [ ] dnd on marker list
   - [example](https://codesandbox.io/s/k260nyxq9v?file=/index.js)
 - [ ] visual indication that changes were made
