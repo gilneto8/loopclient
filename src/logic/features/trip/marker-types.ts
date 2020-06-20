@@ -1,6 +1,6 @@
 import { CoordsObj, ItemForm } from './trip-types';
 import * as yup from 'yup';
-import { enumToArray } from '../../../utils/enums/enum-to-array';
+import { enumToArray } from '@utils/enums/enum-to-array';
 
 export enum MarkerTypes {
   HOTEL = 'Hotel',

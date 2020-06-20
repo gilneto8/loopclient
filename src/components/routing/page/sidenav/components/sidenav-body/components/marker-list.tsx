@@ -65,7 +65,7 @@ const MarkerList: FunctionComponent<Props> = () => {
               /*style={getListStyle(snapshot.isDraggingOver)}*/
             >
               {selectedTrip?.geometry.markers.map((m: MarkerObj, index) => (
-                <Draggable key={m.id} draggableId={m.id} index={index}>
+                <Draggable isDragDisabled={true} key={m.id} draggableId={m.id} index={index}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}

@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
-import { ThemeContext } from '../../../../../ui/colors/theme-context';
-import { Theme } from '../../../../../ui/colors/color-types';
-import { useStoreSelector } from '../../../../../../logic/shared/store/use-store-selector';
-import LabelledSelect from '../../../../../ui/components/complex/LabelledSelect/labelled-select';
-import { loadTrips } from '../../../../../../logic/features/trip/trip-thunks';
-import { loadMap } from '../../../../../../logic/features/map/map-thunks';
-import { loadSidenav } from '../../../../../../logic/features/sidenav/sidenav-thunks';
+import { ThemeContext } from '@ui/colors/theme-context';
+import { Theme } from '@ui/colors/color-types';
+import { useStoreSelector } from '@logic/shared/store/use-store-selector';
+import LabelledSelect from '@ui/components/complex/LabelledSelect/labelled-select';
+import { loadTrips } from '@logic/features/trip/trip-thunks';
+import { loadMap } from '@logic/features/map/map-thunks';
+import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 
 type Props = {
   title?: string;

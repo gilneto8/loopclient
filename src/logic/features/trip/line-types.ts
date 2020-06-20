@@ -1,7 +1,7 @@
 import { MarkerObj } from './marker-types';
 import { ItemForm } from './trip-types';
 import * as yup from 'yup';
-import { enumToArray } from '../../../utils/enums/enum-to-array';
+import { enumToArray } from '@utils/enums/enum-to-array';
 
 export enum LineTypes {
   TRAIN = 'Train',
