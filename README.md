@@ -31,8 +31,6 @@
 
 - [ ] change way things interact
   - probably trips should have a different structure, to better show the connection between markers and lines;
-  - change to hashmaps? implement interface to get O(1)?
-    - [Temporal complexity reference for hashmaps](https://adrianmejia.com/data-structures-time-complexity-for-beginners-arrays-hashmaps-linked-lists-stacks-queues-tutorial/)
 - [ ] dnd on marker list
   - [example](https://codesandbox.io/s/k260nyxq9v?file=/index.js)
 - [ ] visual indication that changes were made
@@ -46,12 +44,19 @@
 
 - [ ] handle warnings and a11y issues
 - [ ] popup background color should fill popup container
+- [ ] bug when removing marker when it's not connected to anything
+    - Reproduce: remove line and isolate marker, remove marker
+    - Result: previous line is deleted
+    - Solution: either check whether to delete or not, or follow-up on structural change for trips, markers and lines
 
 #### Optimization
 
 - [ ] separate into logic functions to unclutter component spec
 - [ ] memoize static styles so they never reload
 - [ ] check React Developer Tools and profiling tools
+- [ ] change to hashmaps? implement interface to get O(1)?
+    - [Temporal complexity reference for hashmaps](https://adrianmejia.com/data-structures-time-complexity-for-beginners-arrays-hashmaps-linked-lists-stacks-queues-tutorial/)
+
 
 #### Other
 
