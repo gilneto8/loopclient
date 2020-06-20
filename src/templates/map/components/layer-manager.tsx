@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
-import { MapItemObj, Viewport } from '../../../logic/features/map/map-types';
-import { LineObj } from '../../../logic/features/trip/line-types';
-import { ThemeContext } from '../../../components/ui/colors/theme-context';
-import { Theme } from '../../../components/ui/colors/color-types';
+import { Viewport } from '@logic/features/map/map-types';
+import { LineObj } from '@logic/features/trip/line-types';
+import { ThemeContext } from '@ui/colors/theme-context';
+import { Theme } from '@ui/colors/color-types';
 import tinycolor from 'tinycolor2';
 
 type Props = {
@@ -13,8 +13,8 @@ type Props = {
   onHover: (obj: LineObj) => void;
   onSelect: (obj: LineObj) => void;
   lines: Array<LineObj>;
-  selected?: MapItemObj;
-  hovered?: MapItemObj;
+  selected?: string;
+  hovered?: string;
 };
 
 function getColor(theme: Theme, hovered?: boolean, selected?: boolean): [number, number, number] {
@@ -54,8 +54,8 @@ const LayerManager: FunctionComponent<Props> = (props) => {
             onClick: ({ object }) => onSelect(object),
             getSourcePosition: (d) => d.geometry.start.geometry.position,
             getTargetPosition: (d) => d.geometry.end.geometry.position,
-            getColor: (obj) => getColor(theme, hovered?.id === obj.id, selected?.id === obj.id),
-            getWidth: (obj) => getWidth(hovered?.id === obj.id, selected?.id === obj.id),
+            getColor: (obj) => getColor(theme, hovered === obj.id, selected === obj.id),
+            getWidth: (obj) => getWidth(hovered === obj.id, selected === obj.id),
             updateTriggers: {
               getColor: [hovered, selected, theme],
               getWidth: [hovered, selected, theme],

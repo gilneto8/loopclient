@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Page } from '../../components/routing/page/page';
+import { Page } from '@routing/page/page';
 import { useMapLogic } from './map-logic';
 import Popup from './components/popup';
 import Map from './components/map';

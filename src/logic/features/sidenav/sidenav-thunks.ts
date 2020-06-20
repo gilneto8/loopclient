@@ -3,7 +3,7 @@ import { SIDENAV_CLOSE, SIDENAV_OPEN, SIDENAV_CLEAR, SIDENAV_UPDATE, SidenavActi
 import { sidenavReducer } from './sidenav-reducer';
 import { MarkerObj } from '../trip/marker-types';
 import { LineObj } from '../trip/line-types';
-import { hold } from '../../../utils/functions/hold';
+import { hold } from '@utils/functions/hold';
 
 type SidenavThunkAction<R = void> = StoreThunkActionBase<SidenavAction, R>;
 

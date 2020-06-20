@@ -13,8 +13,6 @@ import {
 } from './map-actions';
 import { Viewport } from './map-types';
 import { mapReducer } from './map-reducer';
-import { MarkerObj } from '../trip/marker-types';
-import { LineObj } from '../trip/line-types';
 
 type MapThunkAction<R = void> = StoreThunkActionBase<MapAction, R>;
 
@@ -28,20 +26,20 @@ class MapThunks {
     };
   }
 
-  selectMarker(obj: MarkerObj): MapThunkAction {
+  selectMarker(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: SELECT_MARKER,
-        payload: obj,
+        payload: { id },
       });
     };
   }
 
-  selectLine(obj: LineObj): MapThunkAction {
+  selectLine(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: SELECT_LINE,
-        payload: obj,
+        payload: { id },
       });
     };
   }
@@ -54,20 +52,20 @@ class MapThunks {
     };
   }
 
-  hoverMarker(obj: MarkerObj): MapThunkAction {
+  hoverMarker(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: HOVER_MARKER,
-        payload: obj,
+        payload: { id },
       });
     };
   }
 
-  hoverLine(obj: LineObj): MapThunkAction {
+  hoverLine(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: HOVER_LINE,
-        payload: obj,
+        payload: { id },
       });
     };
   }

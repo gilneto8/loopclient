@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import MapGL from 'react-map-gl';
-import { OnClickEvent, Viewport } from '../../../logic/features/map/map-types';
+import { OnClickEvent, Viewport } from '@logic/features/map/map-types';
 
 type Props = {
   viewport: Viewport | undefined;

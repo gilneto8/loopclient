@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { Theme } from '../../../colors/color-types';
-import { ThemeContext } from '../../../colors/theme-context';
+import { Theme } from '@ui/colors/color-types';
+import { ThemeContext } from '@ui/colors/theme-context';
 import { css } from '@emotion/core';
 
 type Props = {

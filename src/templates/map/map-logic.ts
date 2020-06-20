@@ -55,7 +55,7 @@ export const useMapLogic = () => {
     if (marker) {
       if (!mapInfo.selected) {
         storeDispatch(sidenavThunks.open(marker));
-        storeDispatch(mapThunks.selectMarker(marker));
+        storeDispatch(mapThunks.selectMarker(marker.id));
       } else {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
@@ -67,7 +67,7 @@ export const useMapLogic = () => {
     if (obj) {
       if (!mapInfo.selected) {
         storeDispatch(sidenavThunks.open(obj));
-        storeDispatch(mapThunks.selectLine(obj));
+        storeDispatch(mapThunks.selectLine(obj.id));
       } else {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
@@ -82,12 +82,12 @@ export const useMapLogic = () => {
     }
     const { markers } = selectedTrip.geometry;
     const marker = _.find(markers || [], (m) => m.id === id);
-    if (marker) storeDispatch(mapThunks.hoverMarker(marker));
+    if (marker) storeDispatch(mapThunks.hoverMarker(marker.id));
   };
 
   const hoverOnLine = (obj: LineObj) => {
     if (obj === undefined) storeDispatch(mapThunks.unhover());
-    else storeDispatch(mapThunks.hoverLine(obj));
+    else storeDispatch(mapThunks.hoverLine(obj.id));
   };
 
   return {

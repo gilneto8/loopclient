@@ -1,6 +1,6 @@
 import React from 'react';
-import { LineObj } from '../../../logic/features/trip/line-types';
-import Label from '../../../components/ui/components/simple/Label/label';
+import { LineObj } from '@logic/features/trip/line-types';
+import Label from '@ui/components/simple/Label/label';
 import * as _ from 'lodash';
 import { css } from '@emotion/core';
 

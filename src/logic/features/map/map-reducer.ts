@@ -1,7 +1,5 @@
 import { Reducer } from 'redux';
 import { Viewport } from './map-types';
-import { MarkerObj } from '../trip/marker-types';
-import { LineObj } from '../trip/line-types';
 import {
   HOVER_LINE,
   HOVER_MARKER,
@@ -18,8 +16,8 @@ import {
 export type MapStoreState = {
   viewport: Viewport;
   editMode: boolean;
-  selected?: MarkerObj | LineObj;
-  hovered?: MarkerObj | LineObj;
+  selected?: string;
+  hovered?: string;
 };
 
 export type MapReducer = Reducer<MapStoreState, MapAction>;
@@ -42,15 +40,15 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
     case UPDATE_VIEWPORT:
       return { ...state, viewport: action.payload };
     case SELECT_MARKER:
-      return { ...state, selected: action.payload };
+      return { ...state, selected: action.payload.id };
     case SELECT_LINE:
-      return { ...state, selected: action.payload };
+      return { ...state, selected: action.payload.id };
     case UNSELECT:
       return { ...state, selected: undefined };
     case HOVER_MARKER:
-      return { ...state, hovered: action.payload };
+      return { ...state, hovered: action.payload.id };
     case HOVER_LINE:
-      return { ...state, hovered: action.payload };
+      return { ...state, hovered: action.payload.id };
     case UNHOVER:
       return { ...state, hovered: undefined };
     case SET_EDIT_MODE:

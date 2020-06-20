@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
-import { Theme } from '../../../colors/color-types';
-import { ThemeContext } from '../../../colors/theme-context';
+import { Theme } from '@ui/colors/color-types';
+import { ThemeContext } from '@ui/colors/theme-context';
 
 type Props = {
   color?: string;

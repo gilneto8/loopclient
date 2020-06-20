@@ -2,8 +2,8 @@ import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
-import { ThemeContext } from '../../../colors/theme-context';
-import { Theme } from '../../../colors/color-types';
+import { ThemeContext } from '@ui/colors/theme-context';
+import { Theme } from '@ui/colors/color-types';
 
 type Props = {
   width?: number;

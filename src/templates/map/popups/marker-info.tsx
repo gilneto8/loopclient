@@ -1,6 +1,6 @@
 import React from 'react';
-import { MarkerObj } from '../../../logic/features/trip/marker-types';
-import Label from '../../../components/ui/components/simple/Label/label';
+import { MarkerObj } from '@logic/features/trip/marker-types';
+import Label from '@ui/components/simple/Label/label';
 import * as _ from 'lodash';
 import { css } from '@emotion/core';
 

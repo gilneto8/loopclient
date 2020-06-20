@@ -39,17 +39,17 @@ const MarkerList: FunctionComponent<Props> = () => {
     };
 
     const switchSelect = (obj: MarkerObj) => {
-      if (mapInfo && mapInfo.selected?.id === obj.id) {
+      if (mapInfo && mapInfo.selected === obj.id) {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
       } else {
-        storeDispatch(mapThunks.selectMarker(obj));
+        storeDispatch(mapThunks.selectMarker(obj.id));
         storeDispatch(sidenavThunks.update(obj));
       }
     };
 
     const switchHover = (obj: MarkerObj, hovering: boolean) => {
-      if (hovering) storeDispatch(mapThunks.hoverMarker(obj));
+      if (hovering) storeDispatch(mapThunks.hoverMarker(obj.id));
       else storeDispatch(mapThunks.unhover());
     };
 
@@ -79,8 +79,8 @@ const MarkerList: FunctionComponent<Props> = () => {
                         onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id))}
                         onClick={() => switchSelect(m)}
                         onHover={(h) => switchHover(m, h)}
-                        hovered={mapInfo.hovered?.id === m.id}
-                        active={mapInfo.selected?.id === m.id}
+                        hovered={mapInfo.hovered === m.id}
+                        active={mapInfo.selected === m.id}
                       >
                         {m.data.name}
                       </Badge>

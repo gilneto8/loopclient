@@ -1,18 +1,20 @@
 import React, { useContext, useMemo, FunctionComponent } from 'react';
 import { Popup as ReactMapGLPopup } from 'react-map-gl';
-import { MapItemObj } from "@logic/features/map/map-types";
-import { lineMidpoint } from "@utils/functions/line-midpoint";
+import { lineMidpoint } from '@utils/functions/line-midpoint';
 import LineInfo from '../popups/line-info';
 import MarkerInfo from '../popups/marker-info';
 import { css } from '@emotion/core';
-import { LineObj } from "@logic/features/trip/line-types";
-import { MarkerObj } from "@logic/features/trip/marker-types";
-import { Theme } from "@ui/colors/color-types";
-import { ThemeContext } from "@ui/colors/theme-context";
-import { isMarker } from "@utils/marker-utils/is-marker";
+import { LineObj } from '@logic/features/trip/line-types';
+import { MarkerObj } from '@logic/features/trip/marker-types';
+import { Theme } from '@ui/colors/color-types';
+import { ThemeContext } from '@ui/colors/theme-context';
+import { useStoreSelector } from '@logic/shared/store/use-store-selector';
+import { loadTrips } from '@logic/features/trip/trip-thunks';
+import { findItem } from '@utils/functions/find-item';
+import * as _ from 'lodash';
 
 type Props = {
-  item?: MapItemObj;
+  item?: string;
 };
 
 const style = (theme: Theme) =>
@@ -23,11 +25,24 @@ const style = (theme: Theme) =>
   });
 
 const Popup: FunctionComponent<Props> = ({ item }) => {
+  const { selected: tripInfo } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(() => {
     if (!item) return <></>;
-    if (isMarker(item)) {
-      const marker = item as MarkerObj;
+
+    const trips = tripInfo?.trips;
+    const selected = tripInfo?.selected;
+    if (!trips || !selected) return <></>;
+
+    const selectedTrip = _.filter(trips, (t) => t.id === selected)[0];
+    const currentItem = findItem(
+      item,
+      { label: 'marker', values: selectedTrip.geometry.markers },
+      { label: 'line', values: selectedTrip.geometry.lines }
+    );
+    if (!currentItem) return <></>;
+    if (currentItem.label === 'marker') {
+      const marker = currentItem.item as MarkerObj;
       return (
         <ReactMapGLPopup
           tipSize={5}
@@ -43,7 +58,7 @@ const Popup: FunctionComponent<Props> = ({ item }) => {
         </ReactMapGLPopup>
       );
     }
-    const line = item as LineObj;
+    const line = currentItem.item as LineObj;
     const midpoint = lineMidpoint(line);
     return (
       <ReactMapGLPopup
@@ -59,7 +74,7 @@ const Popup: FunctionComponent<Props> = ({ item }) => {
         </div>
       </ReactMapGLPopup>
     );
-  }, [theme, item]);
+  }, [theme, item, tripInfo?.selected]);
 };
 
 export default Popup;
