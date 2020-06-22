@@ -19,7 +19,6 @@ type Props = {
 
 const LineForm: FunctionComponent<Props> = ({ item }) => {
   const {
-    selected: selectedPoint,
     storeDispatch,
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (state: StoreState) => state.map?.selected);
@@ -32,14 +31,14 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
   } = useStoreSelector(loadTrips(), (state: StoreState) => state.trips?.selected);
 
   const { reset, register, handleSubmit, errors } = useForm<ItemForm<LineTypes>>({
-    defaultValues: (selectedPoint as LineObj)?.data || item.data,
+    defaultValues: item.formData,
     validationSchema: item.schema,
     validateCriteriaMode: 'all',
   });
 
   useEffect(() => {
-    reset(item.data);
-  }, [item, selectedPoint?.data]);
+    reset(item.formData);
+  }, [item]);
 
   return useMemo(() => {
     const onSubmit = (data: ItemForm<LineTypes>) => {
@@ -70,7 +69,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
         </form>
       </div>
     );
-  }, [item, selectedPoint, reset, register, handleSubmit, errors]);
+  }, [item, reset, register, handleSubmit, errors]);
 };
 
 export default LineForm;

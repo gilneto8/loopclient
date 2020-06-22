@@ -6,7 +6,7 @@ export function createLine(start: MarkerObj, end: MarkerObj): LineObj {
   return {
     id: id(),
     geometry: { start, end },
-    data: {
+    formData: {
       name: 'New line',
       description: '',
       type: LineTypes.PEDESTRIAN,

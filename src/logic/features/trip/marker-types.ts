@@ -1,6 +1,7 @@
 import { CoordsObj, ItemForm } from './trip-types';
 import * as yup from 'yup';
 import { enumToArray } from '@utils/enums/enum-to-array';
+import { LineObj } from "@logic/features/trip/line-types";
 
 export enum MarkerTypes {
   HOTEL = 'Hotel',
@@ -21,6 +22,6 @@ export type MarkerObj = {
   geometry: {
     position: CoordsObj;
   };
-  data: ItemForm<MarkerTypes>;
+  formData: ItemForm<MarkerTypes>;
   schema: yup.InferType<typeof markerSchema>;
 };

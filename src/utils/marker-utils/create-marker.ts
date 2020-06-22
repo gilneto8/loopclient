@@ -6,7 +6,7 @@ export function createMarker(lng: number, lat: number, order: number): MarkerObj
     geometry: { position: [lng, lat, 1] },
     id: id(),
     order,
-    data: {
+    formData: {
       name: 'New marker',
       description: '',
       type: MarkerTypes.POI,

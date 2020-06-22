@@ -22,6 +22,6 @@ export type LineObj = {
     start: MarkerObj;
     end: MarkerObj;
   };
-  data: ItemForm<LineTypes>;
+  formData: ItemForm<LineTypes>;
   schema: yup.InferType<typeof lineSchema>;
 };
