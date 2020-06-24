@@ -22,6 +22,10 @@ export type MarkerObj = {
   geometry: {
     position: CoordsObj;
   };
+  data: {
+    previous: LineObj | null;
+    next: LineObj | null;
+  }
   formData: ItemForm<MarkerTypes>;
   schema: yup.InferType<typeof markerSchema>;
 };

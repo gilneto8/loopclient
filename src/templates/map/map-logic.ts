@@ -40,6 +40,7 @@ export const useMapLogic = () => {
     storeDispatch(mapThunks.updateViewport(vp));
   };
 
+  // TODO update for previous/next logic
   const addMarker = (p: OnClickEvent) => {
     const { markers, lines } = selectedTrip.geometry;
     const marker = createMarker(+p.lngLat[0].toFixed(3), +p.lngLat[1].toFixed(3), markers.length);
