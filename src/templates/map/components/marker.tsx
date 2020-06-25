@@ -5,6 +5,8 @@ import { MarkerObj } from '@logic/features/trip/marker-types';
 import MarkerPoint from '../../../assets/images/marker';
 import { ThemeContext } from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
+import { useSelector } from 'react-redux';
+import { StoreState } from '@logic/shared/store/store-types';
 
 type Props = {
   marker: MarkerObj;
@@ -33,6 +35,7 @@ const style = (theme: Theme, h?: boolean, s?: boolean) =>
 const Marker: FunctionComponent<Props> = (props) => {
   const { marker, onHover, onSelect, hovered, selected } = props;
   const theme: Theme = useContext(ThemeContext).theme;
+  const selectedTripId = useSelector((state: StoreState) => state.trips?.selected);
   return useMemo(
     () => (
       <ReactMapGLMarker
@@ -40,6 +43,10 @@ const Marker: FunctionComponent<Props> = (props) => {
         longitude={marker.geometry.position[0]}
         offsetTop={-32}
         offsetLeft={-15}
+        draggable={true}
+        onDragStart={(e) => console.log(e)}
+        onDrag={console.log}
+        onDragEnd={console.log}
       >
         <div
           role={'button'}

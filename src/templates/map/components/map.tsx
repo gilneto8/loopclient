@@ -4,6 +4,7 @@ import { OnClickEvent, Viewport } from '@logic/features/map/map-types';
 
 type Props = {
   viewport: Viewport | undefined;
+  onViewportChange: (vp: Viewport) => void;
   mapStyle?: string;
   token?: string;
   editMode?: boolean;
@@ -11,11 +12,12 @@ type Props = {
 };
 
 const Map: FunctionComponent<Props> = (props) => {
-  const { viewport, mapStyle, editMode, onClick, token, children } = props;
+  const { viewport, onViewportChange, mapStyle, editMode, onClick, token, children } = props;
   return useMemo(
     () => (
       <MapGL
         {...viewport}
+        onViewportChange={(viewport) => onViewportChange(viewport)}
         width="100%"
         height="100%"
         mapStyle={mapStyle || 'mapbox://styles/mapbox/dark-v9'}

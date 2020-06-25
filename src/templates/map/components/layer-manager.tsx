@@ -9,7 +9,6 @@ import tinycolor from 'tinycolor2';
 type Props = {
   viewport?: Viewport;
   viewMode?: boolean;
-  onViewportChange: (vp: Viewport) => void;
   onHover: (obj: LineObj) => void;
   onSelect: (obj: LineObj) => void;
   lines: Array<LineObj>;
@@ -32,13 +31,12 @@ function getWidth(hovered?: boolean, selected?: boolean): number {
 }
 
 const LayerManager: FunctionComponent<Props> = (props) => {
-  const { viewMode, viewport, onViewportChange, onHover, onSelect, hovered, selected, lines, children } = props;
+  const { viewMode, viewport, onHover, onSelect, hovered, selected, lines, children } = props;
   const theme = useContext(ThemeContext).theme;
   return useMemo(
     () => (
       <DeckGL
         viewState={viewport}
-        onViewStateChange={({ viewState }) => onViewportChange(viewState)}
         controller={true}
         pickingRadius={5}
         effects={[]}

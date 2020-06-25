@@ -13,11 +13,15 @@ const MapTemplate: FunctionComponent<Props> = () => {
   return (
     <Page title={'Map'}>
       <>
-        <Map editMode={state.editMode} viewport={state.viewport} onClick={methods.addMarker}>
+        <Map
+          editMode={state.editMode}
+          viewport={state.viewport}
+          onViewportChange={methods.updateViewport}
+          onClick={methods.addMarker}
+        >
           <LayerManager
             viewMode={!state.editMode}
             viewport={state.viewport}
-            onViewportChange={methods.updateViewport}
             onSelect={methods.selectLine}
             onHover={methods.hoverOnLine}
             lines={state.lines}
