@@ -7,7 +7,6 @@ import LineForm from './forms/line-form';
 import { css } from '@emotion/core';
 import * as _ from 'lodash';
 import MarkerList from './components/marker-list';
-import { isMarker } from "@utils/marker-utils/is-marker";
 
 type Props = {
   item: MapItemObj | undefined;
@@ -28,7 +27,7 @@ const style = css({
 function getForm({ item }: Props): Array<() => JSX.Element> {
   let components: Array<() => JSX.Element> = [() => <MarkerList />];
   if (item) {
-    if (isMarker(item)) components = _.concat(components, () => <MarkerForm item={item as MarkerObj} />);
+    if (item.id.ctx === 'marker') components = _.concat(components, () => <MarkerForm item={item as MarkerObj} />);
     else components = _.concat(components, () => <LineForm item={item as LineObj} />);
   }
   return components;

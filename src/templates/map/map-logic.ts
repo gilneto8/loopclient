@@ -49,7 +49,7 @@ export const useMapLogic = () => {
     if (markers.length >= 1) storeDispatch(tripsThunks.addLine(selectedTrip.id, createLine(startMarker, marker)));
   };
 
-  const selectMarker = async (id: string) => {
+  const selectMarker = async (id: { ctx: string, value: string }) => {
     const { markers } = selectedTrip.geometry;
 
     const marker = _.find(markers || [], (m) => m.id === id);
@@ -76,7 +76,7 @@ export const useMapLogic = () => {
     }
   };
 
-  const hoverOnMarker = (id?: string) => {
+  const hoverOnMarker = (id?: { ctx: string, value: string }) => {
     if (!id) {
       storeDispatch(mapThunks.unhover());
       return;

@@ -44,14 +44,14 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
     const onSubmit = (data: ItemForm<LineTypes>) => {
       if (selectedTrip) {
         const updatedItem = _.set(item, 'data', data);
-        storeDispatch(tripsThunks.updateLine(selectedTrip, updatedItem.id, updatedItem));
+        storeDispatch(tripsThunks.updateLine(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
     };
 
     const remove = () => {
       if (selectedTrip) {
-        storeDispatch(tripsThunks.removeLine(selectedTrip, item.id));
+        storeDispatch(tripsThunks.removeLine(selectedTrip, item.id.value));
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
       }

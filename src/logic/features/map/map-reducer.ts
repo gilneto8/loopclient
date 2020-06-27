@@ -16,8 +16,8 @@ import {
 export type MapStoreState = {
   viewport: Viewport;
   editMode: boolean;
-  selected?: string;
-  hovered?: string;
+  selected?: { ctx: string, value: string };
+  hovered?: { ctx: string, value: string };
 };
 
 export type MapReducer = Reducer<MapStoreState, MapAction>;

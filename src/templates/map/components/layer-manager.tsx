@@ -12,8 +12,8 @@ type Props = {
   onHover: (obj: LineObj) => void;
   onSelect: (obj: LineObj) => void;
   lines: Array<LineObj>;
-  selected?: string;
-  hovered?: string;
+  selected?: { ctx: string, value: string };
+  hovered?: { ctx: string, value: string };
 };
 
 function getColor(theme: Theme, hovered?: boolean, selected?: boolean): [number, number, number] {

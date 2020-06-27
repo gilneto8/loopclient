@@ -65,7 +65,7 @@ const MarkerList: FunctionComponent<Props> = () => {
               /*style={getListStyle(snapshot.isDraggingOver)}*/
             >
               {selectedTrip?.geometry.markers.map((m: MarkerObj, index) => (
-                <Draggable isDragDisabled={true} key={m.id} draggableId={m.id} index={index}>
+                <Draggable isDragDisabled={true} key={m.id.value} draggableId={m.id.value} index={index}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
@@ -76,7 +76,7 @@ const MarkerList: FunctionComponent<Props> = () => {
                       <Badge
                         enableAutoMargin
                         removable
-                        onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id))}
+                        onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id.value))}
                         onClick={() => switchSelect(m)}
                         onHover={(h) => switchHover(m, h)}
                         hovered={mapInfo.hovered === m.id}

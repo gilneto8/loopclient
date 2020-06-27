@@ -17,7 +17,7 @@ export const lineSchema = yup.object().shape<ItemForm<LineTypes>>({
 });
 
 export type LineObj = {
-  id: string;
+  id: { ctx: 'line'; value: string };
   geometry: {
     start: MarkerObj;
     end: MarkerObj;

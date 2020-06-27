@@ -1,4 +1,4 @@
-import { LineObj } from '../../logic/features/trip/line-types';
+import { LineObj } from '@logic/features/trip/line-types';
 
 export function lineMidpoint(line: LineObj): [number, number] {
   const lng_a = line.geometry.start.geometry.position[0];

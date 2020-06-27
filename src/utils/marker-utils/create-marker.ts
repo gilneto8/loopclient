@@ -3,8 +3,8 @@ import { id } from '@utils/functions/create-local-id';
 
 export function createMarker(lng: number, lat: number, order: number): MarkerObj {
   return {
+    id: { ctx: 'marker', value: id() },
     geometry: { position: [lng, lat, 1] },
-    id: id(),
     order,
     formData: {
       name: 'New marker',
