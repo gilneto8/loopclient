@@ -5,8 +5,6 @@ import { MarkerObj } from '@logic/features/trip/marker-types';
 import MarkerPoint from '../../../assets/images/marker';
 import { ThemeContext } from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
-import { useSelector } from 'react-redux';
-import { StoreState } from '@logic/shared/store/store-types';
 import * as _ from 'lodash';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
