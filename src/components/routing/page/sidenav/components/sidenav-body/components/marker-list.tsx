@@ -39,7 +39,7 @@ const MarkerList: FunctionComponent<Props> = () => {
     };
 
     const switchSelect = (obj: MarkerObj) => {
-      if (mapInfo && mapInfo.selected === obj.id) {
+      if (mapInfo?.selected && mapInfo.selected.value === obj.id.value) {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
       } else {
@@ -79,8 +79,8 @@ const MarkerList: FunctionComponent<Props> = () => {
                         onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id.value))}
                         onClick={() => switchSelect(m)}
                         onHover={(h) => switchHover(m, h)}
-                        hovered={mapInfo.hovered === m.id}
-                        active={mapInfo.selected === m.id}
+                        hovered={mapInfo.hovered?.value === m.id.value}
+                        active={mapInfo.selected?.value === m.id.value}
                       >
                         {m.formData.name}
                       </Badge>
