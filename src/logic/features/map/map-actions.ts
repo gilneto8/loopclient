@@ -15,10 +15,10 @@ export type MapAction =
       type: typeof UPDATE_VIEWPORT;
       payload: Viewport;
     }
-  | { type: typeof SELECT_MARKER; payload: { id: { ctx: string, value: string } } }
+  | { type: typeof SELECT_MARKER; payload: { id: string } }
   | { type: typeof SELECT_LINE; payload: { id: { ctx: string, value: string } } }
   | { type: typeof UNSELECT }
-  | { type: typeof HOVER_MARKER; payload: { id: { ctx: string, value: string } } }
+  | { type: typeof HOVER_MARKER; payload: { id: string } }
   | { type: typeof HOVER_LINE; payload: { id: { ctx: string, value: string } } }
   | { type: typeof UNHOVER }
   | { type: typeof SET_EDIT_MODE }

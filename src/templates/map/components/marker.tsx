@@ -45,7 +45,7 @@ const Marker: FunctionComponent<Props> = (props) => {
     const updateMarkerPosition = (e: DragEvent) => {
       if (selectedTripId) {
         const updatedMarker = _.set(marker, 'geometry.position', [+e.lngLat[0].toFixed(3), +e.lngLat[1].toFixed(3), 1]);
-        storeDispatch(tripsThunks.updateMarker(selectedTripId, marker.id, updatedMarker));
+        storeDispatch(tripsThunks.updateMarker(selectedTripId, marker.id.value, updatedMarker));
       }
     };
     return (
@@ -61,8 +61,8 @@ const Marker: FunctionComponent<Props> = (props) => {
           role={'button'}
           css={style(theme, hovered, selected)}
           onMouseLeave={() => onHover()}
-          onMouseEnter={() => onHover(marker.id)}
-          onClick={() => onSelect(marker.id)}
+          onMouseEnter={() => onHover(marker.id.value)}
+          onClick={() => onSelect(marker.id.value)}
         >
           <MarkerPoint />
         </div>

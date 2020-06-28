@@ -16,8 +16,8 @@ import {
 export type MapStoreState = {
   viewport: Viewport;
   editMode: boolean;
-  selected?: { ctx: string, value: string };
-  hovered?: { ctx: string, value: string };
+  selected?: { ctx: string; value: string };
+  hovered?: { ctx: string; value: string };
 };
 
 export type MapReducer = Reducer<MapStoreState, MapAction>;
@@ -40,13 +40,13 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
     case UPDATE_VIEWPORT:
       return { ...state, viewport: action.payload };
     case SELECT_MARKER:
-      return { ...state, selected: action.payload.id };
+      return { ...state, selected: { ctx: 'marker', value: action.payload.id } };
     case SELECT_LINE:
       return { ...state, selected: action.payload.id };
     case UNSELECT:
       return { ...state, selected: undefined };
     case HOVER_MARKER:
-      return { ...state, hovered: action.payload.id };
+      return { ...state, hovered: { ctx: 'marker', value: action.payload.id } };
     case HOVER_LINE:
       return { ...state, hovered: action.payload.id };
     case UNHOVER:

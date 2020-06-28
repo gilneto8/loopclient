@@ -34,7 +34,7 @@ const Popup: FunctionComponent<Props> = ({ itemId }) => {
     if (!trips || !selected) return <></>;
 
     const selectedTrip = _.filter(trips, (t) => t.id === selected)[0];
-    if (itemId.value === 'marker') {
+    if (itemId.ctx === 'marker') {
       const marker = selectedTrip.geometry.markers.filter((m: MarkerObj) => m.id.value === itemId.value)[0];
       return (
         <ReactMapGLPopup

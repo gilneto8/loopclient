@@ -49,14 +49,14 @@ export const useMapLogic = () => {
     if (markers.length >= 1) storeDispatch(tripsThunks.addLine(selectedTrip.id, createLine(startMarker, marker)));
   };
 
-  const selectMarker = async (id: { ctx: string, value: string }) => {
+  const selectMarker = async (id: string) => {
     const { markers } = selectedTrip.geometry;
 
-    const marker = _.find(markers || [], (m) => m.id === id);
+    const marker = _.find(markers || [], (m) => m.id.value === id);
     if (marker) {
       if (!mapInfo.selected) {
         storeDispatch(sidenavThunks.open(marker));
-        storeDispatch(mapThunks.selectMarker(marker.id));
+        storeDispatch(mapThunks.selectMarker(id));
       } else {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
@@ -76,14 +76,14 @@ export const useMapLogic = () => {
     }
   };
 
-  const hoverOnMarker = (id?: { ctx: string, value: string }) => {
+  const hoverOnMarker = (id?: string) => {
     if (!id) {
       storeDispatch(mapThunks.unhover());
       return;
     }
     const { markers } = selectedTrip.geometry;
-    const marker = _.find(markers || [], (m) => m.id === id);
-    if (marker) storeDispatch(mapThunks.hoverMarker(marker.id));
+    const marker = _.find(markers || [], (m) => m.id.value === id);
+    if (marker) storeDispatch(mapThunks.hoverMarker(id));
   };
 
   const hoverOnLine = (obj: LineObj) => {

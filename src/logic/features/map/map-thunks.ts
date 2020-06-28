@@ -26,7 +26,7 @@ class MapThunks {
     };
   }
 
-  selectMarker(id: { ctx: string, value: string }): MapThunkAction {
+  selectMarker(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: SELECT_MARKER,
@@ -52,7 +52,7 @@ class MapThunks {
     };
   }
 
-  hoverMarker(id: { ctx: string, value: string }): MapThunkAction {
+  hoverMarker(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: HOVER_MARKER,

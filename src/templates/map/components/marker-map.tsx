@@ -4,8 +4,8 @@ import { MarkerObj } from '@logic/features/trip/marker-types';
 
 type Props = {
   markers: Array<MarkerObj>;
-  onHover: (id?: { ctx: string; value: string }) => void;
-  onSelect: (id: { ctx: string; value: string }) => void;
+  onHover: (id?: string) => void;
+  onSelect: (id: string) => void;
   viewMode?: boolean;
   selected?: { ctx: string; value: string };
   hovered?: { ctx: string; value: string };
@@ -19,8 +19,8 @@ const MarkerMap: FunctionComponent<Props> = (props) => {
           <Marker
             key={marker.id.value}
             marker={marker}
-            onHover={(id) => viewMode && id && onHover({ ctx: 'marker', value: id })}
-            onSelect={(id) => viewMode && onSelect({ ctx: 'marker', value: id })}
+            onHover={(id) => viewMode && onHover(id)}
+            onSelect={(id) => viewMode && onSelect(id)}
             selected={selected === marker.id}
             hovered={hovered === marker.id}
           />

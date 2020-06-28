@@ -43,13 +43,13 @@ const MarkerList: FunctionComponent<Props> = () => {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
       } else {
-        storeDispatch(mapThunks.selectMarker(obj.id));
+        storeDispatch(mapThunks.selectMarker(obj.id.value));
         storeDispatch(sidenavThunks.update(obj));
       }
     };
 
     const switchHover = (obj: MarkerObj, hovering: boolean) => {
-      if (hovering) storeDispatch(mapThunks.hoverMarker(obj.id));
+      if (hovering) storeDispatch(mapThunks.hoverMarker(obj.id.value));
       else storeDispatch(mapThunks.unhover());
     };
 
