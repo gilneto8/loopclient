@@ -8,7 +8,7 @@ export function removeLineByMarker(lines: Array<LineObj>, mId: string): Array<Li
   const i_Before = _.findIndex(_lines, (l) => l.geometry.end.id.value === mId);
   const i_After = _.findIndex(_lines, (l) => l.geometry.start.id.value === mId);
   if (i_After >= 0 && i_Before >= 0) {
-    const newLine = {
+    const newLine: LineObj = {
       id: { ctx: 'line', value: id() },
       geometry: { start: _lines[i_Before].geometry.start, end: _lines[i_After].geometry.end },
       formData: _lines[i_Before].formData,
