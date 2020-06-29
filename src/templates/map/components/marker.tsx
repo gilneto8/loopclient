@@ -10,6 +10,7 @@ import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { updateLinesByMarker } from '@utils/line-utils/update-lines-by-marker';
 import { TripObj } from '@logic/features/trip/trip-types';
+import { hold } from '@utils/functions/hold';
 
 type Props = {
   marker: MarkerObj;
@@ -59,8 +60,9 @@ const Marker: FunctionComponent<Props> = (props) => {
           tripsThunks.setGeometry(selectedTripId, undefined, updateLinesByMarker(updatedMarker, trip.geometry.lines))
         );
       }
-      isDragging(false);
+      hold(() => isDragging(false), 0);
     };
+    console.log('dragging', dragging);
     return (
       <ReactMapGLMarker
         latitude={marker.geometry.position[1]}

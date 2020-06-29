@@ -51,8 +51,6 @@ export const useMapLogic = () => {
 
   const selectMarker = async (id: string) => {
     const { markers } = selectedTrip.geometry;
-
-    console.log(id);
     const marker = _.find(markers || [], (m) => m.id.value === id);
     if (marker) {
       if (!mapInfo.selected) {

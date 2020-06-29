@@ -43,7 +43,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
   return useMemo(() => {
     const onSubmit = (data: ItemForm<LineTypes>) => {
       if (selectedTrip) {
-        const updatedItem = _.set(item, 'data', data);
+        const updatedItem = _.set(item, 'formData', data);
         storeDispatch(tripsThunks.updateLine(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }

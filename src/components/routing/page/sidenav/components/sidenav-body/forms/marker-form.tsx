@@ -43,7 +43,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
   return useMemo(() => {
     const onSubmit = (data: ItemForm<MarkerTypes>) => {
       if (selectedTrip) {
-        const updatedItem = _.set(item, 'data', data);
+        const updatedItem = _.set(item, 'formData', data);
         storeDispatch(tripsThunks.updateMarker(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
