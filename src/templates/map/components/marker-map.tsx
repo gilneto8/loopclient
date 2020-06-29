@@ -21,8 +21,8 @@ const MarkerMap: FunctionComponent<Props> = (props) => {
             marker={marker}
             onHover={(id) => viewMode && onHover(id)}
             onSelect={(id) => viewMode && onSelect(id)}
-            selected={selected === marker.id}
-            hovered={hovered === marker.id}
+            selected={selected?.value === marker.id.value}
+            hovered={hovered?.value === marker.id.value}
           />
         ))}
       </div>

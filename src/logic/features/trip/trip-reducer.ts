@@ -73,7 +73,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           return _.set(
             t,
             'geometry.markers',
-            _.map(t.geometry.markers, (m) => (m.id === action.payload.id ? action.payload.data : m))
+            _.map(t.geometry.markers, (m) => (m.id.value === action.payload.id ? action.payload.data : m))
           );
         }),
       };
@@ -85,7 +85,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           return _.set(
             t,
             'geometry.lines',
-            _.map(t.geometry.lines, (l) => (l.id === action.payload.id ? action.payload.data : l))
+            _.map(t.geometry.lines, (l) => (l.id.value === action.payload.id ? action.payload.data : l))
           );
         }),
       };
@@ -97,7 +97,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           return {
             ...t,
             geometry: {
-              markers: _.filter(t.geometry.markers, (m) => m.id !== action.payload.id),
+              markers: _.filter(t.geometry.markers, (m) => m.id.value !== action.payload.id),
               lines: removeLineByMarker(t.geometry.lines, action.payload.id),
             },
           };
@@ -111,7 +111,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           return _.set(
             t,
             'geometry.lines',
-            _.filter(t.geometry.lines, (l) => l.id !== action.payload.id)
+            _.filter(t.geometry.lines, (l) => l.id.value !== action.payload.id)
           );
         }),
       };
