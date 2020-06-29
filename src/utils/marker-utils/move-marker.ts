@@ -9,7 +9,7 @@ type GeometryObj = {
 };
 
 export function moveMarker(dropResult: DropResult, geometry: GeometryObj): GeometryObj {
-  const sourceMarker = _.find(geometry.markers, (m) => m.id === dropResult.draggableId);
+  /*const sourceMarker = _.find(geometry.markers, (m) => m.id === dropResult.draggableId);
   if (!sourceMarker) return geometry;
   if (!dropResult.destination) return geometry;
   const destinationMarker = geometry.markers[dropResult.destination.index];
@@ -27,6 +27,6 @@ export function moveMarker(dropResult: DropResult, geometry: GeometryObj): Geome
     .value();
   const newGeometry: GeometryObj = { markers: newMarkers, lines: geometry.lines };
   console.log('geometry', geometry.markers);
-  console.log('newGeometry', newGeometry.markers);
-  return newGeometry;
+  console.log('newGeometry', newGeometry.markers);*/
+  return geometry;
 }

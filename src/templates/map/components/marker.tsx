@@ -8,6 +8,8 @@ import { Theme } from '@ui/colors/color-types';
 import * as _ from 'lodash';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
+import { updateLinesByMarker } from '@utils/line-utils/update-lines-by-marker';
+import { TripObj } from '@logic/features/trip/trip-types';
 
 type Props = {
   marker: MarkerObj;
@@ -39,14 +41,23 @@ const Marker: FunctionComponent<Props> = (props) => {
   const theme: Theme = useContext(ThemeContext).theme;
   const {
     storeDispatch,
-    selected: selectedTripId,
+    selected: tripInfo,
     thunkResult: { tripsThunks },
-  } = useStoreSelector(loadTrips(), (storeState) => storeState.trips?.selected);
+  } = useStoreSelector(loadTrips(), (storeState) => storeState.trips);
   return useMemo(() => {
+    const selectedTripId = tripInfo?.selected;
+    if (!selectedTripId) return <></>;
+
+    const trip = tripInfo?.trips.filter((t: TripObj) => t.id === selectedTripId)[0];
+    if (!trip) return <></>;
+
     const updateMarkerPosition = (e: DragEvent) => {
-      if (selectedTripId) {
+      if (tripInfo?.selected) {
         const updatedMarker = _.set(marker, 'geometry.position', [+e.lngLat[0].toFixed(8), +e.lngLat[1].toFixed(8), 1]);
         storeDispatch(tripsThunks.updateMarker(selectedTripId, marker.id.value, updatedMarker));
+        storeDispatch(
+          tripsThunks.setGeometry(selectedTripId, undefined, updateLinesByMarker(updatedMarker, trip.geometry.lines))
+        );
       }
       isDragging(false);
     };
