@@ -43,7 +43,7 @@ export const useMapLogic = () => {
   // TODO update for previous/next logic
   const addMarker = (p: OnClickEvent) => {
     const { markers, lines } = selectedTrip.geometry;
-    const marker = createMarker(+p.lngLat[0].toFixed(3), +p.lngLat[1].toFixed(3), markers.length);
+    const marker = createMarker(+p.lngLat[0].toFixed(8), +p.lngLat[1].toFixed(8), markers.length);
     storeDispatch(tripsThunks.addMarker(selectedTrip.id, marker));
     const startMarker = lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end;
     if (markers.length >= 1) storeDispatch(tripsThunks.addLine(selectedTrip.id, createLine(startMarker, marker)));
