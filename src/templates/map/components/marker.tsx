@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useContext, useMemo, useState } from 'react';
 import { Marker as ReactMapGLMarker, DragEvent } from 'react-map-gl';
 import { css } from '@emotion/core';
 import { MarkerObj } from '@logic/features/trip/marker-types';
@@ -35,6 +35,7 @@ const style = (theme: Theme, h?: boolean, s?: boolean) =>
 
 const Marker: FunctionComponent<Props> = (props) => {
   const { marker, onHover, onSelect, hovered, selected } = props;
+  const [dragging, isDragging] = useState<boolean>(false);
   const theme: Theme = useContext(ThemeContext).theme;
   const {
     storeDispatch,
@@ -44,9 +45,10 @@ const Marker: FunctionComponent<Props> = (props) => {
   return useMemo(() => {
     const updateMarkerPosition = (e: DragEvent) => {
       if (selectedTripId) {
-        const updatedMarker = _.set(marker, 'geometry.position', [+e.lngLat[0].toFixed(3), +e.lngLat[1].toFixed(3), 1]);
+        const updatedMarker = _.set(marker, 'geometry.position', [+e.lngLat[0].toFixed(8), +e.lngLat[1].toFixed(8), 1]);
         storeDispatch(tripsThunks.updateMarker(selectedTripId, marker.id.value, updatedMarker));
       }
+      isDragging(false);
     };
     return (
       <ReactMapGLMarker
@@ -55,6 +57,7 @@ const Marker: FunctionComponent<Props> = (props) => {
         offsetTop={-32}
         offsetLeft={-15}
         draggable={true}
+        onDragStart={() => isDragging(true)}
         onDragEnd={updateMarkerPosition}
       >
         <div
@@ -62,7 +65,7 @@ const Marker: FunctionComponent<Props> = (props) => {
           css={style(theme, hovered, selected)}
           onMouseLeave={() => onHover()}
           onMouseEnter={() => onHover(marker.id.value)}
-          onClick={() => onSelect(marker.id.value)}
+          onClick={() => !dragging && onSelect(marker.id.value)}
         >
           <MarkerPoint />
         </div>
