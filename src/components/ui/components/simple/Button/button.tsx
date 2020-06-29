@@ -4,6 +4,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Theme } from '@ui/colors/color-types';
 import { ThemeContext } from '@ui/colors/theme-context';
 import { css } from '@emotion/core';
+import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
 type Props = {
   title?: string;
@@ -11,9 +12,10 @@ type Props = {
   filled?: boolean;
   fullWidth?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
-  onClick?: (evt: React.FormEvent<HTMLButtonElement>) => void;
+  onClick: (evt: React.FormEvent<HTMLButtonElement>) => void;
   text?: string;
   icon?: IconProp;
+  role?: 'submit' | 'button';
 };
 
 const style = (props: Props, theme: Theme) =>
@@ -30,11 +32,17 @@ const style = (props: Props, theme: Theme) =>
   });
 
 const Button: FunctionComponent<Props> = (props) => {
-  const { title, disabled, type, onClick, icon, text, children } = props;
+  const { title, disabled, type, onClick, icon, text, children, role } = props;
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(
     () => (
-      <button css={style(props, theme)} title={title} disabled={disabled} type={type} onClick={onClick}>
+      <button
+        css={style(props, theme)}
+        title={title}
+        disabled={disabled}
+        type={type}
+        {...makeAccessibleButtonProps(onClick, role || 'button')}
+      >
         {icon && <FontAwesomeIcon icon={icon} />}
         {text || children}
       </button>

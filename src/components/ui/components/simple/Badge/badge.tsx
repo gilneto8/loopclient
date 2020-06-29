@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { ThemeContext } from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
+import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
 type Props = {
   width?: number;
@@ -12,7 +13,7 @@ type Props = {
   removable?: boolean;
   active?: boolean;
   hovered?: boolean;
-  onClick?: (arg?: any) => void;
+  onClick: (arg?: any) => void;
   onRemove?: (arg?: any) => void;
   onHover?: (arg?: any) => void;
 };
@@ -66,9 +67,9 @@ const Badge: FunctionComponent<Props> = (props) => {
     () => (
       <div
         css={style(props, theme)}
-        onClick={onClick}
         onMouseLeave={() => onHover && onHover(false)}
         onMouseEnter={() => onHover && onHover(true)}
+        {...makeAccessibleButtonProps(onClick, 'widget')}
       >
         <span>{children}</span>
         {removable && <FontAwesomeIcon icon={faTrash} size={'sm'} color={theme.defaults.danger} onClick={onRemove} />}

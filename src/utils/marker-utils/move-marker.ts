@@ -1,7 +1,6 @@
 import { MarkerObj } from '@logic/features/trip/marker-types';
 import { LineObj } from '@logic/features/trip/line-types';
 import { DropResult } from 'react-beautiful-dnd';
-import * as _ from 'lodash';
 
 type GeometryObj = {
   markers: Array<MarkerObj>;

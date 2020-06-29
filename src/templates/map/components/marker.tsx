@@ -11,6 +11,7 @@ import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { updateLinesByMarker } from '@utils/line-utils/update-lines-by-marker';
 import { TripObj } from '@logic/features/trip/trip-types';
 import { hold } from '@utils/functions/hold';
+import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
 type Props = {
   marker: MarkerObj;
@@ -60,9 +61,10 @@ const Marker: FunctionComponent<Props> = (props) => {
           tripsThunks.setGeometry(selectedTripId, undefined, updateLinesByMarker(updatedMarker, trip.geometry.lines))
         );
       }
+      // hold flag change to disable click
       hold(() => isDragging(false), 0);
     };
-    console.log('dragging', dragging);
+
     return (
       <ReactMapGLMarker
         latitude={marker.geometry.position[1]}
@@ -74,11 +76,10 @@ const Marker: FunctionComponent<Props> = (props) => {
         onDragEnd={updateMarkerPosition}
       >
         <div
-          role={'button'}
           css={style(theme, hovered, selected)}
           onMouseLeave={() => onHover()}
           onMouseEnter={() => onHover(marker.id.value)}
-          onClick={() => !dragging && onSelect(marker.id.value)}
+          {...makeAccessibleButtonProps(() => !dragging && onSelect(marker.id.value))}
         >
           <MarkerPoint />
         </div>

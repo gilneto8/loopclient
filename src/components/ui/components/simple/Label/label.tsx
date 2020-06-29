@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { Theme } from '@ui/colors/color-types';
 import { ThemeContext } from '@ui/colors/theme-context';
+import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
 type Props = {
   color?: string;
@@ -32,7 +33,13 @@ const Label: FunctionComponent<Props> = (props) => {
     switch (as) {
       case 'span':
         return (
-          <span role={'button'} onClick={onClick} css={style(props, theme)}>
+          <span
+            css={style(props, theme)}
+            {...(() => {
+              if (!!onClick) return { ...makeAccessibleButtonProps(onClick) };
+              return {};
+            })()}
+          >
             {children}
           </span>
         );

@@ -11,6 +11,7 @@ import { loadMap } from '@logic/features/map/map-thunks';
 import { ThemeContext } from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
 import SidenavFooter from './components/sidenav-footer/sidenav-footer';
+import { makeAccessibleButtonProps } from "@utils/functions/make-accessibility-props";
 
 type Props = {
   blocking?: boolean;
@@ -75,7 +76,7 @@ const SideNav: FunctionComponent<Props> = ({ children, blocking }) => {
 
     return (
       <div css={getStyle(selected?.open || false, theme)}>
-        {blocking && <div role={'overlay'} id={'overlay'} onClick={close} />}
+        {blocking && <div id={'overlay'} {...makeAccessibleButtonProps(close, 'overlay')} />}
         <FontAwesomeIcon
           color={theme.defaults.white}
           size={'1x'}
