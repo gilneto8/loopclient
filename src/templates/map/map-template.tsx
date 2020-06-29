@@ -36,7 +36,7 @@ const MapTemplate: FunctionComponent<Props> = () => {
               selected={state.selected}
               hovered={state.hovered}
             />
-            <Popup itemId={state.hovered} />
+            {!!state.hovered && <Popup itemId={state.hovered} />}
           </LayerManager>
         </Map>
       </>

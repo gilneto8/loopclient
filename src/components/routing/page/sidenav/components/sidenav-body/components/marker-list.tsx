@@ -53,6 +53,12 @@ const MarkerList: FunctionComponent<Props> = () => {
       else storeDispatch(mapThunks.unhover());
     };
 
+    const remove = (obj: MarkerObj) => {
+      if (tripInfo) storeDispatch(tripsThunks.removeMarker(tripInfo.selected, obj.id.value));
+      storeDispatch(mapThunks.unselect());
+      storeDispatch(sidenavThunks.clear());
+    };
+
     return !mapInfo || !tripInfo ? (
       <></>
     ) : (
@@ -76,7 +82,7 @@ const MarkerList: FunctionComponent<Props> = () => {
                       <Badge
                         enableAutoMargin
                         removable
-                        onRemove={() => storeDispatch(tripsThunks.removeMarker(tripInfo?.selected, m.id.value))}
+                        onRemove={() => remove(m)}
                         onClick={() => switchSelect(m)}
                         onHover={(h) => switchHover(m, h)}
                         hovered={mapInfo.hovered?.value === m.id.value}

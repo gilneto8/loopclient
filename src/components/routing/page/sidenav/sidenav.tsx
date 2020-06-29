@@ -78,7 +78,7 @@ const SideNav: FunctionComponent<Props> = ({ children, blocking }) => {
         {blocking && <div role={'overlay'} id={'overlay'} onClick={close} />}
         <FontAwesomeIcon
           color={theme.defaults.white}
-          size={'sm'}
+          size={'1x'}
           rotation={selected?.open ? undefined : 180}
           icon={selected?.open ? faAngleDoubleLeft : faBars}
           onClick={() => (selected?.open ? close() : open())}
