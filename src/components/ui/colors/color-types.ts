@@ -1,17 +1,15 @@
-export const DefaultColors = {
-  black: 'rgb(17,17,17)',
-  white: 'rgb(244,255,241)',
-  grey: 'rgb(133,135,132)',
-  danger: 'rgb(238,59,59)',
-  warning: 'rgb(246,191,34)',
-  success: 'rgb(62,187,50)',
-};
+import { DefaultColors } from '@ui/constants/colors';
+import { MapTypes } from '@ui/constants/maps';
 
 export type BaseColors = {
   foreground: string;
   background: string;
 };
-export type BaseTheme = BaseColors & { defaults?: typeof DefaultColors };
+
+export type BaseMap = {
+  url: MapTypes;
+}
+export type BaseTheme = BaseMap & BaseColors & { defaults?: typeof DefaultColors };
 
 export type ColorThemeTones = {
   l_10: string;
@@ -47,4 +45,7 @@ export type Theme = {
   background: ColorTheme;
   text: TextTheme;
   defaults: typeof DefaultColors;
+  extras: {
+    mapUrl: MapTypes;
+  }
 };

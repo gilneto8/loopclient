@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
-import { createStoreManager } from '../../logic/shared/store/creates-store-manager';
+import { createStoreManager } from '@logic/shared/store/creates-store-manager';
 import { Provider } from 'react-redux';
-import { useStoreDispatch } from '../../logic/shared/store/use-store-dispatch';
-import { loadSidenav } from '../../logic/features/sidenav/sidenav-thunks';
-import { loadMap } from '../../logic/features/map/map-thunks';
-import ThemeFactory from '../ui/colors/theme-factory';
-import { ThemeProvider } from '../ui/colors/theme-context';
+import { useStoreDispatch } from '@logic/shared/store/use-store-dispatch';
+import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
+import { loadMap } from '@logic/features/map/map-thunks';
+import ThemeFactory from '@ui/colors/theme-factory';
+import { ThemeProvider } from '@ui/colors/theme-context';
+import DEFAULT_THEME from '@ui/themes/default-theme';
 
 /*
   TODO:
@@ -22,11 +23,7 @@ const ContextualizedRootFrame: FunctionComponent = (props) => {
 export const RootFrame: FunctionComponent = ({ children }) => {
   const [storeManager] = useState(() => createStoreManager());
   const store = storeManager.store;
-  /*  const colors: any = {
-    foreground: '#fe8372',
-    background: '#123123',
-  };*/
-  const theme = ThemeFactory.getTheme();
+  const theme = ThemeFactory.getTheme(DEFAULT_THEME);
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
