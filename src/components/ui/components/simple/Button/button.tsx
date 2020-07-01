@@ -6,13 +6,15 @@ import { ThemeContext } from '@ui/colors/theme-context';
 import { css } from '@emotion/core';
 import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
-type Props = {
+type EventProps =
+  | { type: 'submit'; onClick?: (evt: React.FormEvent<HTMLButtonElement>) => void }
+  | { type?: 'button' | 'reset' | undefined; onClick: (evt: React.FormEvent<HTMLButtonElement>) => void };
+
+type Props = EventProps & {
   title?: string;
   disabled?: boolean;
   filled?: boolean;
   fullWidth?: boolean;
-  type?: 'button' | 'submit' | 'reset' | undefined;
-  onClick: (evt: React.FormEvent<HTMLButtonElement>) => void;
   text?: string;
   icon?: IconProp;
   role?: 'submit' | 'button';
@@ -41,7 +43,10 @@ const Button: FunctionComponent<Props> = (props) => {
         title={title}
         disabled={disabled}
         type={type}
-        {...makeAccessibleButtonProps(onClick, role || 'button')}
+        {...(() => {
+          if (role !== 'submit' && onClick) return { ...makeAccessibleButtonProps(onClick, role || 'button') };
+          else return { role };
+        })()}
       >
         {icon && <FontAwesomeIcon icon={icon} />}
         {text || children}

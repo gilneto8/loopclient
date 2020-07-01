@@ -7,8 +7,8 @@ import { LineObj } from '@logic/features/trip/line-types';
 import { loadMap } from '@logic/features/map/map-thunks';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { TripObj } from '@logic/features/trip/trip-types';
-import { createMarker } from "@utils/marker-utils/create-marker";
-import { createLine } from "@utils/line-utils/create-line";
+import { createMarker } from '@utils/marker-utils/create-marker';
+import { createLine } from '@utils/line-utils/create-line';
 
 export const useMapLogic = () => {
   const {
@@ -49,28 +49,30 @@ export const useMapLogic = () => {
     if (markers.length >= 1) storeDispatch(tripsThunks.addLine(selectedTrip.id, createLine(startMarker, marker)));
   };
 
-  const selectMarker = async (id: string) => {
+  const selectMarker = (id: string) => {
     const { markers } = selectedTrip.geometry;
     const marker = _.find(markers || [], (m) => m.id.value === id);
     if (marker) {
-      if (!mapInfo.selected) {
-        storeDispatch(sidenavThunks.open(marker));
-        storeDispatch(mapThunks.selectMarker(id));
-      } else {
+      if (mapInfo.selected) {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
+      }
+      if (mapInfo.selected?.value !== id) {
+        storeDispatch(sidenavThunks.open(marker));
+        storeDispatch(mapThunks.selectMarker(id));
       }
     }
   };
 
   const selectLine = async (obj: LineObj) => {
     if (obj) {
-      if (!mapInfo.selected) {
-        storeDispatch(sidenavThunks.open(obj));
-        storeDispatch(mapThunks.selectLine(obj.id));
-      } else {
+      if (mapInfo.selected) {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
+      }
+      if (mapInfo.selected?.value !== obj.id.value) {
+        storeDispatch(sidenavThunks.open(obj));
+        storeDispatch(mapThunks.selectLine(obj.id));
       }
     }
   };
