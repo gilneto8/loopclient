@@ -6,7 +6,6 @@ import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 import { loadMap } from '@logic/features/map/map-thunks';
 import ThemeFactory from '@ui/colors/theme-factory';
 import { ThemeProvider } from '@ui/colors/theme-context';
-import DEFAULT_THEME from '@ui/themes/default-theme';
 
 /*
   TODO:
@@ -23,7 +22,7 @@ const ContextualizedRootFrame: FunctionComponent = (props) => {
 export const RootFrame: FunctionComponent = ({ children }) => {
   const [storeManager] = useState(() => createStoreManager());
   const store = storeManager.store;
-  const theme = ThemeFactory.getTheme(DEFAULT_THEME);
+  const theme = ThemeFactory.getTheme();
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>

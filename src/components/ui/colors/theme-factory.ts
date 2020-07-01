@@ -1,6 +1,6 @@
 import tinycolor from 'tinycolor2';
 import { BaseTheme, ColorTheme, TextTheme, Theme } from './color-types';
-import { DEFAULT_THEME } from '../themes/default-theme';
+import DEFAULT_THEME from '../themes/default-theme';
 import { DefaultColors } from '@ui/constants/colors';
 
 const getTextTheme = (fg: string, bg: string): TextTheme => {
