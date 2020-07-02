@@ -2,8 +2,8 @@ import { BaseTheme } from '../colors/color-types';
 import { MapTypes } from '@ui/constants/maps';
 import { DefaultColors } from '@ui/constants/colors';
 
-const foreground = 'rgb(0,232,125)';
-const background = 'rgb(0,30,76)';
+const foreground = 'rgb(137,38,38)';
+const background = 'rgb(57,57,57)';
 
 const map = MapTypes.dark;
 
