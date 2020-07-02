@@ -6,6 +6,7 @@ import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 import { loadMap } from '@logic/features/map/map-thunks';
 import ThemeFactory from '@ui/colors/theme-factory';
 import { ThemeProvider } from '@ui/colors/theme-context';
+import { mock } from "@utils/functions/mock-function";
 
 /*
   TODO:
@@ -25,7 +26,7 @@ export const RootFrame: FunctionComponent = ({ children }) => {
   const theme = ThemeFactory.getTheme();
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme} setTheme={mock}>
         <ContextualizedRootFrame>{children}</ContextualizedRootFrame>
       </ThemeProvider>
     </Provider>

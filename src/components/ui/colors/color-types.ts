@@ -8,8 +8,8 @@ export type BaseColors = {
 
 export type BaseMap = {
   url: MapTypes;
-}
-export type BaseTheme = BaseMap & BaseColors & { defaults?: typeof DefaultColors };
+};
+export type BaseTheme = BaseMap & BaseColors & { name: string; defaults?: typeof DefaultColors };
 
 export type ColorThemeTones = {
   l_10: string;
@@ -41,11 +41,12 @@ export type TextTheme = {
 };
 
 export type Theme = {
+  name: string;
   foreground: ColorTheme;
   background: ColorTheme;
   text: TextTheme;
   defaults: typeof DefaultColors;
   extras: {
     mapUrl: MapTypes;
-  }
+  };
 };

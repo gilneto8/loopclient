@@ -6,6 +6,10 @@ import Button from '@ui/components/simple/Button/button';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import { loadMap } from '@logic/features/map/map-thunks';
 import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
+import LabelledSelect from '@ui/components/complex/LabelledSelect/labelled-select';
+import { keys } from 'lodash';
+import themes from '@ui/themes/theme-selection';
+import ThemeFactory from '@ui/colors/theme-factory';
 
 type Props = {};
 
@@ -15,10 +19,15 @@ const style = (theme: Theme, isOpen: boolean) =>
     position: 'fixed',
     left: isOpen ? 0 : -300,
     bottom: 0,
-    height: 50,
+    height: '100px',
+    width: 'inherit',
     lineHeight: '50px',
     paddingLeft: 15,
     paddingRight: 45,
+    '& > div': {
+      lineHeight: '10px',
+      width: '270px',
+    },
   });
 
 const SidenavFooter: FunctionComponent<Props> = () => {
@@ -31,7 +40,7 @@ const SidenavFooter: FunctionComponent<Props> = () => {
     thunkResult: { mapThunks },
     selected: editMode,
   } = useStoreSelector(loadMap(), (storeState) => storeState.map?.editMode);
-  const theme = useContext(ThemeContext).theme;
+  const { theme, setTheme } = useContext(ThemeContext);
   return useMemo(() => {
     const switchMode = () => {
       if (editMode) storeDispatch(mapThunks.setViewMode());
@@ -43,6 +52,12 @@ const SidenavFooter: FunctionComponent<Props> = () => {
     return (
       <div css={style(theme, isOpen || false)}>
         <Button onClick={switchMode}>{editMode ? 'Set View Mode' : 'Set Edit Mode'}</Button>
+        <LabelledSelect
+          name={'Theme'}
+          selected={theme.name}
+          options={keys(themes)}
+          onChange={(e) => setTheme(ThemeFactory.getTheme(themes[e.target.value]))}
+        />
       </div>
     );
   }, [theme, isOpen, editMode]);

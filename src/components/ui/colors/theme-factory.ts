@@ -33,8 +33,9 @@ const getColorTheme = (color: string): ColorTheme => ({
 });
 
 const createTheme = (theme?: BaseTheme): Theme => {
-  const { foreground, background, url, defaults } = theme || DEFAULT_THEME;
+  const { foreground, background, url, defaults, name } = theme || DEFAULT_THEME;
   return {
+    name,
     foreground: getColorTheme(foreground),
     background: getColorTheme(background),
     text: getTextTheme(foreground, background),

@@ -8,6 +8,7 @@ const background = 'rgb(0,30,76)';
 const map = MapTypes.dark;
 
 const DEFAULT_THEME: BaseTheme = {
+  name: 'Default',
   foreground,
   background,
   url: map,

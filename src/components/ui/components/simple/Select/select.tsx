@@ -36,11 +36,11 @@ const Select: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLSe
   HTMLSelectElement,
   Props
 >((props, ref) => {
-  const { name, onChange, options } = props;
+  const { name, onChange, options, selected } = props;
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(
     () => (
-      <select css={style(props, theme)} name={name} ref={ref} onBlur={onChange}>
+      <select css={style(props, theme)} name={name} ref={ref} onChange={onChange} defaultValue={selected}>
         {options.map((opt, i) => (
           <option key={i} value={opt}>
             {opt}

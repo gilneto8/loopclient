@@ -45,6 +45,7 @@ const SidenavHeader: FunctionComponent<Props> = () => {
       <div css={style(theme)}>
         <LabelledSelect
           name={'Trips'}
+          selected={tripInfo?.selected}
           options={tripInfo?.trips.map((t) => t.id) || []}
           onChange={(e) => selectTrip(e.target.value)}
         />

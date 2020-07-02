@@ -13,6 +13,7 @@ type Props = {
   first?: boolean;
   last?: boolean;
   options: Array<any>;
+  selected?: any;
 };
 
 const style = (props: Props) =>
@@ -30,12 +31,12 @@ const style = (props: Props) =>
 const LabelledSelect: React.ForwardRefExoticComponent<
   Props & React.RefAttributes<HTMLSelectElement>
 > = React.forwardRef<HTMLSelectElement, Props>((props, ref) => {
-  const { key, name, onChange, options, errors } = props;
+  const { key, name, onChange, options, selected, errors } = props;
   return useMemo(
     () => (
       <div css={style(props)} key={`${key || 'labelled-select'}-${name}`}>
         <Label>{_.startCase(_.toLower(name))}</Label>
-        <Select name={`${name}`} ref={ref} options={options} onChange={onChange} />
+        <Select name={`${name}`} ref={ref} options={options} onChange={onChange} selected={selected}/>
         {errors && errors[name] && <p>{errors[name].message}</p>}
       </div>
     ),

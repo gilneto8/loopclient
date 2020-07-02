@@ -8,6 +8,7 @@ const background = 'rgb(200,208,209)';
 const map = MapTypes.light;
 
 const lightTheme: BaseTheme = {
+  name: 'Light',
   foreground,
   background,
   url: map,
