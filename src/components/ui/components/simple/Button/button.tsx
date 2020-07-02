@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Theme } from '@ui/colors/color-types';
 import { ThemeContext } from '@ui/colors/theme-context';
-import { css } from '@emotion/core';
+import { css, SerializedStyles } from '@emotion/core';
 import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
 type EventProps =
@@ -13,11 +13,11 @@ type EventProps =
 type Props = EventProps & {
   title?: string;
   disabled?: boolean;
-  filled?: boolean;
-  fullWidth?: boolean;
+  width?: number;
   text?: string;
   icon?: IconProp;
   role?: 'submit' | 'button';
+  cssStyle?: SerializedStyles;
 };
 
 const style = (props: Props, theme: Theme) =>
@@ -31,7 +31,10 @@ const style = (props: Props, theme: Theme) =>
     backgroundColor: theme.background.tones?.l_10,
     color: theme.text.blend_fg,
     cursor: 'pointer',
-  });
+    '& > svg': {
+      alignContent: 'center',
+    }
+  }, props.cssStyle);
 
 const Button: FunctionComponent<Props> = (props) => {
   const { title, disabled, type, onClick, icon, text, children, role } = props;

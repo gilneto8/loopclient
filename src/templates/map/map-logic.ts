@@ -42,6 +42,7 @@ export const useMapLogic = () => {
 
   // TODO update for previous/next logic
   const addMarker = (p: OnClickEvent) => {
+    console.log(selectedTrip);
     const { markers, lines } = selectedTrip.geometry;
     const marker = createMarker(+p.lngLat[0].toFixed(8), +p.lngLat[1].toFixed(8), markers.length);
     storeDispatch(tripsThunks.addMarker(selectedTrip.id, marker));

@@ -15,14 +15,14 @@ export const REMOVE_LINE = 'REMOVE_LINE';
 export const SET_GEOMETRY = 'SET_GEOMETRY';
 
 export type TripAction =
-  | { type: typeof SELECT_TRIP; payload: string }
-  | { type: typeof ADD_TRIP; payload: TripObj }
+  | { type: typeof SELECT_TRIP; payload: { id: string } }
+  | { type: typeof ADD_TRIP; payload: { data: TripObj; autoSelect?: boolean } }
   | { type: typeof UPDATE_TRIP; payload: { id: string; data: TripObj } }
-  | { type: typeof REMOVE_TRIP; payload: string }
+  | { type: typeof REMOVE_TRIP; payload: { id: string } }
   | { type: typeof ADD_MARKER; payload: { data: MarkerObj; tripId: string } }
   | { type: typeof ADD_LINE; payload: { data: LineObj; tripId: string } }
   | { type: typeof UPDATE_MARKER; payload: { tripId: string; id: string; data: MarkerObj } }
   | { type: typeof UPDATE_LINE; payload: { tripId: string; id: string; data: LineObj } }
   | { type: typeof REMOVE_MARKER; payload: { tripId: string; id: string } }
   | { type: typeof REMOVE_LINE; payload: { tripId: string; id: string } }
-  | { type: typeof SET_GEOMETRY; payload: { tripId: string; markers?: Array<MarkerObj>; lines?: Array<LineObj> } }
+  | { type: typeof SET_GEOMETRY; payload: { tripId: string; markers?: Array<MarkerObj>; lines?: Array<LineObj> } };

@@ -14,8 +14,9 @@ import {
   UPDATE_TRIP,
 } from './trip-actions';
 import * as _ from 'lodash';
-import { TripObj, TripTypes } from './trip-types';
+import { TripObj } from './trip-types';
 import { removeLineByMarker } from '@utils/line-utils/remove-line-by-marker';
+import { createTrip } from '@utils/trip-utils/create-trip';
 
 export type TripStoreState = {
   trips: Array<TripObj>;
@@ -24,31 +25,27 @@ export type TripStoreState = {
 
 export type TripsReducer = Reducer<TripStoreState, TripAction>;
 
-const defaultTrip_1 = {
-  id: 'trip-1',
-  data: { name: 'Untitled trip 1', type: TripTypes.LEISURE, description: '' },
-  geometry: { lines: [], markers: [] },
-};
-const defaultTrip_2 = {
-  id: 'trip-2',
-  data: { name: 'Untitled trip 2', type: TripTypes.LEISURE, description: '' },
-  geometry: { lines: [], markers: [] },
-};
+const defaultTrip_1 = createTrip('New Trip 1');
+
 const initialState: TripStoreState = {
-  trips: [defaultTrip_1, defaultTrip_2],
+  trips: [defaultTrip_1],
   selected: defaultTrip_1.id,
 };
 
 export const tripsReducer: TripsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_TRIP:
-      return { ...state, selected: action.payload };
+      return { ...state, selected: action.payload.id };
     case ADD_TRIP:
-      return { ...state, trips: _.concat(state.trips, action.payload) };
+      return {
+        ...state,
+        trips: _.concat(state.trips, action.payload.data),
+        ...(() => action.payload.autoSelect && { selected: action.payload.data.id })(),
+      };
     case UPDATE_TRIP:
       return { ...state, trips: _.map(state.trips, (t) => (t.id === action.payload.id ? action.payload.data : t)) };
     case REMOVE_TRIP:
-      return { ...state, trips: _.filter(state.trips, (t) => t.id !== action.payload) };
+      return { ...state, trips: _.filter(state.trips, (t) => t.id !== action.payload.id) };
     case ADD_MARKER:
       return {
         ...state,

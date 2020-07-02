@@ -10,7 +10,8 @@ import {
   REMOVE_MARKER,
   UPDATE_LINE,
   UPDATE_MARKER,
-  SELECT_TRIP, SET_GEOMETRY,
+  SELECT_TRIP,
+  SET_GEOMETRY,
 } from './trip-actions';
 import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
@@ -24,16 +25,16 @@ class TripThunks {
     return async (dispatch) => {
       dispatch({
         type: SELECT_TRIP,
-        payload: id,
+        payload: { id },
       });
     };
   }
 
-  addTrip(data: TripObj): TripThunkAction {
+  addTrip(data: TripObj, autoSelect?: boolean): TripThunkAction {
     return async (dispatch) => {
       dispatch({
         type: ADD_TRIP,
-        payload: data,
+        payload: { data, autoSelect },
       });
     };
   }
@@ -51,7 +52,7 @@ class TripThunks {
     return async (dispatch) => {
       dispatch({
         type: REMOVE_TRIP,
-        payload: id,
+        payload: { id },
       });
     };
   }
