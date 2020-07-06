@@ -63,7 +63,9 @@ const SidenavHeader: FunctionComponent<Props> = () => {
         <LabelledSelect
           name={'Trips'}
           selected={tripInfo?.selected}
-          options={tripInfo?.trips.map((t) => t.formData.name) || []}
+          valueField={'id'}
+          labelField={'formData.name'}
+          options={tripInfo?.trips || []}
           onChange={(e) => selectTrip(e.target.value)}
         />
         <Button cssStyle={addTripStyle} icon={faPlus} onClick={addTrip} />

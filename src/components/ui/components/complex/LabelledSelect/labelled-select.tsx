@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import Select from '../../simple/Select/select';
 import { FieldErrors } from 'react-hook-form';
 
+
 type Props = {
   key?: string;
   name: string;
@@ -14,6 +15,8 @@ type Props = {
   last?: boolean;
   options: Array<any>;
   selected?: any;
+  labelField?: string;
+  valueField?: string;
 };
 
 const style = (props: Props) =>
@@ -31,12 +34,12 @@ const style = (props: Props) =>
 const LabelledSelect: React.ForwardRefExoticComponent<
   Props & React.RefAttributes<HTMLSelectElement>
 > = React.forwardRef<HTMLSelectElement, Props>((props, ref) => {
-  const { key, name, onChange, options, selected, errors } = props;
+  const { key, name, onChange, options, selected, errors, labelField, valueField } = props;
   return useMemo(
     () => (
       <div css={style(props)} key={`${key || 'labelled-select'}-${name}`}>
         <Label>{_.startCase(_.toLower(name))}</Label>
-        <Select name={`${name}`} ref={ref} options={options} onChange={onChange} selected={selected}/>
+        <Select labelField={labelField} valueField={valueField} name={`${name}`} ref={ref} options={options} onChange={onChange} selected={selected}/>
         {errors && errors[name] && <p>{errors[name].message}</p>}
       </div>
     ),

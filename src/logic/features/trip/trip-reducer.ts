@@ -40,7 +40,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
       return {
         ...state,
         trips: _.concat(state.trips, action.payload.data),
-        ...(() => action.payload.autoSelect && { selected: action.payload.data.id })(),
+        selected: action.payload.autoSelect ? action.payload.data.id : state.selected,
       };
     case UPDATE_TRIP:
       return { ...state, trips: _.map(state.trips, (t) => (t.id === action.payload.id ? action.payload.data : t)) };

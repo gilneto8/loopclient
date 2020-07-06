@@ -2,6 +2,7 @@ import React, { ChangeEvent, useContext, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { Theme } from '@ui/colors/color-types';
 import { ThemeContext } from '@ui/colors/theme-context';
+import get from 'lodash/get';
 
 type Props = {
   name: string;
@@ -11,6 +12,8 @@ type Props = {
   onChange?: (evt: ChangeEvent<HTMLSelectElement>) => void;
   selected?: any;
   options: Array<any>;
+  labelField?: string;
+  valueField?: string;
 };
 
 const convert = (array: Array<number> | undefined) =>
@@ -36,16 +39,22 @@ const Select: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLSe
   HTMLSelectElement,
   Props
 >((props, ref) => {
-  const { name, onChange, options, selected } = props;
+  const { name, onChange, options, selected, labelField, valueField } = props;
   const theme: Theme = useContext(ThemeContext).theme;
   return useMemo(
     () => (
       <select css={style(props, theme)} name={name} ref={ref} onChange={onChange} defaultValue={selected}>
-        {options.map((opt, i) => (
-          <option key={i} value={opt}>
-            {opt}
-          </option>
-        ))}
+        {options.map((opt, i) =>
+          labelField && valueField ? (
+            <option key={i} value={get(opt, valueField)}>
+              {get(opt, labelField)}
+            </option>
+          ) : (
+            <option key={i} value={opt}>
+              {opt}
+            </option>
+          )
+        )}
       </select>
     ),
     [props, theme]
