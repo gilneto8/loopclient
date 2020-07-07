@@ -10,6 +10,7 @@ import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 import Button from '@ui/components/simple/Button/button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { createTrip } from '@utils/trip-utils/create-trip';
+import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 
 type Props = {
   title?: string;
@@ -27,7 +28,16 @@ const style = (theme: Theme) =>
 const addTripStyle = css({
   position: 'absolute',
   top: '25px',
-  right: '45px',
+  right: '55px',
+  minWidth: 'unset',
+  width: '20px !important',
+  padding: 0,
+});
+
+const removeTripStyle = css({
+  position: 'absolute',
+  top: '25px',
+  right: '25px',
   minWidth: 'unset',
   width: '20px !important',
   padding: 0,
@@ -58,6 +68,18 @@ const SidenavHeader: FunctionComponent<Props> = () => {
       storeDispatch(tripsThunks.addTrip(trip, true));
     };
 
+    const removeTrip = () => {
+      const selected = tripInfo?.selected;
+      if (selected) {
+        storeDispatch(tripsThunks.removeTrip(selected));
+        const trips = tripInfo?.trips;
+        if (trips && trips.length > 0) {
+          const index = trips.map(t => t.id).indexOf(selected);
+          selectTrip(trips[index > 0 ? index - 1 : 0].id);
+        }
+      }
+    };
+
     return (
       <div css={style(theme)}>
         <LabelledSelect
@@ -69,6 +91,9 @@ const SidenavHeader: FunctionComponent<Props> = () => {
           onChange={(e) => selectTrip(e.target.value)}
         />
         <Button cssStyle={addTripStyle} icon={faPlus} onClick={addTrip} />
+        {(tripInfo?.trips ?? []).length > 1 && (
+          <Button cssStyle={removeTripStyle} icon={faTrash} onClick={removeTrip} />
+        )}
       </div>
     );
   }, [tripInfo, theme]);
