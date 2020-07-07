@@ -41,9 +41,9 @@ const Select: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLSe
 >((props, ref) => {
   const { name, onChange, options, selected, labelField, valueField } = props;
   const theme: Theme = useContext(ThemeContext).theme;
-  return useMemo(
-    () => (
-      <select css={style(props, theme)} name={name} ref={ref} onChange={onChange} defaultValue={selected}>
+  return useMemo(() => {
+    return (
+      <select css={style(props, theme)} name={name} ref={ref} onChange={onChange} value={selected}>
         {options.map((opt, i) =>
           labelField && valueField ? (
             <option key={i} value={get(opt, valueField)}>
@@ -56,9 +56,8 @@ const Select: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLSe
           )
         )}
       </select>
-    ),
-    [props, theme]
-  );
+    );
+  }, [props, theme]);
 });
 
 export default Select;

@@ -32,10 +32,7 @@ export const useMapLogic = () => {
     tripInfo.trips.filter((t) => t.id === tripInfo.selected)[0]
   );
 
-  console.log(tripInfo.trips);
   useEffect(() => {
-    console.log('inefect', tripInfo);
-    console.log('nuselect', tripInfo.trips.filter((t) => t.id === tripInfo.selected)[0]);
     setSelectedTrip(tripInfo.trips.filter((t) => t.id === tripInfo.selected)[0]);
   }, [tripInfo]);
 
