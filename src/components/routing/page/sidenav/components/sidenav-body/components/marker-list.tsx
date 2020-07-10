@@ -46,6 +46,7 @@ const MarkerList: FunctionComponent<Props> = () => {
         storeDispatch(mapThunks.selectMarker(obj.id.value));
         storeDispatch(sidenavThunks.update(obj));
       }
+      storeDispatch(mapThunks.setViewMode());
     };
 
     const switchHover = (obj: MarkerObj, hovering: boolean) => {

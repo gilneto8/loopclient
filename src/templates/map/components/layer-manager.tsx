@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useContext, useMemo, useState } from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
 import { Viewport } from '@logic/features/map/map-types';
 import { LineObj } from '@logic/features/trip/line-types';
@@ -12,8 +12,8 @@ type Props = {
   onHover: (obj: LineObj) => void;
   onSelect: (obj: LineObj) => void;
   lines: Array<LineObj>;
-  selected?: { ctx: string, value: string };
-  hovered?: { ctx: string, value: string };
+  selected?: { ctx: string; value: string };
+  hovered?: { ctx: string; value: string };
 };
 
 function getColor(theme: Theme, hovered?: boolean, selected?: boolean): [number, number, number] {
@@ -33,6 +33,7 @@ function getWidth(hovered?: boolean, selected?: boolean): number {
 const LayerManager: FunctionComponent<Props> = (props) => {
   const { viewMode, viewport, onHover, onSelect, hovered, selected, lines, children } = props;
   const theme = useContext(ThemeContext).theme;
+  const [isHovering, setIsHovering] = useState<boolean>(false);
   return useMemo(
     () => (
       <DeckGL
@@ -42,13 +43,22 @@ const LayerManager: FunctionComponent<Props> = (props) => {
         effects={[]}
         height="100%"
         width="100%"
+        style={(() => {
+          console.log('isHovering', isHovering);
+          if (isHovering) return { cursor: 'pointer !important' };
+          else return {};
+        })()}
         layers={[
           new LineLayer({
             id: 'line-layer',
             data: lines,
             opacity: 0.8,
             pickable: viewMode,
-            onHover: ({ object }) => onHover(object),
+            onHover: ({ object }) => {
+              console.log(object);
+              setIsHovering(!!object);
+              onHover(object);
+            },
             onClick: ({ object }) => onSelect(object),
             getSourcePosition: (d) => d.geometry.start.geometry.position,
             getTargetPosition: (d) => d.geometry.end.geometry.position,
@@ -64,7 +74,7 @@ const LayerManager: FunctionComponent<Props> = (props) => {
         {children}
       </DeckGL>
     ),
-    [viewport, hovered, selected, lines, children, theme]
+    [viewport, hovered, isHovering, selected, lines, children, theme]
   );
 };
 
