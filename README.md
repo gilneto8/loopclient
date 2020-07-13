@@ -33,7 +33,6 @@
   - probably trips should have a different structure, to better show the connection between markers and lines;
 - [ ] dnd on marker list
   - [example](https://codesandbox.io/s/k260nyxq9v?file=/index.js)
-- [ ] visual indication that changes were made
 - [ ] marker info with X to close info and not close the sidenav
 - [ ] way of drawing itineraries (not just by placing markers?);
 - [ ] marker clustering
