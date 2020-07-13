@@ -43,11 +43,7 @@ const LayerManager: FunctionComponent<Props> = (props) => {
         effects={[]}
         height="100%"
         width="100%"
-        style={(() => {
-          console.log('isHovering', isHovering);
-          if (isHovering) return { cursor: 'pointer !important' };
-          else return {};
-        })()}
+        getCursor={() => isHovering ? 'pointer' : 'inherit'}
         layers={[
           new LineLayer({
             id: 'line-layer',
@@ -55,7 +51,6 @@ const LayerManager: FunctionComponent<Props> = (props) => {
             opacity: 0.8,
             pickable: viewMode,
             onHover: ({ object }) => {
-              console.log(object);
               setIsHovering(!!object);
               onHover(object);
             },
