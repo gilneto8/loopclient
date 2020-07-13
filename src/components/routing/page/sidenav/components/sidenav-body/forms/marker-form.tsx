@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useEffect, useMemo } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { ItemForm } from '@logic/features/trip/trip-types';
-import * as _ from 'lodash';
 import { useForm } from 'react-hook-form';
+import { set, get } from 'lodash';
 import { enumToArray } from '@utils/enums/enum-to-array';
 import { MarkerObj, MarkerTypes } from '@logic/features/trip/marker-types';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
@@ -18,6 +18,8 @@ type Props = {
 };
 
 const MarkerForm: FunctionComponent<Props> = ({ item }) => {
+  const [changed, setChanged] = useState<boolean>(false);
+
   const {
     storeDispatch,
     thunkResult: { mapThunks },
@@ -43,7 +45,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
   return useMemo(() => {
     const onSubmit = (data: ItemForm<MarkerTypes>) => {
       if (selectedTrip) {
-        const updatedItem = _.set(item, 'formData', data);
+        const updatedItem = set(item, 'formData', data);
         storeDispatch(tripsThunks.updateMarker(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
@@ -58,7 +60,12 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
     };
     return (
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={(e: ChangeEvent<HTMLFormElement>) =>
+            setChanged(changed || e.target.value !== get(item.formData, e.target.name))
+          }
+        >
           <LabelledInput first name={'name'} ref={register} errors={errors} />
           <LabelledInput name={'description'} ref={register} errors={errors} />
           <LabelledSelect
@@ -68,14 +75,16 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
             options={enumToArray(MarkerTypes)}
             selected={item.formData.type}
           />
-          <Button type={'submit'}>{'Submit'}</Button>
+          <Button disabled={!changed} type={'submit'}>
+            {'Submit'}
+          </Button>
           <Button type={'button'} onClick={remove}>
             {'Remove Marker'}
           </Button>
         </form>
       </div>
     );
-  }, [item, reset, register, handleSubmit, errors]);
+  }, [item, reset, changed, register, handleSubmit, errors]);
 };
 
 export default MarkerForm;

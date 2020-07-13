@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useEffect, useMemo } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { ItemForm } from '@logic/features/trip/trip-types';
-import * as _ from 'lodash';
+import { set, get } from 'lodash';
 import { useForm } from 'react-hook-form';
 import { enumToArray } from '@utils/enums/enum-to-array';
 import { LineObj, LineTypes } from '@logic/features/trip/line-types';
@@ -18,6 +18,8 @@ type Props = {
 };
 
 const LineForm: FunctionComponent<Props> = ({ item }) => {
+  const [changed, setChanged] = useState<boolean>(false);
+
   const {
     storeDispatch,
     thunkResult: { mapThunks },
@@ -43,7 +45,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
   return useMemo(() => {
     const onSubmit = (data: ItemForm<LineTypes>) => {
       if (selectedTrip) {
-        const updatedItem = _.set(item, 'formData', data);
+        const updatedItem = set(item, 'formData', data);
         storeDispatch(tripsThunks.updateLine(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
@@ -58,18 +60,25 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
     };
     return (
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={(e: ChangeEvent<HTMLFormElement>) =>
+            setChanged(changed || e.target.value !== get(item.formData, e.target.name))
+          }
+        >
           <LabelledInput first name={'name'} ref={register} errors={errors} />
           <LabelledInput name={'description'} ref={register} errors={errors} />
           <LabelledSelect last name={'type'} ref={register} options={enumToArray(LineTypes)} errors={errors} />
-          <Button type={'submit'}>{'Submit'}</Button>
+          <Button disabled={!changed} type={'submit'}>
+            {'Submit'}
+          </Button>
           <Button type={'button'} onClick={remove}>
             {'Remove Line'}
           </Button>
         </form>
       </div>
     );
-  }, [item, reset, register, handleSubmit, errors]);
+  }, [item, reset, changed, register, handleSubmit, errors]);
 };
 
 export default LineForm;
