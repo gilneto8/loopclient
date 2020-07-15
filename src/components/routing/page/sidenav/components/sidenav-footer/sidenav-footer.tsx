@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { css } from '@emotion/core';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme  from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
 import Button from '@ui/components/simple/Button/button';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
@@ -40,7 +40,7 @@ const SidenavFooter: FunctionComponent<Props> = () => {
     thunkResult: { mapThunks },
     selected: editMode,
   } = useStoreSelector(loadMap(), (storeState) => storeState.map?.editMode);
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useTheme();
   return useMemo(() => {
     const switchMode = () => {
       if (editMode) storeDispatch(mapThunks.setViewMode());

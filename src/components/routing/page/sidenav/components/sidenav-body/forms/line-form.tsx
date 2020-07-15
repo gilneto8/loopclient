@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { ItemForm } from '@logic/features/trip/trip-types';
 import { set, get } from 'lodash';
 import { useForm } from 'react-hook-form';
@@ -14,7 +14,7 @@ import { StoreState } from '@logic/shared/store/store-types';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme  from '@ui/colors/theme-context';
 import { css } from '@emotion/core';
 
 type Props = {
@@ -57,7 +57,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
     validateCriteriaMode: 'all',
   });
 
-  const theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
 
   useEffect(() => {
     reset(item.formData);

@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
 import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
@@ -62,7 +62,8 @@ const style = (props: Props, theme: Theme) =>
 
 const Badge: FunctionComponent<Props> = (props) => {
   const { onClick, children, removable, onRemove, onHover, active, hovered } = props;
-  const theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
+
   return useMemo(
     () => (
       <div

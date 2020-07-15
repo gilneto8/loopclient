@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useContext, useMemo, useState } from 'react';
+import React, { FunctionComponent, useMemo, useState } from 'react';
 import DeckGL, { LineLayer } from 'deck.gl';
 import { Viewport } from '@logic/features/map/map-types';
 import { LineObj } from '@logic/features/trip/line-types';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
 import tinycolor from 'tinycolor2';
 
@@ -32,7 +32,7 @@ function getWidth(hovered?: boolean, selected?: boolean): number {
 
 const LayerManager: FunctionComponent<Props> = (props) => {
   const { viewMode, viewport, onHover, onSelect, hovered, selected, lines, children } = props;
-  const theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
   const [isHovering, setIsHovering] = useState<boolean>(false);
   return useMemo(
     () => (
@@ -43,7 +43,7 @@ const LayerManager: FunctionComponent<Props> = (props) => {
         effects={[]}
         height="100%"
         width="100%"
-        getCursor={() => isHovering ? 'pointer' : 'inherit'}
+        getCursor={() => (isHovering ? 'pointer' : 'inherit')}
         layers={[
           new LineLayer({
             id: 'line-layer',

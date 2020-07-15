@@ -1,7 +1,7 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { css } from '@emotion/core';
 import { Theme } from '@ui/colors/color-types';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme  from '@ui/colors/theme-context';
 import { FieldErrors } from 'react-hook-form';
 
 type Props = {
@@ -38,7 +38,7 @@ const Input: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLInp
   Props
 >((props, ref) => {
   const { name, placeholder, errors } = props;
-  const theme: Theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
   return useMemo(
     () => (
       <>

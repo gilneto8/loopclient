@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useContext, useMemo } from 'react';
+import React, { ChangeEvent, useMemo } from 'react';
 import { css } from '@emotion/core';
 import { Theme } from '@ui/colors/color-types';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme  from '@ui/colors/theme-context';
 import get from 'lodash/get';
 
 type Props = {
@@ -40,7 +40,7 @@ const Select: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLSe
   Props
 >((props, ref) => {
   const { name, onChange, options, selected, labelField, valueField } = props;
-  const theme: Theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
   const selectProps = onChange ? { value: selected } : { defaultValue: selected };
   return useMemo(() => {
     return (

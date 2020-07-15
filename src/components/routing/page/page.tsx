@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { css } from '@emotion/core';
 import SideNav from './sidenav/sidenav';
 import { Helmet } from 'react-helmet';
 import { Theme } from '@ui/colors/color-types';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme  from '@ui/colors/theme-context';
 
 type Props = {
   title: string;
@@ -21,7 +21,7 @@ const staticStyle = (theme: Theme) =>
   });
 
 export const Page: FunctionComponent<Props> = (props) => {
-  const theme: Theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
   return useMemo(
     () => (
       <>

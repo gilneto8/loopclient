@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 import { faAngleDoubleLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 import SidenavBody from './components/sidenav-body/sidenav-body';
 import { loadMap } from '@logic/features/map/map-thunks';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
 import SidenavFooter from './components/sidenav-footer/sidenav-footer';
 import { makeAccessibleButtonProps } from "@utils/functions/make-accessibility-props";
@@ -63,7 +63,7 @@ const SideNav: FunctionComponent<Props> = ({ children, blocking }) => {
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
-  const theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
   return useMemo(() => {
     const open = () => {
       storeDispatch(sidenavThunks.open());

@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { css } from '@emotion/core';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import LabelledSelect from '@ui/components/complex/LabelledSelect/labelled-select';
@@ -44,7 +44,7 @@ const removeTripStyle = css({
 });
 
 const SidenavHeader: FunctionComponent<Props> = () => {
-  const theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
   const {
     storeDispatch,
     selected: tripInfo,
@@ -74,7 +74,7 @@ const SidenavHeader: FunctionComponent<Props> = () => {
         storeDispatch(tripsThunks.removeTrip(selected));
         const trips = tripInfo?.trips;
         if (trips && trips.length > 0) {
-          const index = trips.map(t => t.id).indexOf(selected);
+          const index = trips.map((t) => t.id).indexOf(selected);
           selectTrip(trips[index > 0 ? index - 1 : 0].id);
         }
       }

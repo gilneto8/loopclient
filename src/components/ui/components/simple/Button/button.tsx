@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Theme } from '@ui/colors/color-types';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme  from '@ui/colors/theme-context';
 import { css, SerializedStyles } from '@emotion/core';
 import { makeAccessibleButtonProps } from '@utils/functions/make-accessibility-props';
 
@@ -41,7 +41,7 @@ const style = (props: Props, theme: Theme) =>
 
 const Button: FunctionComponent<Props> = (props) => {
   const { title, disabled, type, onClick, icon, text, children, role } = props;
-  const theme: Theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
   return useMemo(
     () => (
       <button

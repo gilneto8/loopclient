@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { ItemForm } from '@logic/features/trip/trip-types';
 import { useForm } from 'react-hook-form';
 import { set, get } from 'lodash';
@@ -13,7 +13,7 @@ import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 import { StoreState } from '@logic/shared/store/store-types';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ThemeContext } from '@ui/colors/theme-context';
+import useTheme  from '@ui/colors/theme-context';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { css } from '@emotion/core';
 
@@ -57,7 +57,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
     validateCriteriaMode: 'all',
   });
 
-  const theme = useContext(ThemeContext).theme;
+  const theme = useTheme().theme;
 
   useEffect(() => {
     reset(item.formData);
