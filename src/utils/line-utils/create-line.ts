@@ -6,8 +6,8 @@ export function createLine(start: MarkerObj, end: MarkerObj): LineObj {
   return {
     id: { ctx: 'line', value: id() },
     geometry: { start, end },
-    data: {
-      form: {
+    form: {
+      data: {
         name: 'New line',
         description: '',
         type: LineTypes.PEDESTRIAN,

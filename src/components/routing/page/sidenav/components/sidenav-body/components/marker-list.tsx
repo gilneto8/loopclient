@@ -89,7 +89,6 @@ const MarkerList: FunctionComponent<Props> = () => {
                         hovered={mapInfo.hovered?.value === m.id.value}
                         active={mapInfo.selected?.value === m.id.value}
                       >
-                        {console.log('m', m)}
                         {m.form.data.name}
                       </Badge>
                     </div>
