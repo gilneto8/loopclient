@@ -1,4 +1,4 @@
-import { LineObj, lineSchema } from '@logic/features/trip/line-types';
+import { LineObj } from '@logic/features/trip/line-types';
 import * as _ from 'lodash';
 import { id } from '../functions/create-local-id';
 
@@ -11,8 +11,7 @@ export function removeLineByMarker(lines: Array<LineObj>, mId: string): Array<Li
     const newLine: LineObj = {
       id: { ctx: 'line', value: id() },
       geometry: { start: _lines[i_Before].geometry.start, end: _lines[i_After].geometry.end },
-      formData: _lines[i_Before].formData,
-      schema: lineSchema,
+      data: _lines[i_Before].data,
     };
     _lines.splice(i_Before, 2, newLine);
   } else if (i_After < 0) _lines.splice(i_Before, 1);

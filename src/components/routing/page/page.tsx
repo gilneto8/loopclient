@@ -21,7 +21,7 @@ const staticStyle = (theme: Theme) =>
   });
 
 export const Page: FunctionComponent<Props> = (props) => {
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   return useMemo(
     () => (
       <>

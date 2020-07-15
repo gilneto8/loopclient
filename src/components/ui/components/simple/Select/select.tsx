@@ -40,7 +40,7 @@ const Select: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLSe
   Props
 >((props, ref) => {
   const { name, onChange, options, selected, labelField, valueField } = props;
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   const selectProps = onChange ? { value: selected } : { defaultValue: selected };
   return useMemo(() => {
     return (

@@ -44,7 +44,7 @@ const removeTripStyle = css({
 });
 
 const SidenavHeader: FunctionComponent<Props> = () => {
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   const {
     storeDispatch,
     selected: tripInfo,

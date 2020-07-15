@@ -32,7 +32,7 @@ function getWidth(hovered?: boolean, selected?: boolean): number {
 
 const LayerManager: FunctionComponent<Props> = (props) => {
   const { viewMode, viewport, onHover, onSelect, hovered, selected, lines, children } = props;
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   const [isHovering, setIsHovering] = useState<boolean>(false);
   return useMemo(
     () => (

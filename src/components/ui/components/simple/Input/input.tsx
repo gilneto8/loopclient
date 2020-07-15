@@ -38,7 +38,7 @@ const Input: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLInp
   Props
 >((props, ref) => {
   const { name, placeholder, errors } = props;
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   return useMemo(
     () => (
       <>

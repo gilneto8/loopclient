@@ -28,7 +28,7 @@ const style = (props: Props, theme: Theme) =>
 
 const Label: FunctionComponent<Props> = (props) => {
   const { children, as, onClick } = props;
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   return useMemo(() => {
     switch (as) {
       case 'span':

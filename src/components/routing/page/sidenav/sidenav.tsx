@@ -63,7 +63,7 @@ const SideNav: FunctionComponent<Props> = ({ children, blocking }) => {
     thunkResult: { mapThunks },
   } = useStoreSelector(loadMap(), (storeState) => storeState.map);
 
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   return useMemo(() => {
     const open = () => {
       storeDispatch(sidenavThunks.open());

@@ -4,13 +4,15 @@ import { LineObj, lineSchema, LineTypes } from '@logic/features/trip/line-types'
 
 export function createLine(start: MarkerObj, end: MarkerObj): LineObj {
   return {
-    id: {ctx: 'line', value: id()},
+    id: { ctx: 'line', value: id() },
     geometry: { start, end },
-    formData: {
-      name: 'New line',
-      description: '',
-      type: LineTypes.PEDESTRIAN,
+    data: {
+      form: {
+        name: 'New line',
+        description: '',
+        type: LineTypes.PEDESTRIAN,
+      },
+      schema: lineSchema,
     },
-    schema: lineSchema,
   };
 }

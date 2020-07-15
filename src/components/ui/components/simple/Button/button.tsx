@@ -41,7 +41,7 @@ const style = (props: Props, theme: Theme) =>
 
 const Button: FunctionComponent<Props> = (props) => {
   const { title, disabled, type, onClick, icon, text, children, role } = props;
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
   return useMemo(
     () => (
       <button

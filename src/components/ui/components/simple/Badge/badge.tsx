@@ -62,7 +62,7 @@ const style = (props: Props, theme: Theme) =>
 
 const Badge: FunctionComponent<Props> = (props) => {
   const { onClick, children, removable, onRemove, onHover, active, hovered } = props;
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
 
   return useMemo(
     () => (

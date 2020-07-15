@@ -14,7 +14,7 @@ import { StoreState } from '@logic/shared/store/store-types';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
-import useTheme  from '@ui/colors/theme-context';
+import useTheme from '@ui/colors/theme-context';
 import { css } from '@emotion/core';
 
 type Props = {
@@ -52,15 +52,15 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
   } = useStoreSelector(loadTrips(), (state: StoreState) => state.trips?.selected);
 
   const { reset, register, handleSubmit, errors } = useForm<ItemForm<LineTypes>>({
-    defaultValues: item.formData,
-    validationSchema: item.schema,
+    defaultValues: item.data.form,
+    validationSchema: item.data.schema,
     validateCriteriaMode: 'all',
   });
 
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
 
   useEffect(() => {
-    reset(item.formData);
+    reset(item.data.form);
   }, [item]);
 
   return useMemo(() => {
@@ -71,7 +71,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
 
     const onSubmit = (data: ItemForm<LineTypes>) => {
       if (selectedTrip) {
-        const updatedItem = set(item, 'formData', data);
+        const updatedItem = set(item, 'data.form', data);
         storeDispatch(tripsThunks.updateLine(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
@@ -89,7 +89,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           onChange={(e: ChangeEvent<HTMLFormElement>) =>
-            setChanged(changed || e.target.value !== get(item.formData, e.target.name))
+            setChanged(changed || e.target.value !== get(item.data.form, e.target.name))
           }
         >
           <LabelledInput first name={'name'} ref={register} errors={errors} />

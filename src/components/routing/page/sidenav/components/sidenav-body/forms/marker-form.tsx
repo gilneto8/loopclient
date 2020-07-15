@@ -57,7 +57,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
     validateCriteriaMode: 'all',
   });
 
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
 
   useEffect(() => {
     reset(item.formData);
