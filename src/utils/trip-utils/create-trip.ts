@@ -1,17 +1,18 @@
 import { id } from '@utils/functions/create-local-id';
-import { TripObj, TripTypes } from '@logic/features/trip/trip-types';
-import { lineSchema } from '@logic/features/trip/line-types';
+import { TripObj, tripSchema, TripTypes } from '@logic/features/trip/trip-types';
 
 export function createTrip(name?: string): TripObj {
   const _id = id();
   return {
     id: _id,
     geometry: { markers: [], lines: [] },
-    formData: {
-      name: name ?? `New Trip #${_id}`,
-      description: '',
-      type: TripTypes.LEISURE,
+    form: {
+      data: {
+        name: name ?? `New Trip #${_id}`,
+        description: '',
+        type: TripTypes.LEISURE,
+      },
+      schema: tripSchema,
     },
-    schema: lineSchema,
   };
 }

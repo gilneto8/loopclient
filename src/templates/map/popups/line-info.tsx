@@ -13,10 +13,10 @@ const style = css({});
 const LineInfo = (props: Props) => {
   return (
     <div css={style}>
-      {Object.keys(props.line.data.form).map((key, index) => (
+      {Object.keys(props.line.form.data).map((key, index) => (
         <div key={index}>
           <Label color={'black'}>{_.startCase(_.toLower(key))}</Label>
-          <span>{_.get(props.line.data.form, key)}</span>
+          <span>{_.get(props.line.form.data, key)}</span>
         </div>
       ))}
     </div>

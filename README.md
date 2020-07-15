@@ -49,6 +49,7 @@
 
 #### Optimization
 
+- [ ] change redux to context
 - [ ] separate into logic functions to unclutter component spec
 - [ ] memoize static styles so they never reload
 - [ ] check React Developer Tools and profiling tools

@@ -20,8 +20,10 @@ export type TripObj = {
     markers: Array<MarkerObj>;
     lines: Array<LineObj>;
   };
-  formData: ItemForm<TripTypes>;
-  schema: yup.InferType<typeof tripSchema>;
+  form: {
+    data: ItemForm<TripTypes>;
+    schema: yup.InferType<typeof tripSchema>;
+  }
 };
 
 export type ItemForm<T> = {

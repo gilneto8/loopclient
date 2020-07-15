@@ -52,15 +52,15 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
   } = useStoreSelector(loadTrips(), (state: StoreState) => state.trips?.selected);
 
   const { reset, register, handleSubmit, errors } = useForm<ItemForm<LineTypes>>({
-    defaultValues: item.data.form,
-    validationSchema: item.data.schema,
+    defaultValues: item.form.data,
+    validationSchema: item.form.schema,
     validateCriteriaMode: 'all',
   });
 
   const { theme } = useTheme();
 
   useEffect(() => {
-    reset(item.data.form);
+    reset(item.form.data);
   }, [item]);
 
   return useMemo(() => {
@@ -71,7 +71,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
 
     const onSubmit = (data: ItemForm<LineTypes>) => {
       if (selectedTrip) {
-        const updatedItem = set(item, 'data.form', data);
+        const updatedItem = set(item, 'form.data', data);
         storeDispatch(tripsThunks.updateLine(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
@@ -89,7 +89,7 @@ const LineForm: FunctionComponent<Props> = ({ item }) => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           onChange={(e: ChangeEvent<HTMLFormElement>) =>
-            setChanged(changed || e.target.value !== get(item.data.form, e.target.name))
+            setChanged(changed || e.target.value !== get(item.form.data, e.target.name))
           }
         >
           <LabelledInput first name={'name'} ref={register} errors={errors} />

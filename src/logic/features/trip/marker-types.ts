@@ -21,6 +21,8 @@ export type MarkerObj = {
   geometry: {
     position: CoordsObj;
   };
-  formData: ItemForm<MarkerTypes>;
-  schema: yup.InferType<typeof markerSchema>;
+  form: {
+    data: ItemForm<MarkerTypes>;
+    schema: yup.InferType<typeof markerSchema>;
+  };
 };

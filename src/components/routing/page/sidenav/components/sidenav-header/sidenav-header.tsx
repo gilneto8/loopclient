@@ -86,7 +86,7 @@ const SidenavHeader: FunctionComponent<Props> = () => {
           name={'Trips'}
           selected={tripInfo?.selected}
           valueField={'id'}
-          labelField={'formData.name'}
+          labelField={'form.data.name'}
           options={tripInfo?.trips || []}
           onChange={(e) => selectTrip(e.target.value)}
         />

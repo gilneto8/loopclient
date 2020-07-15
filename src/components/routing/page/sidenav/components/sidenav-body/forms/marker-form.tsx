@@ -52,15 +52,15 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
   } = useStoreSelector(loadTrips(), (state: StoreState) => state.trips?.selected);
 
   const { reset, register, handleSubmit, errors } = useForm<ItemForm<MarkerTypes>>({
-    defaultValues: item.formData,
-    validationSchema: item.schema,
+    defaultValues: item.form.data,
+    validationSchema: item.form.schema,
     validateCriteriaMode: 'all',
   });
 
   const { theme } = useTheme();
 
   useEffect(() => {
-    reset(item.formData);
+    reset(item.form.data);
   }, [item]);
 
   return useMemo(() => {
@@ -71,7 +71,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
 
     const onSubmit = (data: ItemForm<MarkerTypes>) => {
       if (selectedTrip) {
-        const updatedItem = set(item, 'formData', data);
+        const updatedItem = set(item, 'form.data', data);
         storeDispatch(tripsThunks.updateMarker(selectedTrip, updatedItem.id.value, updatedItem));
         storeDispatch(sidenavThunks.update(updatedItem));
       }
@@ -89,7 +89,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           onChange={(e: ChangeEvent<HTMLFormElement>) =>
-            setChanged(changed || e.target.value !== get(item.formData, e.target.name))
+            setChanged(changed || e.target.value !== get(item.form.data, e.target.name))
           }
         >
           <LabelledInput first name={'name'} ref={register} errors={errors} />
@@ -99,7 +99,7 @@ const MarkerForm: FunctionComponent<Props> = ({ item }) => {
             name={'type'}
             ref={register}
             options={enumToArray(MarkerTypes)}
-            selected={item.formData.type}
+            selected={item.form.data.type}
           />
           <Button disabled={!changed} type={'submit'}>
             {'Submit'}

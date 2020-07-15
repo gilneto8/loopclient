@@ -13,10 +13,10 @@ const style = css({});
 const MarkerInfo = (props: Props) => {
   return (
     <div css={style}>
-      {Object.keys(props.marker.formData).map((key, index) => (
+      {Object.keys(props.marker.form.data).map((key, index) => (
         <div key={index}>
           <Label color={'black'}>{_.startCase(_.toLower(key))}</Label>
-          <span>{_.get(props.marker.formData, key)}</span>
+          <span>{_.get(props.marker.form.data, key)}</span>
         </div>
       ))}
     </div>

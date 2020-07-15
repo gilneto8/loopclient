@@ -6,11 +6,13 @@ export function createMarker(lng: number, lat: number, order: number): MarkerObj
     id: { ctx: 'marker', value: id() },
     geometry: { position: [lng, lat, 1] },
     order,
-    formData: {
-      name: 'New marker',
-      description: '',
-      type: MarkerTypes.POI,
+    form: {
+      data: {
+        name: 'New marker',
+        description: '',
+        type: MarkerTypes.POI,
+      },
+      schema: markerSchema,
     },
-    schema: markerSchema,
   };
 }

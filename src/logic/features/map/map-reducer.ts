@@ -30,7 +30,7 @@ const initialState: MapStoreState = {
     pitch: 35,
     minZoom: 3,
   },
-  editMode: false,
+  editMode: true,
   selected: undefined,
   hovered: undefined,
 };
