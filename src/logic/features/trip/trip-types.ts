@@ -9,7 +9,7 @@ export enum TripTypes {
 }
 
 export const tripSchema = yup.object().shape<ItemForm<TripTypes>>({
-  name: yup.string().required('Please define a name for this point.'),
+  name: yup.string().required('Please define a name for this trip.'),
   description: yup.string(),
   type: yup.string().oneOf(enumToArray(TripTypes)).required(),
 });
