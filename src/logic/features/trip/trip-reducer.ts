@@ -94,6 +94,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           return {
             ...t,
             geometry: {
+              ...t.geometry,
               markers: _.filter(t.geometry.markers, (m) => m.id.value !== action.payload.id),
               lines: removeLineByMarker(t.geometry.lines, action.payload.id),
             },
@@ -120,6 +121,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           return {
             ...t,
             geometry: {
+              ...t.geometry,
               markers: action.payload.markers ?? t.geometry.markers,
               lines: action.payload.lines ?? t.geometry.lines,
             },

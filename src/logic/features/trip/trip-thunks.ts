@@ -111,7 +111,11 @@ class TripThunks {
     };
   }
 
-  setGeometry(tripId: string, markers?: Array<MarkerObj>, lines?: Array<LineObj>): TripThunkAction {
+  setGeometry(
+    tripId: string,
+    markers?: Array<MarkerObj>,
+    lines?: Array<LineObj>,
+  ): TripThunkAction {
     return async (dispatch) => {
       dispatch({
         type: SET_GEOMETRY,

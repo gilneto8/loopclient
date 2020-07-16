@@ -19,11 +19,12 @@ export type TripObj = {
   geometry: {
     markers: Array<MarkerObj>;
     lines: Array<LineObj>;
+    waypoints: Array<MarkerObj | LineObj>;
   };
   form: {
     data: ItemForm<TripTypes>;
     schema: yup.InferType<typeof tripSchema>;
-  }
+  };
 };
 
 export type ItemForm<T> = {

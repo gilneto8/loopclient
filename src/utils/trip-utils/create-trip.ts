@@ -5,7 +5,7 @@ export function createTrip(name?: string): TripObj {
   const _id = id();
   return {
     id: _id,
-    geometry: { markers: [], lines: [] },
+    geometry: { markers: [], lines: [], waypoints: [] },
     form: {
       data: {
         name: name ?? `New Trip #${_id}`,
