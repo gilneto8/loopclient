@@ -14,7 +14,7 @@ import {
   UPDATE_TRIP,
 } from './trip-actions';
 import * as _ from 'lodash';
-import { TripObj } from './trip-types';
+import { TripObj, WaypointObj } from './trip-types';
 import { removeLineByMarker } from '@utils/line-utils/remove-line-by-marker';
 import { createTrip } from '@utils/trip-utils/create-trip';
 import { createLine } from '@utils/line-utils/create-line';
@@ -51,7 +51,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
       const line = createLine();
       return {
         ...state,
-        trips: _.map(state.trips, (t, i) => {
+        trips: _.map(state.trips, (t) => {
           if (t.id !== action.payload.tripId) return t;
           const { waypoints } = t.geometry;
           const last = waypoints[waypoints.length - 1];
@@ -60,10 +60,10 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
             geometry: {
               ...t.geometry,
               waypoints: [
-                ..._.slice(waypoints, 0, waypoints.length - 1),
-                { ...last, next: () => line },
-                { ...line, previous: () => last, next: () => action.payload.data },
-                { ...action.payload.data, previous: () => line, next: () => undefined },
+                ..._.slice(waypoints, 0, waypoints.length > 0 ? waypoints.length - 1 : 0),
+                { ...last, next: () => line } as WaypointObj,
+                { ...line, previous: () => last, next: () => action.payload.data } as WaypointObj,
+                { ...action.payload.data, previous: () => line, next: () => undefined } as WaypointObj,
               ],
             },
           };
