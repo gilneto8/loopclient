@@ -75,13 +75,13 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
         }),
       };
     case ADD_LINE:
-      return {
+      return state; /*{
         ...state,
         trips: _.map(state.trips, (t) => {
           if (t.id !== action.payload.tripId) return t;
           return _.set(t, 'geometry.lines', _.concat(t.geometry.lines, action.payload.data));
         }),
-      };
+      };*/
     case UPDATE_MARKER:
       return {
         ...state,
@@ -89,8 +89,8 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           if (t.id !== action.payload.tripId) return t;
           return _.set(
             t,
-            'geometry.markers',
-            _.map(t.geometry.markers, (m) => (m.id.value === action.payload.id ? action.payload.data : m))
+            'geometry.waypoints',
+            _.map(t.geometry.waypoints, (w) => (w.id.value === action.payload.id ? action.payload.data : w))
           );
         }),
       };
@@ -101,8 +101,8 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
           if (t.id !== action.payload.tripId) return t;
           return _.set(
             t,
-            'geometry.lines',
-            _.map(t.geometry.lines, (l) => (l.id.value === action.payload.id ? action.payload.data : l))
+            'geometry.waypoints',
+            _.map(t.geometry.waypoints, (w) => (w.id.value === action.payload.id ? action.payload.data : w))
           );
         }),
       };
@@ -122,7 +122,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
         }),
       };*/
     case REMOVE_LINE:
-      return {
+      return state; /*{
         ...state,
         trips: _.map(state.trips, (t) => {
           if (t.id !== action.payload.tripId) return t;
@@ -132,7 +132,7 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
             _.filter(t.geometry.lines, (l) => l.id.value !== action.payload.id)
           );
         }),
-      };
+      };*/
     case SET_GEOMETRY:
       return {
         ...state,
