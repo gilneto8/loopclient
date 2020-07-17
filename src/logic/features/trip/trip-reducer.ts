@@ -59,9 +59,15 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
             geometry: {
               ...t.geometry,
               waypoints: [
-                ..._.slice(waypoints, 0, waypoints.length > 0 ? waypoints.length - 1 : 0),
-                { ...last, next: () => line } as WaypointObj,
-                { ...line, previous: () => last, next: () => action.payload.data } as WaypointObj,
+                ...(() => {
+                  if (waypoints.length > 0)
+                    return [
+                      ..._.slice(waypoints, 0, waypoints.length > 0 ? waypoints.length - 1 : 0),
+                      { ...last, next: () => line } as WaypointObj,
+                      { ...line, previous: () => last, next: () => action.payload.data } as WaypointObj,
+                    ];
+                  return [];
+                })(),
                 { ...action.payload.data, previous: () => line, next: () => undefined } as WaypointObj,
               ],
             },
