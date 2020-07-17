@@ -12,7 +12,7 @@ import { WaypointObj } from '@logic/features/trip/trip-types';
 
 type Props = {};
 
-const MarkerList: FunctionComponent<Props> = () => {
+const WaypointList: FunctionComponent<Props> = () => {
   const {
     storeDispatch,
     selected: mapInfo,
@@ -51,7 +51,9 @@ const MarkerList: FunctionComponent<Props> = () => {
 
     const switchHover = (obj: WaypointObj, hovering: boolean) => {
       if (hovering)
-        storeDispatch(obj.id.ctx === 'marker' ? mapThunks.hoverMarker(obj.id.value) : mapThunks.hoverLine(obj.id.value));
+        storeDispatch(
+          obj.id.ctx === 'marker' ? mapThunks.hoverMarker(obj.id.value) : mapThunks.hoverLine(obj.id.value)
+        );
       else storeDispatch(mapThunks.unhover());
     };
 
@@ -83,7 +85,7 @@ const MarkerList: FunctionComponent<Props> = () => {
                     >
                       <Badge
                         enableAutoMargin
-                        removable
+                        removable={w.id.ctx !== 'line'}
                         onRemove={() => remove(w)}
                         onClick={() => switchSelect(w)}
                         onHover={(h) => switchHover(w, h)}
@@ -105,4 +107,4 @@ const MarkerList: FunctionComponent<Props> = () => {
   }, [selectedTrip?.geometry.waypoints, data, mapInfo?.selected, mapInfo?.hovered, theme]);
 };
 
-export default MarkerList;
+export default WaypointList;
