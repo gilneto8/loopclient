@@ -17,6 +17,7 @@ import * as _ from 'lodash';
 import { TripObj } from './trip-types';
 import { removeLineByMarker } from '@utils/line-utils/remove-line-by-marker';
 import { createTrip } from '@utils/trip-utils/create-trip';
+import { createLine } from '@utils/line-utils/create-line';
 
 export type TripStoreState = {
   trips: Array<TripObj>;
@@ -47,11 +48,25 @@ export const tripsReducer: TripsReducer = (state = initialState, action) => {
     case REMOVE_TRIP:
       return { ...state, trips: _.filter(state.trips, (t) => t.id !== action.payload.id) };
     case ADD_MARKER:
+      const line = createLine();
       return {
         ...state,
-        trips: _.map(state.trips, (t) => {
+        trips: _.map(state.trips, (t, i) => {
           if (t.id !== action.payload.tripId) return t;
-          return _.set(t, 'geometry.markers', _.concat(t.geometry.markers, action.payload.data));
+          const { waypoints } = t.geometry;
+          const last = waypoints[waypoints.length - 1];
+          return {
+            ...t,
+            geometry: {
+              ...t.geometry,
+              waypoints: [
+                ..._.slice(waypoints, 0, waypoints.length - 1),
+                { ...last, next: () => line },
+                { ...line, previous: () => last, next: () => action.payload.data },
+                { ...action.payload.data, previous: () => line, next: () => undefined },
+              ],
+            },
+          };
         }),
       };
     case ADD_LINE:

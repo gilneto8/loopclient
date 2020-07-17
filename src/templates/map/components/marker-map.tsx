@@ -1,9 +1,10 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import Marker from './marker';
 import { MarkerObj } from '@logic/features/trip/marker-types';
+import { WaypointObj } from "@logic/features/trip/trip-types";
 
 type Props = {
-  markers: Array<MarkerObj>;
+  markers: Array<WaypointObj>;
   onHover: (id?: string) => void;
   onSelect: (id: string) => void;
   viewMode?: boolean;
@@ -18,7 +19,7 @@ const MarkerMap: FunctionComponent<Props> = (props) => {
         {markers.map((marker) => (
           <Marker
             key={marker.id.value}
-            marker={marker}
+            marker={marker as MarkerObj}
             onHover={(id) => viewMode && onHover(id)}
             onSelect={(id) => viewMode && onSelect(id)}
             selected={selected?.value === marker.id.value}

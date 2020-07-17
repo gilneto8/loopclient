@@ -11,7 +11,7 @@ export function removeLineByMarker(lines: Array<LineObj>, mId: string): Array<Li
     const newLine: LineObj = {
       id: { ctx: 'line', value: id() },
       geometry: { start: _lines[i_Before].geometry.start, end: _lines[i_After].geometry.end },
-      data: _lines[i_Before].data,
+      form: _lines[i_Before].form,
     };
     _lines.splice(i_Before, 2, newLine);
   } else if (i_After < 0) _lines.splice(i_Before, 1);

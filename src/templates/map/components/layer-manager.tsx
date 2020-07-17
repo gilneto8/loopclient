@@ -5,13 +5,15 @@ import { LineObj } from '@logic/features/trip/line-types';
 import useTheme from '@ui/colors/theme-context';
 import { Theme } from '@ui/colors/color-types';
 import tinycolor from 'tinycolor2';
+import { WaypointObj } from "@logic/features/trip/trip-types";
+import { MarkerObj } from "@logic/features/trip/marker-types";
 
 type Props = {
   viewport?: Viewport;
   viewMode?: boolean;
   onHover: (obj: LineObj) => void;
   onSelect: (obj: LineObj) => void;
-  lines: Array<LineObj>;
+  lines: Array<WaypointObj>;
   selected?: { ctx: string; value: string };
   hovered?: { ctx: string; value: string };
 };
@@ -55,8 +57,8 @@ const LayerManager: FunctionComponent<Props> = (props) => {
               onHover(object);
             },
             onClick: ({ object }) => onSelect(object),
-            getSourcePosition: (d) => d.geometry.start.geometry.position,
-            getTargetPosition: (d) => d.geometry.end.geometry.position,
+            getSourcePosition: (d) => (d.previous() as MarkerObj).geometry.position,
+            getTargetPosition: (d) => (d.next() as MarkerObj).geometry.position,
             getColor: (obj) => getColor(theme, hovered === obj.id, selected === obj.id),
             getWidth: (obj) => getWidth(hovered === obj.id, selected === obj.id),
             updateTriggers: {

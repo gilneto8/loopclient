@@ -8,7 +8,6 @@ import { loadMap } from '@logic/features/map/map-thunks';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { TripObj } from '@logic/features/trip/trip-types';
 import { createMarker } from '@utils/marker-utils/create-marker';
-import { createLine } from '@utils/line-utils/create-line';
 
 export const useMapLogic = () => {
   const {
@@ -42,11 +41,8 @@ export const useMapLogic = () => {
 
   // TODO update for previous/next logic
   const addMarker = (p: OnClickEvent) => {
-    const { markers, lines } = selectedTrip.geometry;
-    const marker = createMarker(+p.lngLat[0].toFixed(8), +p.lngLat[1].toFixed(8), markers.length);
+    const marker = createMarker(+p.lngLat[0].toFixed(8), +p.lngLat[1].toFixed(8));
     storeDispatch(tripsThunks.addMarker(selectedTrip.id, marker));
-    const startMarker = lines.length === 0 ? markers[0] : lines[lines.length - 1].geometry.end;
-    if (markers.length >= 1) storeDispatch(tripsThunks.addLine(selectedTrip.id, createLine(startMarker, marker)));
   };
 
   const selectMarker = (id: string) => {
@@ -95,8 +91,8 @@ export const useMapLogic = () => {
   return {
     state: {
       viewport: mapInfo.viewport,
-      markers: selectedTrip?.geometry.markers || [],
-      lines: selectedTrip?.geometry.lines || [],
+      markers: selectedTrip?.geometry.waypoints.filter(w => w.id.ctx === 'marker') || [],
+      lines: selectedTrip?.geometry.waypoints.filter(w => w.id.ctx === 'line') || [],
       selected: mapInfo.selected,
       hovered: mapInfo.hovered,
       editMode: mapInfo.editMode,

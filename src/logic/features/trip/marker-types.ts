@@ -17,7 +17,6 @@ export const markerSchema = yup.object().shape<ItemForm<MarkerTypes>>({
 
 export type MarkerObj = {
   id: { ctx: 'marker'; value: string };
-  order: number;
   geometry: {
     position: CoordsObj;
   };

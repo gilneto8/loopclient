@@ -15,7 +15,7 @@ export const tripSchema = yup.object().shape<ItemForm<TripTypes>>({
 });
 
 export type WaypointObj =
-  | (MarkerObj & { next?: () => LineObj; previous?: () => LineObj })
+  | (MarkerObj & { next: () => LineObj | undefined; previous: () => LineObj | undefined })
   | (LineObj & { next: () => MarkerObj; previous: () => MarkerObj });
 
 export type TripObj = {
