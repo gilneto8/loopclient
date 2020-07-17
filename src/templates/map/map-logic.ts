@@ -85,7 +85,7 @@ export const useMapLogic = () => {
 
   const hoverOnLine = (obj: LineObj) => {
     if (obj === undefined) storeDispatch(mapThunks.unhover());
-    else storeDispatch(mapThunks.hoverLine(obj.id));
+    else storeDispatch(mapThunks.hoverLine(obj.id.value));
   };
 
   return {

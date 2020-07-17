@@ -48,7 +48,7 @@ export const mapReducer: MapReducer = (state = initialState, action) => {
     case HOVER_MARKER:
       return { ...state, hovered: { ctx: 'marker', value: action.payload.id } };
     case HOVER_LINE:
-      return { ...state, hovered: action.payload.id };
+      return { ...state, hovered: { ctx: 'line', value: action.payload.id } };
     case UNHOVER:
       return { ...state, hovered: undefined };
     case SET_EDIT_MODE:

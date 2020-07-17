@@ -19,7 +19,7 @@ export type MapAction =
   | { type: typeof SELECT_LINE; payload: { id: { ctx: string, value: string } } }
   | { type: typeof UNSELECT }
   | { type: typeof HOVER_MARKER; payload: { id: string } }
-  | { type: typeof HOVER_LINE; payload: { id: { ctx: string, value: string } } }
+  | { type: typeof HOVER_LINE; payload: { id: string } }
   | { type: typeof UNHOVER }
   | { type: typeof SET_EDIT_MODE }
   | { type: typeof SET_VIEW_MODE };

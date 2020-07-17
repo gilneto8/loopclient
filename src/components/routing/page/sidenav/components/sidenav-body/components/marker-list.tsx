@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import { loadMap } from '@logic/features/map/map-thunks';
-import { MarkerObj } from '@logic/features/trip/marker-types';
 import Badge from '@ui/components/simple/Badge/badge';
 import { Theme } from '@ui/colors/color-types';
 import useTheme from '@ui/colors/theme-context';
@@ -9,6 +8,7 @@ import { loadTrips } from '@logic/features/trip/trip-thunks';
 import { loadSidenav } from '@logic/features/sidenav/sidenav-thunks';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { moveMarker } from '@utils/marker-utils/move-marker';
+import { WaypointObj } from '@logic/features/trip/trip-types';
 
 type Props = {};
 
@@ -38,7 +38,7 @@ const MarkerList: FunctionComponent<Props> = () => {
       storeDispatch(tripsThunks.setGeometry(selectedTrip.id, waypoints));
     };
 
-    const switchSelect = (obj: MarkerObj) => {
+    const switchSelect = (obj: WaypointObj) => {
       if (mapInfo?.selected && mapInfo.selected.value === obj.id.value) {
         storeDispatch(mapThunks.unselect());
         storeDispatch(sidenavThunks.clear());
@@ -49,12 +49,13 @@ const MarkerList: FunctionComponent<Props> = () => {
       storeDispatch(mapThunks.setViewMode());
     };
 
-    const switchHover = (obj: MarkerObj, hovering: boolean) => {
-      if (hovering) storeDispatch(mapThunks.hoverMarker(obj.id.value));
+    const switchHover = (obj: WaypointObj, hovering: boolean) => {
+      if (hovering)
+        storeDispatch(obj.id.ctx === 'marker' ? mapThunks.hoverMarker(obj.id.value) : mapThunks.hoverLine(obj.id.value));
       else storeDispatch(mapThunks.unhover());
     };
 
-    const remove = (obj: MarkerObj) => {
+    const remove = (obj: WaypointObj) => {
       if (tripInfo) storeDispatch(tripsThunks.removeMarker(tripInfo.selected, obj.id.value));
       storeDispatch(mapThunks.unselect());
       storeDispatch(sidenavThunks.clear());
@@ -71,8 +72,8 @@ const MarkerList: FunctionComponent<Props> = () => {
               ref={provided.innerRef}
               /*style={getListStyle(snapshot.isDraggingOver)}*/
             >
-              {selectedTrip?.geometry.markers.map((m: MarkerObj, index) => (
-                <Draggable isDragDisabled={true} key={m.id.value} draggableId={m.id.value} index={index}>
+              {selectedTrip?.geometry.waypoints.map((w: WaypointObj, index) => (
+                <Draggable isDragDisabled={true} key={w.id.value} draggableId={w.id.value} index={index}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
@@ -83,13 +84,13 @@ const MarkerList: FunctionComponent<Props> = () => {
                       <Badge
                         enableAutoMargin
                         removable
-                        onRemove={() => remove(m)}
-                        onClick={() => switchSelect(m)}
-                        onHover={(h) => switchHover(m, h)}
-                        hovered={mapInfo.hovered?.value === m.id.value}
-                        active={mapInfo.selected?.value === m.id.value}
+                        onRemove={() => remove(w)}
+                        onClick={() => switchSelect(w)}
+                        onHover={(h) => switchHover(w, h)}
+                        hovered={mapInfo.hovered?.value === w.id.value}
+                        active={mapInfo.selected?.value === w.id.value}
                       >
-                        {m.form.data.name}
+                        {w.form.data.name}
                       </Badge>
                     </div>
                   )}
@@ -101,7 +102,7 @@ const MarkerList: FunctionComponent<Props> = () => {
         </Droppable>
       </DragDropContext>
     );
-  }, [selectedTrip?.geometry.markers, data, mapInfo?.selected, mapInfo?.hovered, theme]);
+  }, [selectedTrip?.geometry.waypoints, data, mapInfo?.selected, mapInfo?.hovered, theme]);
 };
 
 export default MarkerList;

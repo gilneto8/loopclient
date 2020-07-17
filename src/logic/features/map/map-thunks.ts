@@ -61,7 +61,7 @@ class MapThunks {
     };
   }
 
-  hoverLine(id: { ctx: string, value: string }): MapThunkAction {
+  hoverLine(id: string): MapThunkAction {
     return async (dispatch) => {
       dispatch({
         type: HOVER_LINE,
