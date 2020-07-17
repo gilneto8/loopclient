@@ -14,12 +14,16 @@ export const tripSchema = yup.object().shape<ItemForm<TripTypes>>({
   type: yup.string().oneOf(enumToArray(TripTypes)).required(),
 });
 
+export type WaypointObj =
+  | (MarkerObj & { next?: () => LineObj; previous?: () => LineObj })
+  | (LineObj & { next: () => MarkerObj; previous: () => MarkerObj });
+
 export type TripObj = {
   id: string;
   geometry: {
     markers: Array<MarkerObj>;
     lines: Array<LineObj>;
-    waypoints: Array<MarkerObj | LineObj>;
+    waypoints: Array<WaypointObj>;
   };
   form: {
     data: ItemForm<TripTypes>;
