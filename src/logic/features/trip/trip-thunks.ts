@@ -16,7 +16,7 @@ import {
 import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
 import { tripsReducer } from './trip-reducer';
-import { TripObj } from './trip-types';
+import { TripObj, WaypointObj } from "./trip-types";
 
 type TripThunkAction<R = void> = StoreThunkActionBase<TripAction, R>;
 
@@ -113,13 +113,12 @@ class TripThunks {
 
   setGeometry(
     tripId: string,
-    markers?: Array<MarkerObj>,
-    lines?: Array<LineObj>,
+    waypoints: Array<WaypointObj>
   ): TripThunkAction {
     return async (dispatch) => {
       dispatch({
         type: SET_GEOMETRY,
-        payload: { tripId, markers, lines },
+        payload: { tripId, waypoints },
       });
     };
   }

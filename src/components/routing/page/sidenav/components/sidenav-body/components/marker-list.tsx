@@ -34,8 +34,8 @@ const MarkerList: FunctionComponent<Props> = () => {
   return useMemo(() => {
     const switchOrder = (result: DropResult) => {
       if (!selectedTrip) return;
-      const { markers, lines } = moveMarker(result, selectedTrip.geometry);
-      storeDispatch(tripsThunks.setGeometry(selectedTrip.id, markers, lines));
+      const waypoints = moveMarker(result, selectedTrip.geometry.waypoints);
+      storeDispatch(tripsThunks.setGeometry(selectedTrip.id, waypoints));
     };
 
     const switchSelect = (obj: MarkerObj) => {

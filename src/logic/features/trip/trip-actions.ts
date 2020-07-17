@@ -1,6 +1,6 @@
 import { MarkerObj } from './marker-types';
 import { LineObj } from './line-types';
-import { TripObj } from './trip-types';
+import { TripObj, WaypointObj } from './trip-types';
 
 export const SELECT_TRIP = 'SELECT_TRIP';
 export const ADD_TRIP = 'ADD_TRIP';
@@ -25,4 +25,4 @@ export type TripAction =
   | { type: typeof UPDATE_LINE; payload: { tripId: string; id: string; data: LineObj } }
   | { type: typeof REMOVE_MARKER; payload: { tripId: string; id: string } }
   | { type: typeof REMOVE_LINE; payload: { tripId: string; id: string } }
-  | { type: typeof SET_GEOMETRY; payload: { tripId: string; markers?: Array<MarkerObj>; lines?: Array<LineObj> } };
+  | { type: typeof SET_GEOMETRY; payload: { tripId: string; waypoints: Array<WaypointObj> } };

@@ -4,16 +4,17 @@ import { lineMidpoint } from '@utils/line-utils/line-midpoint';
 import LineInfo from '../popups/line-info';
 import MarkerInfo from '../popups/marker-info';
 import { css } from '@emotion/core';
-import { LineObj } from '@logic/features/trip/line-types';
 import { MarkerObj } from '@logic/features/trip/marker-types';
 import { Theme } from '@ui/colors/color-types';
 import { ThemeContext } from '@ui/colors/theme-context';
 import { useStoreSelector } from '@logic/shared/store/use-store-selector';
 import { loadTrips } from '@logic/features/trip/trip-thunks';
 import * as _ from 'lodash';
+import { WaypointObj } from '@logic/features/trip/trip-types';
+import { LineObj } from '@logic/features/trip/line-types';
 
 type Props = {
-  itemId?: { ctx: string, value: string };
+  itemId?: { ctx: string; value: string };
 };
 
 const style = (theme: Theme) =>
@@ -35,7 +36,9 @@ const Popup: FunctionComponent<Props> = ({ itemId }) => {
 
     const selectedTrip = _.filter(trips, (t) => t.id === selected)[0];
     if (itemId.ctx === 'marker') {
-      const marker = selectedTrip.geometry.markers.filter((m: MarkerObj) => m.id.value === itemId.value)[0];
+      const marker = selectedTrip.geometry.waypoints.filter(
+        (w: WaypointObj) => w.id.value === itemId.value
+      )[0] as MarkerObj;
       return (
         <ReactMapGLPopup
           tipSize={5}
@@ -51,7 +54,7 @@ const Popup: FunctionComponent<Props> = ({ itemId }) => {
         </ReactMapGLPopup>
       );
     }
-    const line = selectedTrip.geometry.lines.filter((l: LineObj) => l.id.value === itemId.value)[0];
+    const line = selectedTrip.geometry.waypoints.filter((w: WaypointObj) => w.id.value === itemId.value)[0];
     const midpoint = lineMidpoint(line);
     return (
       <ReactMapGLPopup
@@ -63,7 +66,7 @@ const Popup: FunctionComponent<Props> = ({ itemId }) => {
         closeButton={false}
       >
         <div css={style(theme)}>
-          <LineInfo line={line} />
+          <LineInfo line={line as LineObj} />
         </div>
       </ReactMapGLPopup>
     );

@@ -1,13 +1,7 @@
-import { MarkerObj } from '@logic/features/trip/marker-types';
-import { LineObj } from '@logic/features/trip/line-types';
 import { DropResult } from 'react-beautiful-dnd';
+import { WaypointObj } from '@logic/features/trip/trip-types';
 
-type GeometryObj = {
-  markers: Array<MarkerObj>;
-  lines: Array<LineObj>;
-};
-
-export function moveMarker(dropResult: DropResult, geometry: GeometryObj): GeometryObj {
+export function moveMarker(dropResult: DropResult, geometry: Array<WaypointObj>): Array<WaypointObj> {
   /*const sourceMarker = _.find(geometry.markers, (m) => m.id === dropResult.draggableId);
   if (!sourceMarker) return geometry;
   if (!dropResult.destination) return geometry;

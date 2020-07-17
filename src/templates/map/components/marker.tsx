@@ -58,7 +58,13 @@ const Marker: FunctionComponent<Props> = (props) => {
         const updatedMarker = _.set(marker, 'geometry.position', [+e.lngLat[0].toFixed(8), +e.lngLat[1].toFixed(8), 1]);
         storeDispatch(tripsThunks.updateMarker(selectedTripId, marker.id.value, updatedMarker));
         storeDispatch(
-          tripsThunks.setGeometry(selectedTripId, undefined, updateLinesByMarker(updatedMarker, trip.geometry.lines))
+          tripsThunks.setGeometry(
+            selectedTripId,
+            updateLinesByMarker(
+              updatedMarker,
+              trip.geometry.waypoints
+            )
+          )
         );
       }
       // hold flag change to disable click
