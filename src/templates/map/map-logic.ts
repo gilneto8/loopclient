@@ -46,8 +46,8 @@ export const useMapLogic = () => {
   };
 
   const selectMarker = (id: string) => {
-    const { markers } = selectedTrip.geometry;
-    const marker = _.find(markers || [], (m) => m.id.value === id);
+    const { waypoints } = selectedTrip.geometry;
+    const marker = _.find(waypoints || [], (m) => m.id.value === id);
     if (marker) {
       if (mapInfo.selected) {
         storeDispatch(mapThunks.unselect());
@@ -78,8 +78,8 @@ export const useMapLogic = () => {
       storeDispatch(mapThunks.unhover());
       return;
     }
-    const { markers } = selectedTrip.geometry;
-    const marker = _.find(markers || [], (m) => m.id.value === id);
+    const { waypoints } = selectedTrip.geometry;
+    const marker = _.find(waypoints || [], (m) => m.id.value === id);
     if (marker) storeDispatch(mapThunks.hoverMarker(id));
   };
 
