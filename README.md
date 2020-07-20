@@ -42,7 +42,7 @@
 
 - [ ] handle warnings and a11y issues
 - [ ] popup background color should fill popup container
-- [ ] bug when removing marker when it's not connected to anything
+- [ ] bugs when removing markers
     - Reproduce: remove line and isolate marker, remove marker
     - Result: previous line is deleted
     - Solution: either check whether to delete or not, or follow-up on structural change for trips, markers and lines
